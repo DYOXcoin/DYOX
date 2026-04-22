@@ -1,1 +1,341 @@
-lh
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BQN - الكنز الرقمي على TON</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+        h1 {
+            font-size: 5em;
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255,215,0,0.5);
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+        }
+        .subtitle {
+            font-size: 1.5em;
+            color: #a8dadc;
+            margin-bottom: 30px;
+        }
+        .tagline {
+            font-size: 1.8em;
+            color: #FFD700;
+            font-weight: bold;
+            margin: 30px 0;
+        }
+        .description {
+            max-width: 800px;
+            margin: 30px auto;
+            font-size: 1.2em;
+            color: #e0e0e0;
+            background: rgba(0,0,0,0.3);
+            padding: 30px;
+            border-radius: 15px;
+            border-right: 4px solid #FFD700;
+        }
+        .token-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 50px 0;
+        }
+        .detail-card {
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,215,0,0.2);
+            transition: transform 0.3s;
+        }
+        .detail-card:hover {
+            transform: translateY(-5px);
+            border-color: #FFD700;
+            box-shadow: 0 5px 20px rgba(255,215,0,0.2);
+        }
+        .detail-card h3 {
+            color: #FFD700;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        .detail-card p {
+            font-size: 1.1em;
+            color: #fff;
+        }
+        .address-box {
+            background: #0f0f1f;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 40px 0;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 1.1em;
+            border: 1px solid #FFD700;
+            position: relative;
+            direction: ltr;
+            text-align: left;
+        }
+        .copy-btn {
+            background: #FFD700;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        .copy-btn:hover {
+            background: #ffed4d;
+            transform: scale(1.05);
+        }
+        .telegram-btn {
+            display: inline-block;
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 30px 0;
+            transition: all 0.3s;
+            border: 2px solid #FFD700;
+        }
+        .telegram-btn:hover {
+            background: #006699;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0,136,204,0.5);
+        }
+        .roadmap {
+            margin: 80px 0;
+        }
+        .roadmap h2 {
+            text-align: center;
+            color: #FFD700;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+        }
+        .phase {
+            background: rgba(255,255,255,0.03);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-right: 4px solid #FFD700;
+        }
+        .phase h3 {
+            color: #FFD700;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .phase ul {
+            list-style: none;
+        }
+        .phase li {
+            margin: 10px 0;
+            padding-right: 20px;
+            position: relative;
+        }
+        .phase li:before {
+            content: "✦";
+            color: #FFD700;
+            position: absolute;
+            right: 0;
+        }
+        .strategy {
+            background: rgba(255,215,0,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 50px 0;
+            text-align: center;
+        }
+        .strategy h2 {
+            color: #FFD700;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        .strategy p {
+            font-size: 1.2em;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 30px;
+            border-top: 1px solid rgba(255,215,0,0.2);
+            color: #a8dadc;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 3em; }
+            .subtitle { font-size: 1.2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BQN</h1>
+            <div class="subtitle">الكنز الرقمي النادر على TON</div>
+            <div class="tagline">"نادرة · لامركزية · أبدية"</div>
+        </header>
+
+        <div class="description">
+            <p>BQN هو رمز رقمي نادر، لامركزي بالكامل، مصمم ليمثل الندرة الحقيقية والقيمة طويلة الأجل على بلوكتشين TON. عملة غير تضخمية، بإجمالي عرض ثابت، لا يمكن سكها أو حرقها أبداً.</p>
+        </div>
+
+        <div class="token-details">
+            <div class="detail-card">
+                <h3>الاسم</h3>
+                <p>BQN</p>
+            </div>
+            <div class="detail-card">
+                <h3>الرمز</h3>
+                <p>BQNcoin</p>
+            </div>
+            <div class="detail-card">
+                <h3>السلسلة</h3>
+                <p>TON Blockchain</p>
+            </div>
+            <div class="detail-card">
+                <h3>الإجمالي</h3>
+                <p>100,000 BQN</p>
+            </div>
+            <div class="detail-card">
+                <h3>الكسور</h3>
+                <p>0 (غير قابل للقسمة)</p>
+            </div>
+            <div class="detail-card">
+                <h3>السك</h3>
+                <p>❌ غير قابل</p>
+            </div>
+            <div class="detail-card">
+                <h3>الحرق</h3>
+                <p>❌ غير قابل</p>
+            </div>
+            <div class="detail-card">
+                <h3>التحويل</h3>
+                <p>✅ قابل</p>
+            </div>
+        </div>
+
+        <h2 style="color:#FFD700; text-align:center; margin:40px 0 20px;">عنوان العقد الرسمي</h2>
+        <div class="address-box" id="contractAddress">
+            EQD3kpbV80ih8RV7Mdip7PXPZRNfiQoegYiPXkgwSr05wrnq
+        </div>
+        <button class="copy-btn" onclick="copyAddress()">نسخ العنوان</button>
+
+        <div style="text-align: center;">
+            <a href="https://t.me/BQNcoinOfficial" target="_blank" class="telegram-btn">
+                انضم إلى قناتنا على تيليجرام
+            </a>
+        </div>
+
+        <div class="roadmap">
+            <h2>خارطة الطريق</h2>
+            
+            <div class="phase">
+                <h3>المرحلة 1: التأسيس (مكتمل)</h3>
+                <ul>
+                    <li>إطلاق BQN على بلوكتشين TON</li>
+                    <li>تثبيت إجمالي العرض عند 100,000 BQN</li>
+                    <li>تعطيل السك والحرق بشكل دائم</li>
+                    <li>الانتهاء من البيانات الوصفية</li>
+                    <li>تحسين الشعار وإنشاء مستودع GitHub</li>
+                    <li>إطلاق مجمع السيولة الأولي</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>المرحلة 2: الاستقرار والشفافية (قيد التنفيذ)</h3>
+                <ul>
+                    <li>الحفاظ على مجمع سيولة أساسي واحد</li>
+                    <li>تجنب تجزئة السيولة</li>
+                    <li>مراقبة سلوك السعر وديناميكيات السوق</li>
+                    <li>ضمان الشفافية الكاملة في التوثيق</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>المرحلة 3: التحقق</h3>
+                <ul>
+                    <li>تقديم طلب Pull Request إلى Tonkeeper</li>
+                    <li>مراجعة البيانات والأصول</li>
+                    <li>الحصول على حالة "رمز موثوق" في Tonkeeper</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>المرحلة 4: نضج القيمة</h3>
+                <ul>
+                    <li>الحفاظ على الندرة طويلة الأجل</li>
+                    <li>دعم التداول العضوي فقط</li>
+                    <li>تحسين العلامة التجارية والتوثيق</li>
+                    <li>تكاملات غير تضخمية اختيارية</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>المرحلة 5: الاستدامة طويلة الأجل</h3>
+                <ul>
+                    <li>اللامركزية الكاملة</li>
+                    <li>الشفافية بقيادة المجتمع</li>
+                    <li>وضع BQN كأصل رقمي طويل الأجل</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="strategy">
+            <h2>الاستراتيجية</h2>
+            <p>🚫 لا توسع في العرض تحت أي ظرف</p>
+            <p>📈 السعر يحدد بطلب السوق فقط</p>
+            <p>💧 إدارة السيولة بعناية لتقليل التقلبات</p>
+            <p>🎯 رؤية طويلة الأجل على حساب المضاربة القصيرة</p>
+        </div>
+
+        <footer>
+            <p>© 2026 BQN - جميع الحقوق محفوظة</p>
+            <p>رمز MIT مفتوح المصدر</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyAddress() {
+            const address = document.getElementById('contractAddress').innerText;
+            navigator.clipboard.writeText(address).then(() => {
+                alert('تم نسخ العنوان!');
+            }).catch(() => {
+                alert('فشل النسخ، يمكنك نسخه يدوياً');
+            });
+        }
+    </script>
+</body>
+                  </html>
