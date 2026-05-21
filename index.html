@@ -324,9 +324,8 @@
             overflow-y: auto;
         }
         .wp-nav { display: flex; flex-direction: column; gap: 10px; }
-        .wp-nav a {
+        .wp-nav span {
             color: var(--text-secondary);
-            text-decoration: none;
             font-size: 14px;
             font-weight: 600;
             padding: 12px 15px;
@@ -334,8 +333,9 @@
             transition: all 0.2s ease;
             border-right: 3px solid transparent;
             cursor: pointer;
+            display: block;
         }
-        .wp-nav a:hover, .wp-nav a.active-wp {
+        .wp-nav span:hover, .wp-nav span.active-wp {
             color: var(--primary);
             background: rgba(0, 152, 234, 0.06);
             border-right-color: var(--primary);
@@ -352,7 +352,7 @@
         .wp-section p { color: var(--text-secondary); line-height: 1.8; font-size: 16px; text-align: justify; margin-bottom: 15px; }
         blockquote { background: var(--bg-surface); border-right: 4px solid var(--accent); padding: 20px; margin: 25px 0; border-radius: 6px; }
         
-        /* مخطط بياني فخم لتوزيع الرموز (Tokenomics Chart Visuals) */
+        /* مخطط بياني لتوزيع الرموز */
         .chart-container {
             margin: 30px 0;
             background: var(--bg-surface);
@@ -427,7 +427,7 @@
             
             <div class="hero-btns">
                 <a href="https://t.me/dyoxcoin" target="_blank" class="btn-primary btn-buy" style="padding: 14px 32px; font-size: 16px;">منصة شراء رمز DYOX الآن</a>
-                <button onclick="switchPage('whitepaper')" class="btn-outline" style="padding: 14px 32px; font-size: 16px;">مراجعة وثيقة الورقة البيضاء</button>
+                <span onclick="switchPage('whitepaper')" class="btn-outline" style="padding: 14px 32px; font-size: 16px; display: inline-block;">مراجعة وثيقة الورقة البيضاء</span>
             </div>
 
             <!-- لوحة كود العقد التفاعلية المجهزة بنظام النسخ الفوري -->
@@ -447,7 +447,7 @@
             </div>
         </section>
 
-        <!-- قسم ركائز المنفعة الاستراتيجية (فوائد مخترعة بدقة للمشروع) -->
+        <!-- قسم ركائز المنفعة الاستراتيجية -->
         <section class="info-section">
             <div class="section-header"><h2>القيمة الوظيفية والفوائد الهيكلية لـ DYOX</h2></div>
             <div class="features-grid">
@@ -472,10 +472,10 @@
         <div class="whitepaper-layout">
             <aside class="wp-sidebar">
                 <div class="wp-nav">
-                    <a href="#abstract" class="active-wp">1. الملخص التنفيذي</a>
-                    <a href="#distribution">2. تخصيص وإطلاق السيولة</a>
-                    <a href="#mechanism">3. بروتوكول الوميض المبتكر</a>
-                    <a href="#tokenomics-details">4. حوافز الندرة والمنفعة</a>
+                    <span onclick="scrollToSection('abstract', this)" class="wp-link active-wp">1. الملخص التنفيذي</span>
+                    <span onclick="scrollToSection('distribution', this)" class="wp-link">2. تخصيص وإطلاق السيولة</span>
+                    <span onclick="scrollToSection('mechanism', this)" class="wp-link">3. بروتوكول الوميض المبتكر</span>
+                    <span onclick="scrollToSection('tokenomics-details', this)" class="wp-link">4. حوافز الندرة والمنفعة</span>
                 </div>
             </aside>
 
@@ -486,7 +486,7 @@
                     <blockquote><p>تم إطلاق السيولة الأولية وتثبيتها بشكل كامل في الأسواق لضمان النزاهة التامة والتداول الحر منذ اليوم الأول دون أي تحكم خارجي.</p></blockquote>
                 </section>
 
-                <!-- قسم التوزيع الرقمي المحدث بناءً على طلبك بالكامل مع رسم بياني مرئي س س -->
+                <!-- قسم التوزيع الرقمي المحدث -->
                 <section id="distribution" class="wp-section">
                     <h1>2. تخصيص وتوزيع الرموز (Token Allocation)</h1>
                     <p>لضمان الاستدامة طويلة الأجل ودعم خطط التوسع والانتشار الجماهيري، تم توزيع المعروض الإجمالي البالغ 75,000 رمز بدقة رياضية صارمة على النحو التالي:</p>
@@ -511,10 +511,6 @@
                         <div class="chart-row">
                             <div class="chart-label"><span>نظام مكافآت وبنية الـ NFT الحصرية</span><span>3%</span></div>
                             <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 3%; background: #e05151;"></div></div>
-                        </div>
-                        <div class="chart-row">
-                            <div class="chart-label"><span>الاحتياطي المتبقي ودعم المنصات الاحتياطية</span><span>10%</span></div>
-                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 10%; background: #51bfe0;"></div></div>
                         </div>
                     </div>
 
@@ -547,13 +543,13 @@
         </div>
     </div>
 
-    <!-- الفوتر الموحد الفاخر لعام 2026 -->
+    <!-- الفوتر الموحد -->
     <footer>
         <p>&copy; 2026 منظومة DYOX اللامركزية. جميع الحقوق غير محفوظة - كود مفتوح المصدر لخدمة وتنشيط مجتمع شبكة TON.</p>
         <p style="margin-top: 10px; font-size: 12px; color: var(--text-secondary);">القنوات الرسمية والوحيدة للمشروع: <a href="https://t.me/dyoxcoin" target="_blank">t.me/dyoxcoin</a></p>
     </footer>
 
-    <!-- سكربت جافا سكريبت متقدم للتحكم الشامل بالحركة والتفاعلية والنسخ -->
+    <!-- سكربت التحكم المعدل والمضمون 100% -->
     <script>
         // إخفاء شاشة التحميل بسلاسة هندسية بعد اكتمال الصفحة
         window.addEventListener('load', function() {
@@ -564,7 +560,7 @@
             }
         });
 
-        // دالة التنقل التفاعلية الفورية والذكية بين التبويبات بدون تحميل
+        // دالة التنقل التفاعلية الفورية والذكية بين الصفحات
         function switchPage(pageName) {
             document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page'));
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active-nav'));
@@ -580,7 +576,21 @@
             }
         }
 
-        // دالة نسخ عنوان عقد الـ Jetton Master إلى الحافظة تلقائياً بنقرة واحدة
+        // دالة التمرير الداخلي للورقة البيضاء المحسنة لتجنب مشاكل البحث الافتراضي للمتصفح
+        function scrollToSection(sectionId, element) {
+            document.querySelectorAll('.wp-nav span').forEach(span => span.classList.remove('active-wp'));
+            element.classList.add('active-wp');
+            
+            var targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // دالة نسخ عنوان عقد الـ Jetton Master
         function copyContract() {
             var addressText = document.getElementById('jetton-address').innerText;
             navigator.clipboard.writeText(addressText).then(function() {
@@ -598,23 +608,6 @@
                 alert('عذراً، حدث خطأ أثناء النسخ التلقائي.');
             });
         }
-
-        // تفعيل التنقل الداخلي الحركي لفصول وعناصر الورقة البيضاء
-        document.querySelectorAll('.wp-nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.wp-nav a').forEach(a => a.classList.remove('active-wp'));
-                this.classList.add('active-wp');
-                var targetId = this.getAttribute('href');
-                var targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
 
         // بناء محرك حركة جزيئات شبكة TON التفاعلية والمتطورة بالخلفية
         var canvas = document.getElementById('bg-canvas');
