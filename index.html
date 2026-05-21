@@ -442,3 +442,473 @@
     </script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DYOX | المنصة المتكاملة والبروتوكول اللامركزي على شبكة TON</title>
+    <!-- خطوط احترافية ومفتوحة المصدر -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #060814;
+            --bg-surface: #0e1126;
+            --primary: #0098ea; /* لون TON الرسمي */
+            --primary-glow: rgba(0, 152, 234, 0.3);
+            --accent: #00ffb3; /* لون الحيوية والنشاط */
+            --text-primary: #ffffff;
+            --text-secondary: #9aa4bf;
+            --border: rgba(255, 255, 255, 0.06);
+            --sidebar-width: 260px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* كانفاس الجزيئات المتحركة في الخلفية */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* شاشة التحميل والترحيب */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-base);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.05);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* الهيدر وقائمة التنقل العلوية */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(6, 8, 20, 0.85);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 900;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-area {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+        .logo-area span { color: var(--primary); }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        nav a:hover, nav a.active-nav { color: var(--text-primary); }
+
+        .header-btns {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 15px var(--primary-glow);
+            transition: 0.3s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 152, 234, 0.5);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.05); }
+
+        /* التحكم في الصفحات وتبديلها بسلاسة */
+        .page-view {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+        .page-view.active-page {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= قسم الصفحة الرئيسية ================= */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 180px 20px 80px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 24px;
+        }
+        .hero h1 span {
+            background: linear-gradient(120deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            line-height: 1.7;
+        }
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 60px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .stat-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-box h3 { font-size: 28px; font-weight: 700; margin-bottom: 5px; }
+        .stat-box p { font-size: 13px; color: var(--text-secondary); }
+
+        .info-section { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        .section-header { text-align: center; margin-bottom: 5px; }
+        .section-header h2 { font-size: 32px; margin-bottom: 40px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .feature-card { background: rgba(14, 17, 38, 0.4); border: 1px solid var(--border); padding: 40px 30px; border-radius: 12px; }
+        .feature-card h3 { font-size: 20px; margin-bottom: 15px; }
+        .feature-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.6; }
+
+        /* ================= قسم الورقة البيضاء المدمج ================= */
+        .whitepaper-layout {
+            display: flex;
+            padding-top: 85px;
+            min-height: 100vh;
+        }
+        .wp-sidebar {
+            width: var(--sidebar-width);
+            background: #090c1f;
+            border-left: 1px solid var(--border);
+            position: fixed;
+            top: 85px;
+            bottom: 0;
+            right: 0;
+            padding: 30px 15px;
+            overflow-y: auto;
+        }
+        .wp-nav { display: flex; flex-direction: column; gap: 8px; }
+        .wp-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            transition: 0.2s;
+            border-right: 3px solid transparent;
+        }
+        .wp-nav a:hover, .wp-nav a.active-wp {
+            color: var(--primary);
+            background: rgba(0, 152, 234, 0.05);
+            border-right-color: var(--primary);
+        }
+        .wp-content {
+            margin-right: var(--sidebar-width);
+            flex: 1;
+            padding: 40px 5% 80px 5%;
+            max-width: 900px;
+        }
+        .wp-section { padding-top: 20px; margin-bottom: 50px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); padding-bottom: 30px; }
+        .wp-section h1 { font-size: 32px; margin-bottom: 20px; }
+        .wp-section h2 { font-size: 20px; color: var(--primary); margin: 20px 0 10px 0; }
+        .wp-section p { color: var(--text-secondary); line-height: 1.8; font-size: 15px; text-align: justify; margin-bottom: 15px; }
+        blockquote { background: var(--bg-surface); border-right: 4px solid var(--accent); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .wp-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .wp-table th, .wp-table td { border: 1px solid var(--border); padding: 12px; text-align: right; }
+        .wp-table th { background: var(--bg-surface); }
+
+        /* الفوتر */
+        footer { border-top: 1px solid var(--border); padding: 40px 20px; text-align: center; color: var(--text-secondary); font-size: 14px; }
+        footer a { color: var(--primary); text-decoration: none; }
+
+        /* التوافق مع الشاشات الصغيرة */
+        @media (max-width: 900px) {
+            header { padding: 15px 4%; }
+            nav { display: none; }
+            .hero h1 { font-size: 32px; }
+            .whitepaper-layout { flex-direction: column; }
+            .wp-sidebar { position: relative; width: 100%; top: 0; border-left: none; border-bottom: 1px solid var(--border); }
+            .wp-content { margin-right: 0; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة التحميل -->
+    <div id="loader"><div class="spinner"></div></div>
+
+    <!-- جزيئات الخلفية التفاعلية -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- الهيدر الموحد لجميع الصفحات -->
+    <header>
+        <div class="logo-area" onclick="switchPage('home')">DY<span>OX</span></div>
+        <nav>
+            <a onclick="switchPage('home')" id="nav-home" class="active-nav">المنصة الرئيسية</a>
+            <a onclick="switchPage('whitepaper')" id="nav-wp">الورقة البيضاء</a>
+            <a href="https://dyox.io" target="_blank">المستكشف DYOX.IO</a>
+        </nav>
+        <div class="header-btns">
+            <button class="btn-outline" onclick="switchPage('whitepaper')">وثائق المشروع</button>
+            <a href="https://t.me/dyoxcoin" target="_blank" class="btn-primary">انضم للتيليجرام</a>
+        </div>
+    </header>
+
+    <!-- ================= الصفحة الأولى: الواجهة الرئيسية ================= -->
+    <div id="page-home" class="page-view active-page">
+        <section class="hero">
+            <h1>بروتوكول مفتوح ومستقل لتعزيز <span>السيولة الفورية</span> على شبكة TON</h1>
+            <p>منظومة DYOX هي بنية تحتية برمجية لامركزية مبنية على شبكة TON. تهدف إلى حل مشكلات تشتت السيولة ومحدودية ظهور المشاريع الناشئة، مدعومة بنظام اقتصادي صارم الندرة يبلغ 75,000 رمز فقط.</p>
+            
+            <div class="hero-btns">
+                <a href="https://t.me/dyoxcoin" target="_blank" class="btn-primary">المجتمع الرسمي على تيليجرام</a>
+                <button onclick="switchPage('whitepaper')" class="btn-outline">اقرأ الورقة البيضاء الفنية</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box"><h3>75,000</h3><p>إجمالي المعروض الأقصى (Capped)</p></div>
+                <div class="stat-box"><h3>TON</h3><p>البلوكشين المضيف الأصلي</p></div>
+                <div class="stat-box"><h3>DYOX.IO</h3><p>مستكشف الكتل والأنشطة</p></div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="section-header"><h2>ركائز الهندسة الفنية لـ DYOX</h2></div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>1. هندسة السيولة متعددة الأزواج</h3>
+                    <p>يعمل التوكن كأصل وسيط ذكي لدعم أزواج تداول متنوعة على المنصات اللامركزية، مما يحمي المتداولين من تقلبات الأسواق العميقة.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>2. بروتوكول الوميض لرفع النشاط</h3>
+                    <p>يقدم المشروع ابتكاراً برمجياً يدمج المعاملات التفاعلية للمشاريع الشريكة مباشرة على السلسلة (On-chain)، مما ينشط حركتها بانتظام.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>3. الهيمنة والظهور على المستكشف</h3>
+                    <p>عبر الاستفادة من منصة DYOX.IO، تكتسب المشاريع الشريكة أولوية ظهور عالية في سجلات الكتل لتصبح مرئية أمام كبار المستثمرين والحيتان.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ================= الصفحة الثانية: الورقة البيضاء المدمجة ================= -->
+    <div id="page-whitepaper" class="page-view">
+        <div class="whitepaper-layout">
+            <aside class="wp-sidebar">
+                <div class="wp-nav">
+                    <a href="#abstract" class="active-wp">1. الملخص التنفيذي</a>
+                    <a href="#problem">2. معضلة السوق</a>
+                    <a href="#solution">3. بروتوكول الوميض</a>
+                    <a href="#tokenomics">4. هندسة الاقتصاد الرقمي</a>
+                    <a href="#roadmap">5. خارطة الطريق الاستراتيجية</a>
+                </div>
+            </aside>
+
+            <main class="wp-content">
+                <section id="abstract" class="wp-section">
+                    <h1>1. الملخص التنفيذي (Abstract)</h1>
+                    <p>تطرح هذه الورقة التقنية وثيقة برمجية لبروتوكول <strong>DYOX</strong>، وهو نظام بيئي لامركزي مبني بالكامل على شبكة <strong>TON</strong>. يهدف البروتوكول إلى معالجة قصور آليات السيولة التقليدية عبر توفير قنوات ربط متعددة الأزواج فوتونية بالتوازي مع ابتكار خوارزمية آلية لرفع كفاءة ونشاط المعاملات البرمجية للمشاريع على السلسلة.</p>
+                    <blockquote><p>الفلسفة الحاكمة: حماية القيمة عبر الندرة الرياضية الصارمة، ودعم شبكة TON بأصول متكاملة البنية البرمجية.</p></blockquote>
+                </section>
+
+                <section id="problem" class="wp-section">
+                    <h1>2. معضلة السوق الحالية (The Problem)</h1>
+                    <p>تواجه المشاريع الرقمية الناشئة في بيئة الـ DeFi على شبكة TON تحديين بنيويين يعوقان استدامتها الأول يكمن في تشتت وفجوات السيولة التي تسبب انزلاقاً سعرياً حاداً وضاراً بالمستثمرين والأمر الثاني هو صعوبة حيازة الموثوقية الفورية والظهور داخل قوائم النشاط الأساسية لبلوكشين المستكشف.</p>
+                </section>
+
+                <section id="solution" class="wp-section">
+                    <h1>3. بروتوكول الوميض وهندسة الحل</h1>
+                    <p>تتدخل منظومة DYOX عبر تشغيل بنية تحتية برمجية مرتبطة بمستكشفها الخاص <strong>DYOX.IO</strong> لتقديم حلول حتمية تعتمد على الذكاء البرمجي تضمن الربط متعدد الأزواج (Multi-Pair Engine) مع رفع معدلات التداول بشكل شرعي وآلي On-chain لضمان رصد وتتبع هذه العمليات بواسطة حيتان الكريبتو.</p>
+                </section>
+
+                <section id="tokenomics" class="wp-section">
+                    <h1>4. هندسة الاقتصاد الرقمي (Tokenomics)</h1>
+                    <table class="wp-table">
+                        <thead><tr><th>المؤشر الفني</th><th>القيمة والبيانات الثابتة</th></tr></thead>
+                        <tbody>
+                            <tr><td>إجمالي المعروض الأقصى (Max Supply)</td><td>75,000 DYOX (معروض مغلق وثابت نهائياً)</td></tr>
+                            <tr><td>المنفعة التشغيلية (Utility)</td><td>الحجز (Staking) لتنشيط بروتوكولات الظهور للمشاريع</td></tr>
+                            <tr><td>قنوات التوثيق الرسمية للمجتمع</td><td><a href="https://t.me/dyoxcoin" target="_blank">t.me/dyoxcoin</a></td></tr>
+                        </tbody>
+                    </table>
+                    <p>بسبب سقف المعروض المنخفض جداً (75,000 وحدة فقط)، فإن المشاريع التي ترغب بالاستفادة مجبرة على شراء وقفل الرمز داخل العقود الذكية، مما يخلق ضغطاً تجميعياً مستمراً يحمي البنية السعرية للتوكن.</p>
+                </section>
+
+                <section id="roadmap" class="wp-section">
+                    <h1>5. خارطة الطريق الاستراتيجية (Roadmap)</h1>
+                    <h2>المرحلة الأولى</h2><p>بناء الهيكل البرمجي الموحد ونشر القنوات اللامركزية وتثبيت المجتمع البرمجي للعملة.</p>
+                    <h2>المرحلة الثانية</h2><p>تفعيل صفحة الورقة البيضاء المدمجة الحالية ونشر المعايير الفنية لربط منصة DYOX.IO.</p>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- الفوتر الموحد -->
+    <footer>
+        <p>&copy; 2026 منظومة DYOX اللامركزية. مفتوح المصدر ومبني لخدمة مجتمع TON.</p>
+        <p style="margin-top: 8px; font-size: 12px;">قناتنا الرسمية: <a href="https://t.me/dyoxcoin" target="_blank">t.me/dyoxcoin</a></p>
+    </footer>
+
+    <!-- سكربت التحكم وتبديل الصفحات والجزيئات -->
+    <script>
+        // إخفاء شاشة التحميل بسلاسة
+        window.addEventListener('load', function() {
+            var loader = document.getElementById('loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(function() { loader.style.display = 'none'; }, 500);
+            }
+        });
+
+        // دالة تبديل الصفحات الذكية بدون إعادة تحميل
+        function switchPage(pageName) {
+            // إزالة الحالات النشطة من الصفحات والأزرار
+            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page'));
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active-nav'));
+            
+            if(pageName === 'home') {
+                document.getElementById('page-home').classList.add('active-page');
+                document.getElementById('nav-home').classList.add('active-nav');
+                window.scrollTo(0,0);
+            } else if(pageName === 'whitepaper') {
+                document.getElementById('page-whitepaper').classList.add('active-page');
+                document.getElementById('nav-nav-wp' || 'nav-wp').classList.add('active-nav');
+                window.scrollTo(0,0);
+            }
+        }
+
+        // تفعيل التنقل الداخلي لفصول الورقة البيضاء
+        document.querySelectorAll('.wp-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.wp-nav a').forEach(a => a.classList.remove('active-wp'));
+                this.classList.add('active-wp');
+                var targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // محرك الجزيئات المتحركة في الخلفية
+        var canvas = document.getElementById('bg-canvas');
+        var ctx = canvas.getContext('2d');
+        var width = canvas.width = window.innerWidth;
+        var height = canvas.height = window.innerHeight;
+        var particles = [];
+
+        for (var i = 0; i < 60; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                r: Math.random() * 2 + 0.5,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.3
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(0, 152, 234, 0.2)'; 
+            particles.forEach(function(p) {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0) p.x = width; if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height; if (p.y > height) p.y = 0;
+            });
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+
+        window.addEventListener('resize', function() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
