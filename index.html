@@ -648,3 +648,22 @@
     </script>
 </body>
 </html>
+
+
+{
+  "action": "UPDATE_PLATFORM_LINK",
+  "target_token": "DYOX",
+  "modifications": {
+    "remove": {
+      "element": "Telegram_Channel_Link",
+      "scope": "Purchase_Platform_Section"
+    },
+    "add_or_replace": {
+      "element": "Buy_Now_Button_Link",
+      "new_url": "https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=EQDKf5t_2G1b0WKIdru8UPB9k5KQgomS7kuOHWPF-n8VgDam",
+      "button_text_ar": "اشترِ DYOX الآن",
+      "button_text_en": "Buy DYOX Now"
+    }
+  },
+  "system_instruction": "Locate the existing Telegram link within the DYOX token purchase widget or section. Remove the Telegram destination and replace it entirely with the provided STON.fi swap URL. Update any associated button action to trigger this new URL in a new browser tab."
+}
