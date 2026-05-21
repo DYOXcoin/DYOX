@@ -169,7 +169,7 @@
             margin-bottom: 60px;
         }
 
-        /* شبكة الإحصائيات الفنية (خفيفة وراقية مثل البيتكوين) */
+        /* شبكة الإحصائيات الفنية */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -196,7 +196,7 @@
             margin: 0;
         }
 
-        /* الأقسام المعرفية والمحتوى المفيد (المقالات والآليات) */
+        /* الأقسام المعرفية والمحتوى المفيد */
         .info-section {
             max-width: 1200px;
             margin: 0 auto;
@@ -242,7 +242,7 @@
             line-height: 1.6;
         }
 
-        /* قسم التوعية وشرح الآلية (المحتوى التعليمي المفيد) */
+        /* قسم التوعية وشرح الآلية */
         .educational-block {
             background: var(--bg-surface);
             border: 1px solid var(--border);
@@ -317,7 +317,7 @@
     <!-- القسم الرئيسي (Hero) -->
     <section class="hero">
         <h1>بروتوكول مفتوح ومستقل لتعزيز <span>السيولة الفورية</span> على شبكة TON</h1>
-        <p>مظومة DYOX هي بنية تحتية برمجية لامركزية مبنية على شبكة TON. تهدف إلى حل مشكلات تشتت السيولة ومحدودية ظهور المشاريع الناشئة، مدعومة بنظام اقتصادي صارم الندرة يبلغ 75,000 رمز فقط.</p>
+        <p>منظومة DYOX هي بنية تحتية برمجية لامركزية مبنية على شبكة TON. تهدف إلى حل مشكلات تشتت السيولة ومحدودية ظهور المشاريع الناشئة، مدعومة بنظام اقتصادي صارم الندرة يبلغ 75,000 رمز فقط.</p>
         
         <div class="hero-btns">
             <a href="https://t.me/dyoxcoin" target="_blank" class="btn-primary">المجتمع الرسمي على تيليجرام</a>
@@ -341,7 +341,7 @@
         </div>
     </section>
 
-    <!-- قسم الأهداف والمحتوى المفيد (الآليات الاستراتيجية) -->
+    <!-- قسم الأهداف والمحتوى المفيد -->
     <section class="info-section" id="about">
         <div class="section-header">
             <h2>ركائز الهندسة الفنية لـ DYOX</h2>
@@ -363,7 +363,7 @@
             </div>
         </div>
 
-        <!-- قسم توعوي وتعليمي تفاعلي (يماثل فلسفة البيتكوين) -->
+        <!-- قسم توعوي وتعليمي تفاعلي -->
         <div class="educational-block" id="mechanism">
             <div class="edu-text">
                 <h3>لماذا تم تحديد المعروض بـ 75,000 رمز فقط؟</h3>
@@ -381,25 +381,29 @@
     </footer>
 
     <!-- سكربت التحكم والحركة التفاعلية الفاخرة -->
-    <script {
-        // إخفاء شاشة التحميل بسلاسة بعد دقيقة من تشغيل السكربتات
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            loader.style.opacity = '0';
-            setTimeout(() => loader.style.display = 'none', 600);
+    <script>
+        // إخفاء شاشة التحميل بسلاسة بعد تشغيل الصفحة
+        window.addEventListener('load', function() {
+            var loader = document.getElementById('loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 600);
+            }
         });
 
-        // بناء محرك الجزيئات التفاعلي السلس خلفية للموقع
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
+        // بناء محرك الجزيئات التفاعلي السلس
+        var canvas = document.getElementById('bg-canvas');
+        var ctx = canvas.getContext('2d');
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+        var width = canvas.width = window.innerWidth;
+        var height = canvas.height = window.innerHeight;
 
-        const particles = [];
-        const maxParticles = 60; // عدد معتدل للحفاظ على سرعة وسلاسة التصفح
+        var particles = [];
+        var maxParticles = 60; 
 
-        for (let i = 0; i < maxParticles; i++) {
+        for (var i = 0; i < maxParticles; i++) {
             particles.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
@@ -411,9 +415,9 @@
 
         function drawParticles() {
             ctx.clearRect(0, 0, width, height);
-            ctx.fillStyle = 'rgba(0, 152, 234, 0.25)'; // لون الجزيئات
+            ctx.fillStyle = 'rgba(0, 152, 234, 0.25)'; 
             
-            particles.forEach(p => {
+            particles.forEach(function(p) {
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
                 ctx.fill();
@@ -421,7 +425,6 @@
                 p.x += p.vx;
                 p.y += p.vy;
 
-                // إعادة الجزيئات إذا خرجت من الشاشة
                 if (p.x < 0) p.x = width;
                 if (p.x > width) p.x = 0;
                 if (p.y < 0) p.y = height;
@@ -432,8 +435,7 @@
         }
         drawParticles();
 
-        // إعادة ضبط الحجم عند تغيير حجم الشاشة
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', function() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         });
