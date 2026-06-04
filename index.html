@@ -3,643 +3,777 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DYOX | البنية التحتية والمحرك الاستراتيجي للسيولة والظهور على TON</title>
-    <!-- خطوط احترافية ومفتوحة المصدر -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>DYOX | Next-Generation Liquidity Infrastructure on TON</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-base: #040612;
-            --bg-surface: #0a0d24;
-            --bg-card: rgba(14, 17, 38, 0.7);
-            --primary: #0098ea; /* لون TON الرسمي */
-            --primary-glow: rgba(0, 152, 234, 0.4);
-            --accent: #00ffb3; /* لون الحيوية والنشاط */
-            --accent-glow: rgba(0, 255, 179, 0.3);
-            --text-primary: #ffffff;
-            --text-secondary: #9aa4bf;
-            --border: rgba(255, 255, 255, 0.08);
-            --sidebar-width: 260px;
+            --bg-dark: #0b0e11;
+            --bg-card: #151a21;
+            --primary: #00d285;
+            --primary-hover: #00b371;
+            --ton-blue: #0088cc;
+            --text-main: #eaecef;
+            --text-muted: #848e9c;
+            --border-color: #2b3139;
+            --glow: 0 0 20px rgba(0, 210, 133, 0.2);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
             scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-base);
-            color: var(--text-primary);
-            font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* كانفاس الجزيئات التفاعلية المتقدمة */
-        #bg-canvas {
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Global Components */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #00b3a4);
+            color: #000;
+            box-shadow: var(--glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 210, 133, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Navbar */
+        header {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(11, 14, 17, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        /* شاشة تحميل منبثقة */
-        #loader {
-            position: fixed;
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav ul a:hover, nav ul a.active {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: radial-gradient(circle at 10% 20%, rgba(0, 210, 133, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(0, 136, 204, 0.05) 0%, transparent 40%);
+            text-align: center;
+        }
+
+        .hero-badge {
+            background: rgba(0, 210, 133, 0.1);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 210, 133, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--ton-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 80px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-card h3 span {
+            color: var(--primary);
+        }
+
+        .stat-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Core Features / Problem & Solution */
+        .features {
+            padding: 100px 0;
+            background: #0f1318;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+        }
+
+        .info-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 16px;
+        }
+
+        .info-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .info-box.problem h3 { color: #ff4d4d; }
+        .info-box.solution h3 { color: var(--primary); }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            position: relative;
+            padding-right: 30px;
+            margin-bottom: 18px;
+            color: var(--text-main);
+        }
+
+        .info-list li i {
+            position: absolute;
+            right: 0;
+            top: 5px;
+            font-size: 1.1rem;
+        }
+
+        .info-box.problem .info-list li i { color: #ff4d4d; }
+        .info-box.solution .info-list li i { color: var(--primary); }
+
+        /* Tokenomics */
+        .tokenomics {
+            padding: 100px 0;
+        }
+
+        .token-info-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .token-details h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .token-details p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .distribution-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .dist-item {
+            background: var(--bg-card);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .dist-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .dist-info .label { color: var(--text-main); }
+        .dist-info .pct { color: var(--primary); }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--ton-blue));
+            border-radius: 3px;
+        }
+
+        /* Interactive Social Platform Sandbox (The X-Style Hub) */
+        .social-hub {
+            padding: 100px 0;
+            background: #0f1318;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hub-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .hub-sidebar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            position: sticky;
+            top: 100px;
+        }
+
+        .user-profile-preview {
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .user-profile-preview .avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--ton-blue));
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #000;
+            font-weight: 900;
+        }
+
+        .user-profile-preview h4 {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .user-profile-preview p {
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .hub-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .hub-menu li a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .hub-menu li a:hover, .hub-menu li.active a {
+            background: rgba(0, 210, 133, 0.1);
+            color: var(--primary);
+        }
+
+        /* Feed Area */
+        .feed-area {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Publisher Card */
+        .publisher {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .publisher-input-wrapper {
+            display: flex;
+            gap: 15px;
+        }
+
+        .publisher .avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .publisher textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            resize: none;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            padding-top: 10px;
+            outline: none;
+            min-height: 60px;
+        }
+
+        .publisher-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .media-triggers {
+            display: flex;
+            gap: 15px;
+        }
+
+        .media-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .media-btn:hover {
+            color: var(--primary-hover);
+        }
+
+        .media-btn input[type="file"] {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-base);
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s;
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255,255,255,0.05);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s infinite linear;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* الهيدر وقائمة التنقل */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 6%;
-            background: rgba(4, 6, 18, 0.85);
-            backdrop-filter: blur(20px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 900;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 24px;
-            font-weight: 800;
+            opacity: 0;
             cursor: pointer;
         }
-        .logo-img {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            box-shadow: 0 0 15px var(--primary-glow);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
-        }
-        .logo-area:hover .logo-img {
-            transform: rotate(20deg) scale(1.05);
-        }
-        .logo-area span { color: var(--primary); }
 
-        nav {
-            display: flex;
-            gap: 25px;
-        }
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-        nav a:hover, nav a.active-nav { color: var(--text-primary); }
-
-        .header-btns {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        /* أزرار مخصصة ومتحركة */
-        .btn-primary {
-            background: var(--primary);
-            color: #fff;
-            padding: 10px 22px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            box-shadow: 0 4px 15px var(--primary-glow);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 152, 234, 0.6);
-        }
-        .btn-buy {
-            background: linear-gradient(135deg, var(--accent), #00c4ff);
-            color: #040612;
-            font-weight: 700;
-            box-shadow: 0 4px 15px var(--accent-glow);
-        }
-        .btn-buy:hover {
-            box-shadow: 0 6px 22px var(--accent-glow);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 10px 22px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: var(--text-secondary);
-        }
-
-        /* لوحة التحكم في تبديل العرض */
-        .page-view {
+        /* URL Importer fields */
+        .url-input-field {
             display: none;
-            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        .page-view.active-page { display: block; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ================= الواجهة الرئيسية (Home Section) ================= */
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 170px 20px 80px 20px;
-            text-align: center;
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            background: rgba(0, 152, 234, 0.08);
-            border: 1px solid rgba(0, 152, 234, 0.3);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 25px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 152, 234, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 152, 234, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 152, 234, 0); }
-        }
-        .hero h1 {
-            font-size: 50px;
-            font-weight: 900;
-            line-height: 1.3;
-            margin-bottom: 24px;
-        }
-        .hero h1 span {
-            background: linear-gradient(120deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 760px;
-            margin: 0 auto 40px auto;
-            line-height: 1.7;
-        }
-        .hero-btns {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 60px;
-            flex-wrap: wrap;
-        }
-
-        /* بطاقة عرض عقد الـ Jetton Master الاستثنائية */
-        .contract-card {
-            background: linear-gradient(135deg, var(--bg-surface), #0f1433);
-            border: 1px solid var(--border);
-            max-width: 720px;
-            margin: 0 auto 70px auto;
-            padding: 22px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .contract-info { text-align: right; }
-        .contract-info label { font-size: 12px; color: var(--accent); font-weight: 700; display: block; margin-bottom: 4px; }
-        .contract-hash { font-family: monospace; font-size: 14px; color: #fff; word-break: break-all; }
-        .btn-copy {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border);
-            color: #fff;
-            padding: 10px 16px;
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.2s;
-            white-space: nowrap;
+            color: #fff;
+            font-size: 0.9rem;
         }
-        .btn-copy:hover { background: var(--primary); border-color: var(--primary); }
 
-        /* شبكة الإحصائيات الفنية */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            max-width: 950px;
-            margin: 0 auto;
-        }
-        .stat-box {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            padding: 25px 20px;
-            border-radius: 12px;
-            text-align: center;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        .stat-box:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
-        .stat-box h3 { font-size: 30px; font-weight: 800; color: #fff; margin-bottom: 6px; }
-        .stat-box p { font-size: 13px; color: var(--text-secondary); }
-
-        /* الأقسام المتقدمة للبطاقات المعرفية */
-        .info-section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-size: 34px; font-weight: 700; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .feature-card {
+        /* Posts */
+        .post-card {
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 40px 30px;
+            border: 1px solid var(--border-color);
             border-radius: 16px;
-            transition: all 0.3s ease;
+            padding: 25px;
+            transition: border-color 0.3s;
         }
-        .feature-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 152, 234, 0.1);
-        }
-        .feature-card h3 { font-size: 22px; margin-bottom: 15px; color: #fff; }
-        .feature-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
 
-        /* ================= تصميم صفحة الورقة البيضاء المدمجة ================= */
-        .whitepaper-layout {
+        .post-header {
             display: flex;
-            padding-top: 85px;
-            min-height: 100vh;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
         }
-        .wp-sidebar {
-            width: var(--sidebar-width);
-            background: #070a1e;
-            border-left: 1px solid var(--border);
-            position: fixed;
-            top: 85px;
-            bottom: 0;
-            right: 0;
-            padding: 40px 20px;
-            overflow-y: auto;
+
+        .post-header .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
         }
-        .wp-nav { display: flex; flex-direction: column; gap: 10px; }
-        .wp-nav span {
-            color: var(--text-secondary);
-            font-size: 14px;
+
+        .post-author-info h5 {
+            font-size: 1.05rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .post-author-info h5 .badge {
+            background: rgba(0, 136, 204, 0.2);
+            color: var(--ton-blue);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .post-author-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .post-body {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+
+        .post-media {
+            margin-bottom: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--bg-dark);
+            max-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .post-media img, .post-media video {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: cover;
+        }
+
+        /* Post Rating & Actions */
+        .post-rating-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+            color: #ffc107;
+            cursor: pointer;
+        }
+
+        .rating-stars i {
+            transition: transform 0.1s;
+        }
+
+        .rating-stars i:hover {
+            transform: scale(1.2);
+        }
+
+        .rating-avg {
+            font-size: 0.85rem;
+            color: var(--text-muted);
             font-weight: 600;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .action-btn:hover { color: var(--primary); }
+        .action-btn.liked { color: #e0245e; }
+        .action-btn.shared { color: var(--ton-blue); }
+
+        /* Comments Section */
+        .comments-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .comment-box {
+            display: flex;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.02);
             padding: 12px 15px;
             border-radius: 8px;
-            transition: all 0.2s ease;
-            border-right: 3px solid transparent;
-            cursor: pointer;
-            display: block;
-        }
-        .wp-nav span:hover, .wp-nav span.active-wp {
-            color: var(--primary);
-            background: rgba(0, 152, 234, 0.06);
-            border-right-color: var(--primary);
-        }
-        .wp-content {
-            margin-right: var(--sidebar-width);
-            flex: 1;
-            padding: 50px 6% 100px 6%;
-            max-width: 950px;
-        }
-        .wp-section { padding-top: 25px; margin-bottom: 60px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); padding-bottom: 40px; }
-        .wp-section h1 { font-size: 34px; font-weight: 800; margin-bottom: 25px; }
-        .wp-section h2 { font-size: 22px; color: var(--primary); margin: 25px 0 12px 0; }
-        .wp-section p { color: var(--text-secondary); line-height: 1.8; font-size: 16px; text-align: justify; margin-bottom: 15px; }
-        blockquote { background: var(--bg-surface); border-right: 4px solid var(--accent); padding: 20px; margin: 25px 0; border-radius: 6px; }
-        
-        /* مخطط بياني لتوزيع الرموز */
-        .chart-container {
-            margin: 30px 0;
-            background: var(--bg-surface);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-        .chart-row { margin-bottom: 18px; }
-        .chart-label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-        .chart-bar-bg { background: rgba(255,255,255,0.05); height: 10px; border-radius: 10px; overflow: hidden; }
-        .chart-bar-fill { height: 100%; border-radius: 10px; transition: width 1s ease-in-out; }
-
-        .wp-table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 15px; }
-        .wp-table th, .wp-table td { border: 1px solid var(--border); padding: 14px; text-align: right; }
-        .wp-table th { background: var(--bg-surface); color: #fff; }
-
-        /* الفوتر الموحد */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 50px 20px;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 14px;
-            background: rgba(4, 6, 15, 0.9);
-        }
-        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
-
-        /* التوافق التام المتجاوب مع الهواتف والأجهزة اللوحية */
-        @media (max-width: 900px) {
-            header { padding: 15px 4%; }
-            nav { display: none; }
-            .hero h1 { font-size: 34px; }
-            .contract-card { flex-direction: column; text-align: center; padding: 18px; }
-            .contract-info { text-align: center; }
-            .whitepaper-layout { flex-direction: column; }
-            .wp-sidebar { position: relative; width: 100%; top: 0; border-left: none; border-bottom: 1px solid var(--border); padding: 20px; }
-            .wp-content { margin-right: 0; padding: 30px 20px; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- شاشة تحميل ذكية -->
-    <div id="loader"><div class="spinner"></div></div>
-
-    <!-- جزيئات متحركة مبهرة بالخلفية -->
-    <canvas id="bg-canvas"></canvas>
-
-    <!-- الهيدر الموحد المحسن بالشعار الجديد -->
-    <header id="main-header">
-        <div class="logo-area" onclick="switchPage('home')">
-            <img src="https://storage.dyor.io/jettons/images/1779384992/55500292.png" alt="DYOX Logo" class="logo-img">
-            <div>DY<span>OX</span></div>
-        </div>
-        <nav>
-            <a onclick="switchPage('home')" id="nav-home" class="active-nav">الرئيسية</a>
-            <a onclick="switchPage('whitepaper')" id="nav-wp">الورقة البيضاء الفنية</a>
-        </nav>
-        <div class="header-btns">
-            <a href="https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=EQDKf5t_2G1b0WKIdru8UPB9k5KQgomS7kuOHWPF-n8VgDam" target="_blank" class="btn-primary btn-buy">شراء DYOX ⚡</a>
-            <a href="https://t.me/dyoxcoin" target="_blank" class="btn-primary">تيليجرام</a>
-        </div>
-    </header>
-
-    <!-- ================= الجزء الأول: الواجهة الرئيسية المتقدمة ================= -->
-    <div id="page-home" class="page-view active-page">
-        <section class="hero">
-            <div class="hero-badge">معيار فائق الندرة على شبكة TON</div>
-            <!-- تم التحديث بناءً على الهوية الحقيقية للمشروع -->
-            <h1>البنية التحتية والمحرك الاستراتيجي لـ <span>السيولة والظهور على شبكة TON</span></h1>
-            <p>منظومة DYOX هي أصل مالي فائق الندرة مصمم لربط وإدارة السيولة الذكية عبر أزواج تداول متعددة، مما يساهم في رفع الكفاءة التشغيلية للمشاريع الناشئة وتسريع نموها وظهورها على البلوكشين بمعروض ثابت يبلغ 75,000 رمز فقط.</p>
-            
-            <div class="hero-btns">
-                <a href="https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=EQDKf5t_2G1b0WKIdru8UPB9k5KQgomS7kuOHWPF-n8VgDam" target="_blank" class="btn-primary btn-buy" style="padding: 14px 32px; font-size: 16px;">منصة شراء رمز DYOX الآن</a>
-                <span onclick="switchPage('whitepaper')" class="btn-outline" style="padding: 14px 32px; font-size: 16px; display: inline-block;">مراجعة وثيقة الورقة البيضاء</span>
-            </div>
-
-            <!-- لوحة كود العقد التفاعلية المجهزة بنظام النسخ الفوري -->
-            <div class="contract-card">
-                <div class="contract-info">
-                    <label>عنوان العقد الذكي الرسمي (Jetton Master)</label>
-                    <div class="contract-hash" id="jetton-address">EQDKf5t_2G1b0WKIdru8UPB9k5KQgomS7kuOHWPF-n8VgDam</div>
-                </div>
-                <button class="btn-copy" onclick="copyContract()">نسخ العقد ✨</button>
-            </div>
-
-            <!-- شبكة البيانات الفنية المعدلة -->
-            <div class="stats-grid">
-                <div class="stat-box"><h3>75,000</h3><p>إجمالي المعروض الأقصى المغلق</p></div>
-                <div class="stat-box"><h3>TON Chain</h3><p>البلوكشين الحاضن والأصلي</p></div>
-                <div class="stat-box"><h3>Strategic Engine</h3><p>محرك السيولة والظهور الذكي</p></div>
-            </div>
-        </section>
-
-        <!-- قسم ركائز المنفعة الاستراتيجية المعدل -->
-        <section class="info-section">
-            <div class="section-header"><h2>القيمة الوظيفية والفوائد الهيكلية لـ DYOX</h2></div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>1. محرك السيولة الاستراتيجي</h3>
-                    <p>يعمل الرمز كأداة مالية لربط وتوجيه السيولة الذكية عبر أزواج التداول المختلفة على شبكة TON، مما يحقق استقراراً ومرونة أكبر للأصول المرتبطة بالمنظومة.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>2. تسريع نمو المشاريع الناشئة</h3>
-                    <p>يوفر البروتوكول آليات متطورة ترفع من الكفاءة التشغيلية للمشاريع الرقمية الجديدة، مما يمنحها القدرة على التوسع السريع داخل بيئة البلوكشين.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>3. تعزيز مستويات الظهور (Exposure)</h3>
-                    <p>تم تصميم المعايير الاقتصادية للمشروع لتسليط الضوء على الأصول الرقمية الواعدة، مما يزيد من فرص رصدها واكتشافها من قبل المستثمرين والمستخدمين بفعالية.</p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- ================= الجزء الثاني: الورقة البيضاء الشاملة المحدثة والمنظمة ================= -->
-    <div id="page-whitepaper" class="page-view">
-        <div class="whitepaper-layout">
-            <aside class="wp-sidebar">
-                <div class="wp-nav">
-                    <span onclick="scrollToSection('abstract', this)" class="wp-link active-wp">1. الملخص التنفيذي</span>
-                    <span onclick="scrollToSection('distribution', this)" class="wp-link">2. تخصيص وإطلاق السيولة</span>
-                    <span onclick="scrollToSection('mechanism', this)" class="wp-link">3. آلية الكفاءة التشغيلية</span>
-                    <span onclick="scrollToSection('tokenomics-details', this)" class="wp-link">4. حوافز الندرة والمنفعة</span>
-                </div>
-            </aside>
-
-            <main class="wp-content">
-                <section id="abstract" class="wp-section">
-                    <h1>1. الملخص التنفيذي (Abstract)</h1>
-                    <p>يقدم بروتوكول <strong>DYOX</strong> بنية برمجية استراتيجية تحتية مخصصة لإدارة وتنشيط سيولة التداول ومستويات الظهور على شبكة <strong>TON</strong>. تم تصميم هذا الرمز ليكون أصلاً مالياً نادراً للغاية يعمل على ربط بنية السيولة الذكية عبر عدة أزواج تداول مع رفع مستويات الكفاءة التشغيلية للمشاريع الصاعدة.</p>
-                    <blockquote><p>يهدف البروتوكول بشكل أساسي إلى تسريع وتيرة نمو المشاريع الرقمية وتعزيز رصدها وظهورها الآمن على البلوكشين دون أي قيود مركزية.</p></blockquote>
-                </section>
-
-                <!-- قسم التوزيع الرقمي المحدث -->
-                <section id="distribution" class="wp-section">
-                    <h1>2. تخصيص وتوزيع الرموز (Token Allocation)</h1>
-                    <p>لضمان الاستدامة طويلة الأجل ودعم خطط التوسع والانتشار الجماهيري، تم توزيع المعروض الإجمالي البالغ 75,000 رمز بدقة رياضية صارمة على النحو التالي:</p>
-                    
-                    <div class="chart-container">
-                        <div class="chart-row">
-                            <div class="chart-label"><span>السيولة الأولية والمجتمع (تداول حر)</span><span>60%</span></div>
-                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 60%; background: var(--primary);"></div></div>
-                        </div>
-                        <div class="chart-row">
-                            <div class="chart-label"><span>الحملات التسويقية والشراكات الإستراتيجية</span><span>12%</span></div>
-                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 12%; background: #ffaa00;"></div></div>
-                        </div>
-                        <div class="chart-row">
-                            <div class="chart-label"><span>فريق التطوير والمطورين</span><span>10%</span></div>
-                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 10%; background: var(--accent);"></div></div>
-                        </div>
-                        <div class="chart-row">
-                            <div class="chart-label"><span>التوزيعات المجانية والمكافآت (Airdrops)</span><span>5%</span></div>
-                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 5%; background: #9b51e0;"></div></div>
-                        </div>
-                        <div class="chart-row">
-                            <div class="chart-label"><span>نظام مكافآت وبنية الـ NFT الحصرية</span><span>3%</span></div>
-                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 3%; background: #e05151;"></div></div>
-                        </div>
-                    </div>
-
-                    <table class="wp-table">
-                        <thead><tr><th>الجهة المخصصة</th><th>النسبة المئوية</th><th>الدور الوظيفي والهدف للتخصيص</th></tr></thead>
-                        <tbody>
-                            <tr><td>السيولة الأولية والمجتمع</td><td>60%</td><td>تأمين تداول حر، عميق، وعادل في المنصات اللامركزية.</td></tr>
-                            <tr><td>الحملات التسويقية</td><td>12%</td><td>جذب مستثمرين جدد، وتمويل الشراكات وبناء الوعي العالمي.</td></tr>
-                            <tr><td>فريق العمل والتطوير</td><td>10%</td><td>تطوير مستمر لبرمجيات المنظومة وبنية السلسلة.</td></tr>
-                            <tr><td>توزيعات مجانية (Airdrops)</td><td>5%</td><td>مكافأة الأعضاء المتفاعلين والنشطين في قنوات المجتمع.</td></tr>
-                            <tr><td>منظومة الـ NFT الحصرية</td><td>3%</td><td>إطلاق بطاقات عضوية رقمية تمنح حامليها مزايا تصويت فريدة.</td></tr>
-                        </tbody>
-                    </table>
-                </section>
-
-                <section id="mechanism" class="wp-section">
-                    <h1>3. آلية الكفاءة التشغيلية والربط الذكي</h1>
-                    <p>يعمل المحرك الاستراتيجي لـ DYOX كجسر تقني يربط بين مجمعات السيولة المختلفة. عند دمج أصول أو مشاريع ناشئة مع بنية البروتوكول، يتم تحسين انسيابية المعاملات المتبادلة بين أزواج التداول، مما يعزز تلقائياً من الكفاءة التشغيلية لتلك المشاريع ويمنحها ظهوراً وانتشاراً أوسع داخل منظومة TON اللامركزية.</p>
-                </section>
-
-                <section id="tokenomics-details" class="wp-section">
-                    <h1>4. حوافز الندرة المطلقة والمنفعة الفنية</h1>
-                    <p>تم صياغة الاقتصاديات الحاكمة لـ DYOX لتقديم فوائد أساسية تدعم الاحتفاظ بالرمز واستقراره السعري بناءً على ندرته الفائقة:</p>
-                    <h2>أولاً: ندرة مالية صارمة</h2>
-                    <p>بوجود 75,000 رمز فقط كحد أقصى لإجمالي المعروض، فإن التفاعل المستمر لربط السيولة وتوسيع نطاق المشاريع يخلق طلباً متزايداً يتناسب طردياً مع ندرة الرمز في السوق.</p>
-                    <h2>ثانياً: تكامل بيئة العمل الحر</h2>
-                    <p>المنظومة مصممة لتعمل بشكل مستقل بالكامل، حيث يساهم دمج الرمز في تفعيل كفاءة التداول المباشر وتقليل آثار الانزلاق السعري للمشاريع المشتركة.</p>
-                </section>
-            </main>
-        </div>
-    </div>
-
-    <!-- الفوتر الموحد -->
-    <footer>
-        <p>&copy; 2026 منظومة DYOX اللامركزية. جميع الحقوق غير محفوظة - كود مفتوح المصدر لخدمة وتنشيط مجتمع شبكة TON.</p>
-        <p style="margin-top: 10px; font-size: 12px; color: var(--text-secondary);">القنوات الرسمية والوحيدة للمشروع: <a href="https://t.me/dyoxcoin" target="_blank">t.me/dyoxcoin</a></p>
-    </footer>
-
-    <!-- سكربت التحكم المعدل والمضمون 100% -->
-    <script>
-        window.addEventListener('load', function() {
-            var loader = document.getElementById('loader');
-            if (loader) {
-                loader.style.opacity = '0';
-                setTimeout(function() { loader.style.display = 'none'; }, 500);
-            }
-        });
-
-        function switchPage(pageName) {
-            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page'));
-            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active-nav'));
-            
-            if(pageName === 'home') {
-                document.getElementById('page-home').classList.add('active-page');
-                document.getElementById('nav-home').classList.add('active-nav');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else if(pageName === 'whitepaper') {
-                document.getElementById('page-whitepaper').classList.add('active-page');
-                document.getElementById('nav-wp').classList.add('active-nav');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        function scrollToSection(sectionId, element) {
-            document.querySelectorAll('.wp-nav span').forEach(span => span.classList.remove('active-wp'));
-            element.classList.add('active-wp');
-            
-            var targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                window.scrollTo({
-                    top: targetSection.offsetTop - 100,
-                    behavior: 'smooth'
-                });
-            }
+        .comment-box .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #4f5d73;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: #fff;
+            flex-shrink: 0;
         }
 
-        function copyContract() {
-            var addressText = document.getElementById('jetton-address').innerText;
-            navigator.clipboard.writeText(addressText).then(function() {
-                var copyBtn = document.querySelector('.btn-copy');
-                copyBtn.innerText = 'تم النسخ بنجاح! ✓';
-                copyBtn.style.background = 'var(--accent)';
-                copyBtn.style.color = '#040612';
-                
-                setTimeout(function() {
-                    copyBtn.innerText = 'نسخ العقد ✨';
-                    copyBtn.style.background = 'rgba(255,255,255,0.05)';
-                    copyBtn.style.color = '#fff';
-                }, 2000);
-            }).catch(function(err) {
-                alert('عذراً، حدث خطأ أثناء النسخ التلقائي.');
-            });
+        .comment-content h6 {
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
         }
 
-        var canvas = document.getElementById('bg-canvas');
-        var ctx = canvas.getContext('2d');
-        var width = canvas.width = window.innerWidth;
-        var height = canvas.height = window.innerHeight;
-        var particles = [];
-
-        for (var i = 0; i < 65; i++) {
-            particles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                r: Math.random() * 2 + 0.6,
-                vx: (Math.random() - 0.5) * 0.35,
-                vy: (Math.random() - 0.5) * 0.35
-            });
+        .comment-content p {
+            font-size: 0.9rem;
+            color: var(--text-main);
         }
 
-        function drawParticles() {
-            ctx.clearRect(0, 0, width, height);
-            ctx.fillStyle = 'rgba(0, 152, 234, 0.22)'; 
-            particles.forEach(function(p) {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fill();
-                p.x += p.vx; p.y += p.vy;
-                if (p.x < 0) p.x = width; if (p.x > width) p.x = 0;
-                if (p.y < 0) p.y = height; if (p.y > height) p.y = 0;
-            });
-            requestAnimationFrame(drawParticles);
+        .comment-input-wrapper {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
-        drawParticles();
 
-        window.addEventListener('resize', function() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
-    </script>
-</body>
-</html>
+        .comment-input-wrapper input {
+            width: 100%;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 15px;
+            color: #fff;
+            outline: none;
+        }
+
+        .comment-input-wrapper input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Roadmap Timeline */
+        .roadmap {
+            padding: 100px 0;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--border-color);
+            top: 0;
+            bottom: 0;
+            right: 50%;
+            margin-right: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background: transparent;
+            width: 50%;
+        }
+
+        .timeline-item.right {
+            left: 0;
+            right: auto;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .timeline-item.left {
+            right: 0;
+            left: auto;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: 50%;
+            background-color: var(--bg-dark);
+            border: 4px solid var(--primary);
+            to
