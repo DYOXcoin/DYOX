@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DYOX | Next-Generation Liquidity Infrastructure on TON</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <title>DYOX Protocol | Global Liquidity Infrastructure & AI Ecosystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-dark: #0b0e11;
-            --bg-card: #151a21;
-            --primary: #00d285;
-            --primary-hover: #00b371;
-            --ton-blue: #0088cc;
-            --text-main: #eaecef;
-            --text-muted: #848e9c;
-            --border-color: #2b3139;
-            --glow: 0 0 20px rgba(0, 210, 133, 0.2);
+            --bg-dark: #06090d;
+            --bg-card: #0d131a;
+            --border-color: #1c2630;
+            --text-main: #f0f4f8;
+            --text-muted: #94a3b8;
+            
+            /* Dynamic Theme Initial State (Snowy Blue Theme) */
+            --accent-glow: rgba(224, 242, 254, 0.25);
+            --primary-gradient: linear-gradient(135deg, #e0f2fe, #7dd3fc);
+            --primary-color: #7dd3fc;
+            --transition-speed: 1.5s;
         }
 
         * {
@@ -33,84 +35,85 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
+            transition: background var(--transition-speed) ease;
+        }
+
+        /* Ambient Dynamic Background Glow */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% -20%, var(--accent-glow) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+            transition: background var(--transition-speed) ease;
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
 
-        /* Global Components */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .container { width: 92%; max-width: 1300px; margin: 0 auto; }
 
+        /* Dynamic Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 28px;
-            border-radius: 8px;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 12px;
             font-weight: 700;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             border: none;
+            font-size: 1rem;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), #00b3a4);
-            color: #000;
-            box-shadow: var(--glow);
+            background: var(--primary-gradient);
+            color: #06090d;
+            box-shadow: 0 4px 20px var(--accent-glow);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(0, 210, 133, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 30px var(--accent-glow);
         }
 
         .btn-secondary {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.03);
             color: var(--text-main);
             border: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            margin-bottom: 50px;
-            background: linear-gradient(135deg, #fff, var(--text-muted));
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, var(--text-muted));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: relative;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--primary);
-            margin: 15px auto 0;
-            border-radius: 2px;
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin: 0 auto 60px;
+            font-size: 1.1rem;
         }
 
         /* Navbar */
@@ -120,660 +123,572 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(11, 14, 17, 0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(6, 9, 13, 0.75);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 18px 0;
         }
 
         .logo {
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.8rem;
             font-weight: 900;
-            letter-spacing: 1px;
             color: #fff;
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 10px;
-            text-decoration: none;
         }
 
         .logo span {
-            color: var(--primary);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all var(--transition-speed);
         }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
+        nav ul { display: flex; list-style: none; gap: 35px; }
         nav ul a {
             color: var(--text-muted);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
+            font-size: 0.95rem;
         }
-
-        nav ul a:hover, nav ul a.active {
-            color: var(--primary);
-        }
+        nav ul a:hover { color: var(--primary-color); }
 
         /* Hero Section */
         .hero {
-            padding: 180px 0 100px;
-            background: radial-gradient(circle at 10% 20%, rgba(0, 210, 133, 0.05) 0%, transparent 40%),
-                        radial-gradient(circle at 90% 80%, rgba(0, 136, 204, 0.05) 0%, transparent 40%);
+            padding: 200px 0 120px;
             text-align: center;
+            position: relative;
         }
 
-        .hero-badge {
-            background: rgba(0, 210, 133, 0.1);
-            color: var(--primary);
-            padding: 6px 16px;
-            border-radius: 20px;
+        .update-badge {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 30px;
             font-size: 0.9rem;
-            font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(0, 210, 133, 0.2);
+            gap: 10px;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+
+        .update-badge .pulse {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-color);
+            animation: pulse-anim 1.5s infinite;
+        }
+
+        @keyframes pulse-anim {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 25px;
+            line-height: 1.25;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
         }
 
         .hero h1 span {
-            background: linear-gradient(135deg, var(--primary), var(--ton-blue));
+            background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 40px;
+            max-width: 850px;
+            margin: 0 auto 45px;
         }
 
-        .hero-btns {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
+        .hero-btns { display: flex; justify-content: center; gap: 20px; }
 
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            margin-top: 80px;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
+        /* Snowy Growth Chart Section (Visual Graphics) */
+        .growth-showcase {
+            margin-top: 60px;
+            background: rgba(13, 19, 26, 0.6);
             border: 1px solid var(--border-color);
-            padding: 30px 20px;
-            border-radius: 12px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
-
-        .stat-card h3 {
-            font-size: 2rem;
-            color: #fff;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .stat-card h3 span {
-            color: var(--primary);
-        }
-
-        .stat-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Core Features / Problem & Solution */
-        .features {
-            padding: 100px 0;
-            background: #0f1318;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 40px;
-        }
-
-        .info-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
+            border-radius: 24px;
             padding: 40px;
-            border-radius: 16px;
-        }
-
-        .info-box h3 {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .info-box.problem h3 { color: #ff4d4d; }
-        .info-box.solution h3 { color: var(--primary); }
-
-        .info-list {
-            list-style: none;
-        }
-
-        .info-list li {
+            backdrop-filter: blur(10px);
             position: relative;
-            padding-right: 30px;
-            margin-bottom: 18px;
-            color: var(--text-main);
+            overflow: hidden;
         }
 
-        .info-list li i {
-            position: absolute;
-            right: 0;
-            top: 5px;
-            font-size: 1.1rem;
-        }
-
-        .info-box.problem .info-list li i { color: #ff4d4d; }
-        .info-box.solution .info-list li i { color: var(--primary); }
-
-        /* Tokenomics */
-        .tokenomics {
-            padding: 100px 0;
-        }
-
-        .token-info-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-        }
-
-        .token-details h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .token-details p {
-            color: var(--text-muted);
             margin-bottom: 30px;
         }
 
-        .distribution-list {
+        .snowy-chart-container {
+            height: 150px;
             display: flex;
-            flex-direction: column;
+            align-items: flex-end;
             gap: 15px;
+            padding-top: 20px;
+            border-bottom: 2px solid var(--border-color);
         }
 
-        .dist-item {
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, rgba(255,255,255,0.02), var(--primary-color));
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            animation: grow 2s ease-out forwards;
+            transform-origin: bottom;
+            opacity: 0.8;
+        }
+
+        .chart-bar::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: #fff; /* Snow Cap Top */
+            box-shadow: 0 0 15px #fff;
+            border-radius: 6px 6px 0 0;
+        }
+
+        @keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+        /* Core Values & Transparency Grids */
+        .ecosystem-pillars { padding: 100px 0; background: #0a0e14; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+
+        .pillar-card {
             background: var(--bg-card);
-            padding: 15px 20px;
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .pillar-card .icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
             border: 1px solid var(--border-color);
         }
 
-        .dist-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
+        .pillar-card h3 { font-size: 1.4rem; margin-bottom: 15px; color: #fff; }
+        .pillar-card p { color: var(--text-muted); font-size: 0.95rem; }
 
-        .dist-info .label { color: var(--text-main); }
-        .dist-info .pct { color: var(--primary); }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--border-color);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--ton-blue));
-            border-radius: 3px;
-        }
-
-        /* Interactive Social Platform Sandbox (The X-Style Hub) */
-        .social-hub {
-            padding: 100px 0;
-            background: #0f1318;
+        /* Developers & Architects Pitch Section */
+        .dev-pitch {
+            padding: 120px 0;
+            background: radial-gradient(circle at right, rgba(255,255,255,0.02) 0%, transparent 60%);
             border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
         }
 
-        .hub-layout {
+        .pitch-wrapper {
             display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 30px;
-            align-items: start;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
         }
 
-        .hub-sidebar {
-            background: var(--bg-card);
+        .code-box {
+            background: #040608;
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 25px;
-            position: sticky;
-            top: 100px;
-        }
-
-        .user-profile-preview {
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-        }
-
-        .user-profile-preview .avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--ton-blue));
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #000;
-            font-weight: 900;
-        }
-
-        .user-profile-preview h4 {
-            font-size: 1.2rem;
-            color: #fff;
-        }
-
-        .user-profile-preview p {
-            color: var(--primary);
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .hub-menu {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .hub-menu li a {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 12px 15px;
-            border-radius: 8px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-
-        .hub-menu li a:hover, .hub-menu li.active a {
-            background: rgba(0, 210, 133, 0.1);
-            color: var(--primary);
-        }
-
-        /* Feed Area */
-        .feed-area {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        /* Publisher Card */
-        .publisher {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 25px;
-        }
-
-        .publisher-input-wrapper {
-            display: flex;
-            gap: 15px;
-        }
-
-        .publisher .avatar {
-            width: 45px;
-            height: 45px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .publisher textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            resize: none;
-            color: var(--text-main);
-            font-size: 1.1rem;
-            padding-top: 10px;
-            outline: none;
-            min-height: 60px;
-        }
-
-        .publisher-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .media-triggers {
-            display: flex;
-            gap: 15px;
-        }
-
-        .media-btn {
-            background: transparent;
-            border: none;
-            color: var(--primary);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: color 0.2s;
-            position: relative;
-        }
-
-        .media-btn:hover {
-            color: var(--primary-hover);
-        }
-
-        .media-btn input[type="file"] {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        /* URL Importer fields */
-        .url-input-field {
-            display: none;
-            margin-top: 15px;
-            width: 100%;
-            padding: 10px;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: #fff;
+            font-family: 'Orbitron', monospace;
             font-size: 0.9rem;
+            color: #a7f3d0;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
 
-        /* Posts */
-        .post-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 25px;
-            transition: border-color 0.3s;
+        /* Interactive Social Hub (Sandbox) */
+        .social-hub { padding: 100px 0; background: #080c10; border-top: 1px solid var(--border-color); }
+        .hub-layout { display: grid; grid-template-columns: 280px 1fr; gap: 30px; }
+        .hub-sidebar { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 25px; height: fit-content;}
+        
+        .user-preview { text-align: center; padding-bottom: 20px; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); }
+        .user-preview .avatar { width: 70px; height: 70px; background: var(--primary-gradient); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #000; font-weight: 900;}
+        
+        .feed-container { display: flex; flex-direction: column; gap: 25px; }
+        .publisher { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 25px; }
+        .publisher textarea { width: 100%; background: transparent; border: none; resize: none; color: #fff; font-size: 1.1rem; outline: none; min-height: 70px; }
+        .publisher-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border-color); }
+
+        .post-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 30px; }
+        .post-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .post-header .avatar { width: 45px; height: 45px; border-radius: 50%; background: var(--border-color); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; }
+        .post-body { font-size: 1.1rem; margin-bottom: 20px; }
+        
+        .post-media { border-radius: 14px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 20px; background: #000; }
+        .post-media video, .post-media img { width: 100%; display: block; max-height: 400px; object-fit: cover; }
+
+        .post-rating { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .stars { color: #f59e0b; cursor: pointer; display: flex; gap: 5px; }
+        
+        .post-actions { display: flex; gap: 30px; }
+        .action-btn { background: transparent; border: none; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1rem; transition: color 0.2s; }
+        .action-btn:hover { color: var(--primary-color); }
+        .action-btn.liked { color: #38bdf8; }
+
+        .comments-box { margin-top: 20px; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; }
+        .comment-input input { width: 100%; background: var(--bg-dark); border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 10px; color: #fff; outline: none; }
+
+        /* Footer */
+        footer { background: #040608; border-top: 1px solid var(--border-color); padding: 60px 0 30px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 40px; margin-bottom: 30px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 1.5rem; transition: all 0.3s; }
+        .footer-links a:hover { color: #fff; transform: translateY(-3px); }
+
+        @media (max-width: 992px) {
+            .pitch-wrapper, .hub-layout { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.8rem; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow" id="ambientGlow"></div>
+
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">DYOX<span>.</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#hero">الرئيسية</a></li>
+                    <li><a href="#vision">الرؤية العالمية</a></li>
+                    <li><a href="#developers">صندوق المطورين</a></li>
+                    <li><a href="#hub">منصة المجتمع التجريبية</a></li>
+                </ul>
+            </nav>
+            <a href="https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=EQDKf5t_2G1b0WKIdru8UPB9k5KQgomS7kuOHWPF-n8VgDam" target="_blank" class="btn btn-primary">
+                <i class="fa-solid fa-wallet"></i> شراء الرمز الآن
+            </a>
+        </div>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="update-badge">
+                <div class="pulse"></div>
+                <span>تحديث مستمر ومكثّف (فترة قصيرة جداً) • نظام تشغيل تلقائي ومطور</span>
+            </div>
+            <h1>تحقيق الرؤى العالمية عبر <span>البنية التحتية الرقمية</span> المتطورة</h1>
+            <p>يقود مشروع DYOXcoin حركة تحولية لتقوية وتطوير النظام البيئي للاقتصاد الرقمي، زارعاً بذور النمو العالمي المستدام طويل الأجل عبر دمج تقنيات الكريبتو المتقدمة وبنى الذكاء الاصطناعي مع حلول السيولة الفورية اللامركزية.</p>
+            
+            <div class="hero-btns">
+                <a href="https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=EQDKf5t_2G1b0WKIdru8UPB9k5KQgomS7kuOHWPF-n8VgDam" target="_blank" class="btn btn-primary">
+                    <i class="fa-solid fa-chart-line"></i> منصة الشراء المباشر STON.fi
+                </a>
+                <a href="#hub" class="btn btn-secondary"><i class="fa-solid fa-comments"></i> استكشف منصة التفاعل الاجتماعي</a>
+            </div>
+
+            <div class="growth-showcase">
+                <div class="chart-header">
+                    <div style="text-align: right;">
+                        <h4 style="font-family:'Orbitron', sans-serif;"><i class="fa-solid fa-snowflake" style="color:#7dd3fc"></i> DYOX MACRO SNOW GROWTH CHART</h4>
+                        <p style="font-size:0.85rem; color: var(--text-muted);">مؤشر الصعود الثلجي لتعزيز البنى الرقمية والالكترونية الشاملة لنمو القوى الاقتصادية</p>
+                    </div>
+                    <span style="font-family:'Orbitron', sans-serif; font-weight:700; color:var(--primary-color);">TOTAL SUPPLY: 75,000</span>
+                </div>
+                <div class="snowy-chart-container">
+                    <div class="chart-bar" style="height: 35%;" title="يناير"></div>
+                    <div class="chart-bar" style="height: 50%;" title="فبراير"></div>
+                    <div class="chart-bar" style="height: 45%;" title="مارس"></div>
+                    <div class="chart-bar" style="height: 65%;" title="أبريل"></div>
+                    <div class="chart-bar" style="height: 85%;" title="مايو"></div>
+                    <div class="chart-bar" style="height: 100%;" title="مؤشر الصعود الفعلي الحالي"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision" class="ecosystem-pillars">
+        <div class="container">
+            <h2 class="section-title">الشفافية واللامركزية المطلقة</h2>
+            <p class="section-subtitle">نلتزم في DYOXcoin بتقديم نموذج فريد من المنتجات المتعددة ذات الفائدة الحقيقية لدعم الاقتصاد العالمي الرقمي، بعيداً عن الاحتكار وبأعلى معايير الأمان التكنولوجي المتطور.</p>
+            
+            <div class="grid-3">
+                <div class="pillar-card">
+                    <div class="icon"><i class="fa-solid fa-eye"></i></div>
+                    <h3>شفافية كاملة على السلسلة</h3>
+                    <p>العقود والتوكيلات الذكية المبرمة تعمل بشكل آلي ومفتوح المصدر للجميع، مما يضمن تدفق البيانات المالي والتقني بوضوح تام يدعم الثقة المتبادلة.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="icon"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3>لامركزية تشغيلية مستدامة</h3>
+                    <p>إدارة وتوجيه مجمعات السيولة تقع في يد المجتمع والمشاريع الداعمة بشكل لامركزي بالكامل يحمي البنية التحتية من التدخلات الخارجية.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3>دمج قطاع الذكاء الاصطناعي</h3>
+                    <p>ندمج خوارزميات التوجيه الذكي والـ AI لتوفير منتجات متعددة تدعم كفاءة توزيع رأس المال للمشاريع الرقمية والالكترونية بشكل مستمر ودائم.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="developers" class="dev-pitch">
+        <div class="container">
+            <div class="pitch-wrapper">
+                <div style="text-align: right;">
+                    <div class="update-badge" style="color:var(--primary-color); border-color:rgba(255,255,255,0.05)">
+                        <i class="fa-solid fa-code-branch"></i> للمطورين وبناة الأنظمة الرقمية
+                    </div>
+                    <h2 style="font-size:2.3rem; font-weight:900; margin-bottom:20px;">شراكة استراتيجية لبناء مستقبل البنى التحتية المتطورة</h2>
+                    <p style="color:var(--text-muted); margin-bottom:25px; font-size:1.05rem;">ندعو جميع المطورين، المهندسين، وأصحاب المشاريع الدائمة والمفيدة للاندماج مع بيئة DYOXcoin. إن بروتوكولنا يدعم المشاريع ذات النمو الاقتصادي التكنولوجي المتطور، ونقدم توكيلات برمجية وعقوداً ذكية مخصصة قادرة على تسريع كفاءة منصاتكم وحصد تمويل مجتمعي عالمي جبار.</p>
+                    <a href="https://github.com/DYOXcoin?tab=repositories" target="_blank" class="btn btn-secondary">
+                        <i class="fa-brands fa-github"></i> تصفح وثائق المطورين على GitHub
+                    </a>
+                </div>
+                <div class="code-box">
+                    <span style="color:#64748b">// DYOX Protocol Smart Contract Template</span><br>
+                    <span style="color:#38bdf8">import</span> "@ton/tact-core";<br><br>
+                    <span style="color:#f43f5e">contract</span> <span style="color:#fbbf24">DyoxLiquidityEngine</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#38bdf8">const</span> <span style="color:#a7f3d0">maxSupply</span>: Int = <span style="color:#fbbf24">75000</span>;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#38bdf8">const</span> <span style="color:#a7f3d0">continuousDevelopment</span>: Bool = <span style="color:#38bdf8">true</span>;<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f43f5e">receive</span>(<span style="color:#a7f3d0">msg</span>: BoostEcosystem) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.deployGlobalInfrastructure();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.empowerAIAndCryptoGrowth();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hub" class="social-hub">
+        <div class="container">
+            <h2 class="section-title">منصة مركز مجتمع DYOX التفاعلي</h2>
+            <p class="section-subtitle">تصفح بمتعة وراحة نفسية تامة واجهة التواصل الاجتماعي المصغرة للمشروع. يمكنك اختبار نشر التغريدات والفيديوهات والتفاعل اللحظي.</p>
+            
+            <div class="hub-layout">
+                <div class="hub-sidebar">
+                    <div class="user-preview">
+                        <div class="avatar"><i class="fa-solid fa-user-gear"></i></div>
+                        <h4>عضو مجتمع DYOX</h4>
+                        <p style="color:var(--primary-color)">@dyox_holder</p>
+                    </div>
+                    <a href="https://t.me/dyoxcoin" target="_blank" class="btn btn-primary" style="width:100%; justify-content:center; margin-bottom:12px; font-size:0.9rem;">
+                        <i class="fa-brands fa-telegram"></i> انضم لقناة التيليجرام
+                    </a>
+                    <a href="https://x.com/DYOXcoin" target="_blank" class="btn btn-secondary" style="width:100%; justify-content:center; font-size:0.9rem;">
+                        <i class="fa-brands fa-x-twitter"></i> تابعنا على تويتر
+                    </a>
+                </div>
+
+                <div class="feed-container">
+                    <div class="publisher">
+                        <textarea id="hubTextArea" placeholder="انشر آخر تطورات DYOX أو فكرة لدعم النظام البيئي الرقمي والعالمي..."></textarea>
+                        <div class="publisher-actions">
+                            <span style="font-size:0.85rem; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-sparkles" style="color:var(--primary-color)"></i> نظام تفاعل لحظي مرن</span>
+                            <button class="btn btn-primary" onclick="publishPost()" style="padding: 8px 24px; font-size:0.9rem;">تغريد ونشر</button>
+                        </div>
+                    </div>
+
+                    <div id="dynamicFeed">
+                        <div class="post-card">
+                            <div class="post-header">
+                                <div class="avatar" style="background:var(--primary-gradient); color:#000;">D</div>
+                                <div style="text-align: right;">
+                                    <h5 style="color:#fff;">فريق تطوير DYOXcoin <i class="fa-solid fa-circle-check" style="color:var(--primary-color)"></i></h5>
+                                    <p style="font-size:0.8rem; color:var(--text-muted);">منذ دقائق • @dyox_admin</p>
+                                </div>
+                            </div>
+                            <div class="post-body">نعمل بجهد مستمر وتطوير دوري متسارع جداً لدعم وتوسيع البنية التحتية الالكترونية والرقمية العالمية. نرحب بالمشاريع المفيدة والدائمة الراغبة في زرع النمو الاقتصادي المستدام معنا والتمتع بالابتكار الحقيقي 💎🚀.</div>
+                            
+                            <div class="post-media">
+                                <video controls poster="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1200&q=80">
+                                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                                </video>
+                            </div>
+
+                            <div class="post-rating">
+                                <span style="font-size:0.9rem; color:var(--text-muted)">تقييم المستثمرين للمنشور والمنتج:</span>
+                                <div class="stars" onclick="handleStarRating(this)">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+
+                            <div class="post-actions">
+                                <button class="action-btn" onclick="handleLike(this)"><i class="fa-regular fa-thumbs-up"></i> <span class="l-count">482</span> إعجاب</button>
+                                <button class="action-btn" onclick="alert('تم نسخ رابط التغريدة لمشاركتها مع مجتمع الكريبتو!')"><i class="fa-solid fa-share-nodes"></i> مشاركة المنشور</button>
+                            </div>
+
+                            <div class="comments-box">
+                                <div class="comment-input">
+                                    <input type="text" placeholder="اكتب ردك أو تعليقك ودعمك للنظام البيئي واضغط Enter..." onkeypress="handleComment(event, this)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://t.me/dyoxcoin" target="_blank" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                <a href="https://x.com/DYOXcoin" target="_blank" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://github.com/DYOXcoin?tab=repositories" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+            <p style="color:var(--text-muted); font-size:0.95rem; font-weight:600; margin-bottom:10px;">DYOX Protocol — تمكين دائم واستجابة مستمرة لتقوية القوى العالمية والاقتصادية الرقمية</p>
+            <p style="color:rgba(255,255,255,0.2); font-size:0.8rem;">جميع الحقوق محفوظة © 2026 لمشروع DYOXcoin.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Array of professional, non-red dynamic colors for ultimate psychological relaxation
+        const dynamicThemes = [
+            { primary: '#7dd3fc', glow: 'rgba(224, 242, 254, 0.25)', gradient: 'linear-gradient(135deg, #e0f2fe, #7dd3fc)' }, // Ice Snowy Blue
+            { primary: '#34d399', glow: 'rgba(52, 211, 153, 0.2)', gradient: 'linear-gradient(135deg, #a7f3d0, #34d399)' },  // Digital Green
+            { primary: '#a78bfa', glow: 'rgba(167, 139, 250, 0.2)', gradient: 'linear-gradient(135deg, #ddd6fe, #a78bfa)' }, // Cyber Violet
+            { primary: '#fbbf24', glow: 'rgba(251, 191, 36, 0.15)', gradient: 'linear-gradient(135deg, #fef3c7, #fbbf24)' }, // Radiant Gold
+            { primary: '#22d3ee', glow: 'rgba(34, 211, 238, 0.2)', gradient: 'linear-gradient(135deg, #cffafe, #22d3ee)' }  // Deep Aqua
+        ];
+
+        let themeIndex = 0;
+        const root = document.documentElement;
+
+        // Perfect 3-Seconds Color Smooth Transformation Loop
+        setInterval(() => {
+            themeIndex = (themeIndex + 1) % dynamicThemes.length;
+            const current = dynamicThemes[themeIndex];
+            
+            root.style.setProperty('--primary-color', current.primary);
+            root.style.setProperty('--accent-glow', current.glow);
+            root.style.setProperty('--primary-gradient', current.gradient);
+        }, 3000);
+
+        // Handle Sandbox Like
+        function handleLike(btn) {
+            btn.classList.toggle('liked');
+            let countSpan = btn.querySelector('.l-count');
+            let current = parseInt(countSpan.innerText);
+            if(btn.classList.contains('liked')) {
+                countSpan.innerText = current + 1;
+                btn.querySelector('i').className = "fa-solid fa-thumbs-up";
+            } else {
+                countSpan.innerText = current - 1;
+                btn.querySelector('i').className = "fa-regular fa-thumbs-up";
+            }
         }
 
-        .post-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
+        // Handle Sandbox Star Interactive Rating
+        function handleStarRating(container) {
+            const stars = container.querySelectorAll('i');
+            stars.forEach((star, index) => {
+                star.onclick = function() {
+                    stars.forEach((s, idx) => {
+                        if(idx <= index) {
+                            s.className = "fa-solid fa-star";
+                        } else {
+                            s.className = "fa-regular fa-star";
+                        }
+                    });
+                }
+            });
         }
 
-        .post-header .avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: 700;
+        // Handle Sandbox Dynamic Comment Injection
+        function handleComment(e, input) {
+            if(e.key === 'Enter' && input.value.trim() !== '') {
+                const commentText = input.value.trim();
+                const parentBox = input.parentNode;
+                
+                const commentNode = document.createElement('div');
+                commentNode.style.cssText = "background:rgba(255,255,255,0.02); padding:10px 15px; border-radius:8px; margin-bottom:10px; font-size:0.9rem; border-right:3px solid var(--primary-color); text-align:right;";
+                commentNode.innerHTML = `<strong>أنت (داعم المشروع):</strong> ${commentText}`;
+                
+                parentBox.parentNode.insertBefore(commentNode, parentBox);
+                input.value = '';
+            }
         }
 
-        .post-author-info h5 {
-            font-size: 1.05rem;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        // Publish New Post into the Sandbox Feed
+        function publishPost() {
+            const txt = document.getElementById('hubTextArea').value.trim();
+            if(txt === '') {
+                alert('الرجاء كتابة فكرة أو نص لنشرها في مجتمع DYOX التفاعلي!');
+                return;
+            }
+
+            const feed = document.getElementById('dynamicFeed');
+            const post = document.createElement('div');
+            post.className = 'post-card';
+            post.style.marginTop = '25px';
+
+            post.innerHTML = `
+                <div class="post-header">
+                    <div class="avatar" style="background:var(--primary-gradient); color:#000;"><i class="fa-solid fa-user"></i></div>
+                    <div style="text-align: right;">
+                        <h5 style="color:#fff;">مستثمر DYOX العالمي <span style="font-size:0.75rem; background:rgba(255,255,255,0.05); padding:2px 6px; border-radius:4px; color:var(--primary-color)">عضو مساهم</span></h5>
+                        <p style="font-size:0.8rem; color:var(--text-muted);">الآن • @dyox_investor</p>
+                    </div>
+                </div>
+                <div class="post-body">${txt}</div>
+                <div class="post-rating">
+                    <span style="font-size:0.9rem; color:var(--text-muted)">تقييم المنشور:</span>
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <button class="action-btn" onclick="handleLike(this)"><i class="fa-regular fa-thumbs-up"></i> <span class="l-count">1</span> إعجاب</button>
+                    <button class="action-btn" onclick="alert('تمت مشاركة منشورك بنجاح!')"><i class="fa-solid fa-share-nodes"></i> مشاركة</button>
+                </div>
+                <div class="comments-box">
+                    <div class="comment-input">
+                        <input type="text" placeholder="اكتب ردك واضغط Enter..." onkeypress="handleComment(event, this)">
+                    </div>
+                </div>
+            `;
+
+            feed.insertBefore(post, feed.firstChild);
+            handleStarRating(post.querySelector('.stars'));
+            document.getElementById('hubTextArea').value = '';
         }
-
-        .post-author-info h5 .badge {
-            background: rgba(0, 136, 204, 0.2);
-            color: var(--ton-blue);
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        .post-author-info p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .post-body {
-            font-size: 1.05rem;
-            margin-bottom: 15px;
-            white-space: pre-wrap;
-        }
-
-        .post-media {
-            margin-bottom: 15px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            background: var(--bg-dark);
-            max-height: 450px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .post-media img, .post-media video {
-            width: 100%;
-            height: auto;
-            max-height: 450px;
-            object-fit: cover;
-        }
-
-        /* Post Rating & Actions */
-        .post-rating-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .rating-stars {
-            display: flex;
-            gap: 5px;
-            color: #ffc107;
-            cursor: pointer;
-        }
-
-        .rating-stars i {
-            transition: transform 0.1s;
-        }
-
-        .rating-stars i:hover {
-            transform: scale(1.2);
-        }
-
-        .rating-avg {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .post-actions {
-            display: flex;
-            justify-content: space-around;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-bottom: 15px;
-        }
-
-        .action-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .action-btn:hover { color: var(--primary); }
-        .action-btn.liked { color: #e0245e; }
-        .action-btn.shared { color: var(--ton-blue); }
-
-        /* Comments Section */
-        .comments-section {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .comment-box {
-            display: flex;
-            gap: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .comment-box .avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #4f5d73;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            color: #fff;
-            flex-shrink: 0;
-        }
-
-        .comment-content h6 {
-            color: #fff;
-            font-size: 0.9rem;
-            margin-bottom: 2px;
-        }
-
-        .comment-content p {
-            font-size: 0.9rem;
-            color: var(--text-main);
-        }
-
-        .comment-input-wrapper {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .comment-input-wrapper input {
-            width: 100%;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 10px 15px;
-            color: #fff;
-            outline: none;
-        }
-
-        .comment-input-wrapper input:focus {
-            border-color: var(--primary);
-        }
-
-        /* Roadmap Timeline */
-        .roadmap {
-            padding: 100px 0;
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 2px;
-            background: var(--border-color);
-            top: 0;
-            bottom: 0;
-            right: 50%;
-            margin-right: -1px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            background: transparent;
-            width: 50%;
-        }
-
-        .timeline-item.right {
-            left: 0;
-            right: auto;
-            text-align: left;
-            direction: ltr;
-        }
-
-        .timeline-item.left {
-            right: 0;
-            left: auto;
-            text-align: right;
-            direction: rtl;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            right: 50%;
-            background-color: var(--bg-dark);
-            border: 4px solid var(--primary);
-            to
+    </script>
+</body>
+</html>
