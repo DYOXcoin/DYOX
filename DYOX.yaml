@@ -1,0 +1,15 @@
+name: "DYOX"
+symbol: "DYOX"
+description: "DYOX is a decentralized financial asset protocol on the TON blockchain, engineered with an ultra-scarce algorithmic hard-cap and intelligent core covenants framework."
+decimals: 9
+contract_address: "EQDKf5t_2G1b0WKIdru8UPB9k5KQgomS7kuOHWPF-n8VgDam"
+total_supply: "75000"
+supply_type: "Fixed / Non-mintable"
+image: "https://dyoxcoin.github.io/DYOX/images/logo.png"
+websites:
+ * "https://dyoxcoin.github.io/DYOX/"
+   social_links:
+ * "https://x.com/DYOXcoin"
+   support:
+   email: "dyox1@proton.me"
+   
