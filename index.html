@@ -14,10 +14,8 @@
         :root {
             --bg-deep: #07090e;
             --bg-card: #121824;
-            --bg-card-hover: #1b2436;
             --accent-green: #00ff88;
             --accent-cyan: #00e5ff;
-            --accent-pink: #ff2a6d;
             --text-main: #ffffff;
             --text-muted: #8b9bb4;
             --border-glow: rgba(0, 255, 136, 0.2);
@@ -47,7 +45,7 @@
             padding: 16px;
         }
 
-        /* رأس الصفحة الاحترافي */
+        /* رأس الصفحة */
         .header {
             display: flex;
             justify-content: space-between;
@@ -76,29 +74,24 @@
             font-weight: 800;
             color: #000;
             font-size: 18px;
-            box-shadow: 0 0 15px rgba(0,229,255,0.4);
         }
 
-        #ton-connect-btn {
-            transform: scale(0.9);
-        }
-
-        /* شاشة العرض والتبديل (Tabs Content) */
+        /* إخفاء الصفحات افتراضياً وعرض النشطة فقط */
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease-in-out;
         }
 
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.2s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        /* بطاقة جهاز التعدين المتحركة الفائقة */
+        /* بطاقة جهاز التعدين */
         .gpu-showcase {
             background: radial-gradient(circle at center, #1e293b 0%, var(--bg-card) 100%);
             border-radius: 24px;
@@ -106,48 +99,25 @@
             text-align: center;
             position: relative;
             border: 1px solid var(--border-glow);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            overflow: hidden;
             margin-bottom: 20px;
         }
 
-        .gpu-badge {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--accent-green);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            border: 1px solid rgba(0,255,136,0.3);
-        }
-
-        /* تصميم كارت التعدين المتحرك بتقنية 3D بصرية */
         .animated-gpu-card {
             width: 100%;
-            height: 160px;
+            height: 150px;
             margin: 20px 0;
-            background: linear-gradient(135deg, #0f172a, #1e293b, #0f172a);
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             border: 2px solid rgba(0, 229, 255, 0.3);
-            box-shadow: inset 0 0 20px rgba(0,229,255,0.2), 0 10px 20px rgba(0,0,0,0.5);
-            animation: floatGpu 4s ease-in-out infinite;
-        }
-
-        @keyframes floatGpu {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-6px) rotate(0.5deg); }
         }
 
         .fan-blade {
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border: 3px dashed var(--accent-cyan);
             border-radius: 50%;
             position: absolute;
@@ -155,7 +125,6 @@
         }
 
         @keyframes spinFast {
-            0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
@@ -164,7 +133,6 @@
             letter-spacing: 2px;
             color: var(--accent-cyan);
             font-size: 15px;
-            text-shadow: 0 0 10px rgba(0,229,255,0.5);
         }
 
         /* لوحة الأرباح */
@@ -176,14 +144,12 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .balance-num {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
             color: var(--accent-green);
-            text-shadow: 0 0 15px rgba(0,255,136,0.3);
         }
 
         .collect-action-btn {
@@ -194,15 +160,12 @@
             border-radius: 12px;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,255,136,0.3);
-            transition: 0.2s;
         }
-        .collect-action-btn:active { transform: scale(0.95); }
 
-        /* شبكة المتجر (Marketplace) بالأجهزة التدريجية من الأقل للأعلى */
+        /* المتجر */
         .market-grid {
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 12px;
         }
 
@@ -214,12 +177,7 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid rgba(255,255,255,0.04);
-            transition: 0.2s;
         }
-        .market-item:hover { border-color: var(--accent-cyan); }
-
-        .item-details h4 { font-size: 14px; margin-bottom: 4px; }
-        .item-details p { font-size: 12px; color: var(--text-muted); }
 
         .buy-btn {
             background: linear-gradient(135deg, var(--accent-cyan), #0088cc);
@@ -231,7 +189,7 @@
             cursor: pointer;
         }
 
-        /* شريط التنقل السفلي الاحترافي */
+        /* شريط التنقل السفلي */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -239,8 +197,7 @@
             transform: translateX(-50%);
             width: 100%;
             max-width: 480px;
-            background: rgba(18, 24, 36, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(18, 24, 36, 0.98);
             border-top: 1px solid rgba(255,255,255,0.08);
             display: flex;
             justify-content: space-around;
@@ -258,30 +215,16 @@
             font-size: 11px;
             gap: 4px;
             cursor: pointer;
-            transition: 0.2s;
         }
 
         .nav-item.active {
             color: var(--accent-cyan);
-            text-shadow: 0 0 10px rgba(0,229,255,0.4);
         }
 
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
 
-        /* تصنيفات المتصدرين (Leaderboard) */
-        .leaderboard-row {
-            background: var(--bg-card);
-            padding: 12px 16px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            border: 1px solid rgba(255,255,255,0.03);
-        }
-
-        /* المهام (Tasks) */
-        .task-card {
+        /* القوائم الأخرى */
+        .leaderboard-row, .task-card {
             background: var(--bg-card);
             padding: 14px;
             border-radius: 14px;
@@ -289,8 +232,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
-            border: 1px solid rgba(255,255,255,0.04);
         }
+
         .task-btn {
             background: rgba(0,255,136,0.1);
             color: var(--accent-green);
@@ -305,7 +248,7 @@
 <body>
 
     <div class="app-container">
-        <!-- رأس التطبيق -->
+        <!-- الرأس -->
         <div class="header">
             <div class="user-profile">
                 <div class="avatar-box">V</div>
@@ -314,86 +257,59 @@
                     <span style="font-size: 11px; color: var(--text-muted);">@VaultON_App</span>
                 </div>
             </div>
-            <!-- زر ربط المحفظة الرسمي عبر TonConnect -->
             <div id="ton-connect-btn"></div>
         </div>
 
-        <!-- 1. صفحة التعدين الرئيسية (Mining Tab) -->
+        <!-- 1. صفحة التعدين -->
         <div id="tab-mining" class="tab-content active">
             <div class="gpu-showcase">
-                <div class="gpu-badge">⚡ Ultra Stable Node</div>
+                <div style="position: absolute; top: 12px; right: 12px; background: rgba(0,255,136,0.1); color: var(--accent-green); padding: 4px 10px; border-radius: 20px; font-size: 11px;">⚡ Active Node</div>
                 <div class="animated-gpu-card">
                     <div class="fan-blade" style="left: 20px;"></div>
                     <div class="fan-blade" style="right: 20px;"></div>
                     <span class="gpu-title-tag">VAULT-X 9000</span>
                 </div>
-                <p style="font-size: 12px; color: var(--text-muted);">Active Cloud Hashrate: <b style="color: var(--accent-green);">48.50 TH/s</b></p>
+                <p style="font-size: 12px; color: var(--text-muted);">Hashrate: <b style="color: var(--accent-green);">48.50 TH/s</b></p>
             </div>
 
             <div class="earnings-panel">
                 <div>
-                    <div class="balance-num" id="liveBalance">0.000000</div>
-                    <div style="font-size: 11px; color: var(--text-muted);">Real-time Asset Yield</div>
+                    <div class="balance-num" id="liveBalance">0.001240</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Yield Balance</div>
                 </div>
-                <button class="collect-action-btn" onclick="collectAllYield()">Collect All</button>
-            </div>
-
-            <div style="background: var(--bg-card); border-radius: 16px; padding: 14px; border: 1px solid rgba(255,255,255,0.04);">
-                <h4 style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">Active Infrastructure</h4>
-                <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.03);">
-                    <span>Radeon RX 550 (Standard)</span>
-                    <span style="color: var(--accent-cyan);">3 Units | 12.0 TH/s</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0;">
-                    <span>NVIDIA RTX 5090 (Elite)</span>
-                    <span style="color: var(--accent-green);">1 Unit | 36.5 TH/s</span>
-                </div>
+                <button class="collect-action-btn" onclick="collectAllYield()">Collect</button>
             </div>
         </div>
 
-        <!-- 2. صفحة المتجر (Market / Shop Tab - من الأقل إلى الأعلى) -->
+        <!-- 2. صفحة المتجر -->
         <div id="tab-market" class="tab-content">
             <h3 style="margin-bottom: 14px; font-size: 16px;">Mining Rig Market</h3>
             <div class="market-grid">
                 <div class="market-item">
-                    <div class="item-details">
+                    <div>
                         <h4>Radeon RX 550</h4>
-                        <p>4.00 TH/s • 180 Days</p>
+                        <p style="font-size: 12px; color: var(--text-muted);">4.00 TH/s</p>
                     </div>
                     <button class="buy-btn" onclick="buyRig('Radeon RX 550', 0.15)">0.15 TON</button>
                 </div>
                 <div class="market-item">
-                    <div class="item-details">
+                    <div>
                         <h4>NVIDIA 1080 Ti</h4>
-                        <p>10.00 TH/s • 180 Days</p>
+                        <p style="font-size: 12px; color: var(--text-muted);">10.00 TH/s</p>
                     </div>
                     <button class="buy-btn" onclick="buyRig('NVIDIA 1080 Ti', 0.38)">0.38 TON</button>
                 </div>
                 <div class="market-item">
-                    <div class="item-details">
-                        <h4>NVIDIA 2080 Ti</h4>
-                        <p>24.00 TH/s • 180 Days</p>
-                    </div>
-                    <button class="buy-btn" onclick="buyRig('NVIDIA 2080 Ti', 0.95)">0.95 TON</button>
-                </div>
-                <div class="market-item">
-                    <div class="item-details">
-                        <h4>Antminer S21 (Pro)</h4>
-                        <p>231.0 TH/s • 180 Days</p>
-                    </div>
-                    <button class="buy-btn" onclick="buyRig('Antminer S21', 4.50)">4.50 TON</button>
-                </div>
-                <div class="market-item">
-                    <div class="item-details">
-                        <h4>NVIDIA RTX 5090 (Ultimate)</h4>
-                        <p>434.0 TH/s • 180 Days</p>
+                    <div>
+                        <h4>NVIDIA RTX 5090</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">434.0 TH/s</p>
                     </div>
                     <button class="buy-btn" onclick="buyRig('NVIDIA 5090', 8.90)">8.90 TON</button>
                 </div>
             </div>
         </div>
 
-        <!-- 3. لوحة المتصدرين (Leaderboard Tab) -->
+        <!-- 3. لوحة المتصدرين -->
         <div id="tab-top" class="tab-content">
             <h3 style="margin-bottom: 14px; font-size: 16px;">Top Hashrate Power</h3>
             <div class="leaderboard-row">
@@ -404,54 +320,39 @@
                 <span>🥈 2. @Coffee13</span>
                 <span style="color: var(--accent-green); font-weight: bold;">10,281.3M TH/s</span>
             </div>
-            <div class="leaderboard-row">
-                <span>🥉 3. @lihodey80</span>
-                <span style="color: var(--accent-green); font-weight: bold;">6,117.8M TH/s</span>
-            </div>
-            <div class="leaderboard-row">
-                <span>4. @makaronk..</span>
-                <span style="color: var(--accent-green); font-weight: bold;">4,666.5M TH/s</span>
-            </div>
         </div>
 
-        <!-- 4. المهام (Tasks Tab) -->
+        <!-- 4. المهام -->
         <div id="tab-tasks" class="tab-content">
             <h3 style="margin-bottom: 14px; font-size: 16px;">Ecosystem Tasks</h3>
             <div class="task-card">
                 <div>
-                    <h4>Join VaultON Channel</h4>
+                    <h4>Join Telegram Channel</h4>
                     <p style="font-size: 12px; color: var(--text-muted);">Reward: +50,000 Points</p>
                 </div>
                 <button class="task-btn" onclick="completeTask(this)">Start</button>
             </div>
-            <div class="task-card">
-                <div>
-                    <h4>Invite 3 Friends</h4>
-                    <p style="font-size: 12px; color: var(--text-muted);">Reward: +150,000 Points</p>
-                </div>
-                <button class="task-btn" onclick="completeTask(this)">Start</button>
-            </div>
         </div>
 
-        <!-- 5. الإعدادات والدعوات (Settings Tab) -->
+        <!-- 5. الإعدادات -->
         <div id="tab-settings" class="tab-content">
-            <h3 style="margin-bottom: 14px; font-size: 16px;">Account & Friends</h3>
-            <div style="background: var(--bg-card); padding: 16px; border-radius: 16px; margin-bottom: 14px;">
+            <h3 style="margin-bottom: 14px; font-size: 16px;">Settings & Invite</h3>
+            <div style="background: var(--bg-card); padding: 16px; border-radius: 14px;">
                 <h4>Invite Friends</h4>
-                <p style="font-size: 12px; color: var(--text-muted); margin: 6px 0 12px 0;">Earn 1,000 points + percentage from friends purchases!</p>
-                <button onclick="inviteFriend()" style="width: 100%; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green)); color: #000; border: none; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer;">Copy Referral Link</button>
+                <p style="font-size: 12px; color: var(--text-muted); margin: 6px 0 12px 0;">Earn rewards for each referral.</p>
+                <button onclick="inviteFriend()" style="width: 100%; background: var(--accent-cyan); color: #000; border: none; padding: 10px; border-radius: 10px; font-weight: 800; cursor: pointer;">Copy Link</button>
             </div>
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي -->
+    <!-- شريط التنقل -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="switchTab('mining', this)">
             <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
             Mining
         </button>
         <button class="nav-item" onclick="switchTab('market', this)">
-            <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.60 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.60 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1z"/></svg>
             Market
         </button>
         <button class="nav-item" onclick="switchTab('top', this)">
@@ -463,44 +364,71 @@
             Tasks
         </button>
         <button class="nav-item" onclick="switchTab('settings', this)">
-            <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58z"/></svg>
             Settings
         </button>
     </nav>
 
-    <!-- سكربتات التشغيل البرمجية المتكاملة -->
+    <!-- الأكواد البرمجية التفاعلية -->
     <script>
-        // إعداد تيليجرام ويب أب
+        // تفعيل Telegram Web App
         const tg = window.Telegram.WebApp;
-        if(tg) {
-            tg.expand();
-            if(tg.initDataUnsafe && tg.initDataUnsafe.user) {
-                document.getElementById('userName').innerText = tg.initDataUnsafe.user.first_name || "Vault Operator";
-            }
-        }
+        if(tg) { tg.expand(); }
 
-        // إعداد ربط محفظة TON Connect الحقيقي
+        // تفعيل TonConnect للمحفظة
         const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test-manifest.json',
             buttonRootId: 'ton-connect-btn'
         });
 
-        // تنقل الصفحات بسلاسة
+        // دالة التنقل بين الصفحات بشكل مضمون
         function switchTab(tabId, btnElement) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById('tab-' + tabId).classList.add('active');
-            btnElement.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            const targetTab = document.getElementById('tab-' + tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+            if (btnElement) {
+                btnElement.classList.add('active');
+            }
         }
 
-        // محاكاة التعدين الحي واللحظي
+        // التعدين اللحظي وتحديث الأرباح
         let userBalance = 0.001240;
         setInterval(() => {
             userBalance += 0.000015;
-            document.getElementById('liveBalance').innerText = userBalance.toFixed(6);
+            const balanceEl = document.getElementById('liveBalance');
+            if(balanceEl) {
+                balanceEl.innerText = userBalance.toFixed(6);
+            }
         }, 2000);
 
         function collectAllYield() {
-            if(userBalance > 0.001) {
-   
+            alert("تم جمع الأرباح بنجاح!");
+            userBalance = 0.000000;
+            document.getElementById('liveBalance').innerText = "0.000000";
+        }
+
+        function buyRig(rigName, price) {
+            alert("جاري إتمام شراء " + rigName + " بقيمة " + price + " TON عبر المحفظة.");
+        }
+
+        function completeTask(btn) {
+            btn.innerText = "Done ✓";
+            btn.style.background = "rgba(0,255,136,0.3)";
+            alert("تم إنجاز المهمة بنجاح!");
+        }
+
+        function inviteFriend() {
+            navigator.clipboard.writeText("https://t.me/VaultON_Bot?start=ref");
+            alert("تم نسخ رابط الدعوة الخاص بك!");
+        }
+    </script>
+</body>
+</html>
