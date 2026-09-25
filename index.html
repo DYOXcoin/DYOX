@@ -1,872 +1,290 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0,
-             maximum-scale=1.0, user-scalable=no"
->
-
-<meta name="theme-color" content="#070a12">
-
-<title>Web3 Rewards</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#080b14">
+<title>DYOX Network - Ecosystem</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <style>
-
 :root {
-    --bg: #060810;
-    --bg2: #0b1020;
-    --card: rgba(18, 24, 42, .72);
-    --card2: rgba(255,255,255,.045);
-    --border: rgba(255,255,255,.08);
-
+    --bg: #070a14;
+    --card: rgba(18, 24, 42, 0.75);
+    --border: rgba(255, 255, 255, 0.08);
     --text: #ffffff;
-    --muted: #8792aa;
-
-    --primary: #6c7cff;
-    --primary2: #8b5cf6;
-
-    --success: #2bd88f;
-    --warning: #ffb84d;
-    --danger: #ff5d73;
-
-    --radius: 22px;
-
-    --shadow:
-        0 20px 70px rgba(0,0,0,.35);
+    --muted: #8a96b4;
+    --primary: #4f46e5;
+    --primary-glow: rgba(79, 70, 229, 0.35);
+    --success: #10b981;
+    --warning: #f59e0b;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-    min-height: 100vh;
-
-    font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
-
+    background: radial-gradient(circle at 50% -20%, rgba(79, 70, 229, 0.25), transparent 50%), var(--bg);
     color: var(--text);
-
-    background:
-        radial-gradient(
-            circle at 15% -10%,
-            rgba(108,124,255,.28),
-            transparent 35%
-        ),
-
-        radial-gradient(
-            circle at 100% 10%,
-            rgba(139,92,246,.20),
-            transparent 30%
-        ),
-
-        linear-gradient(
-            180deg,
-            #070a12,
-            #05060b
-        );
-
+    min-height: 100vh;
     overflow-x: hidden;
 }
 
-button,
-input,
-select {
-    font: inherit;
-}
-
-button {
-    border: 0;
-    cursor: pointer;
-}
-
-button:active {
-    transform: scale(.97);
-}
-
 .app {
-    width: min(100%, 560px);
+    width: min(100%, 480px);
     margin: auto;
-
-    padding:
-        max(18px, env(safe-area-inset-top))
-        16px
-        calc(105px + env(safe-area-inset-bottom));
+    padding: 16px 16px 110px 16px;
 }
 
-/* =========================
-   HEADER
-========================= */
-
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     margin-bottom: 20px;
 }
 
-.brand {
+.user-box {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
-.logo {
-    width: 48px;
-    height: 48px;
-
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
     display: grid;
     place-items: center;
-
-    border-radius: 16px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary),
-            var(--primary2)
-        );
-
-    box-shadow:
-        0 12px 35px rgba(108,124,255,.30);
-
-    font-weight: 900;
-}
-
-.brand-title {
-    font-size: 17px;
     font-weight: 800;
-}
-
-.brand-subtitle {
-    margin-top: 3px;
-
-    color: var(--muted);
-    font-size: 11px;
-}
-
-.header-actions {
-    display: flex;
-    gap: 8px;
-}
-
-.icon-button {
-    width: 42px;
-    height: 42px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 14px;
-
-    background:
-        rgba(255,255,255,.055);
-
-    color: white;
-
-    border:
-        1px solid var(--border);
-}
-
-/* =========================
-   HERO BALANCE
-========================= */
-
-.hero {
-    position: relative;
-    overflow: hidden;
-
-    padding: 23px;
-
-    border-radius: 28px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(93,110,255,.98),
-            rgba(115,72,220,.96)
-        );
-
-    box-shadow:
-        0 25px 80px rgba(80,75,220,.25);
-
-    margin-bottom: 14px;
-}
-
-.hero::before {
-    content: "";
-
-    position: absolute;
-
-    width: 240px;
-    height: 240px;
-
-    border-radius: 50%;
-
-    right: -100px;
-    top: -120px;
-
-    background:
-        rgba(255,255,255,.10);
-}
-
-.hero::after {
-    content: "";
-
-    position: absolute;
-
-    width: 150px;
-    height: 150px;
-
-    border-radius: 50%;
-
-    left: -90px;
-    bottom: -90px;
-
-    background:
-        rgba(255,255,255,.06);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
-
-.hero-label {
-    color:
-        rgba(255,255,255,.72);
-
-    font-size: 12px;
-}
-
-.hero-balance {
-    margin-top: 7px;
-
-    font-size: 38px;
-    font-weight: 900;
-
-    letter-spacing: -1px;
-}
-
-.hero-token {
-    margin-top: 3px;
-
-    color:
-        rgba(255,255,255,.75);
-
-    font-size: 12px;
-}
-
-.hero-value {
-    margin-top: 8px;
-
-    color:
-        rgba(255,255,255,.72);
-
-    font-size: 12px;
-}
-
-.hero-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    gap: 9px;
-
-    margin-top: 20px;
-}
-
-.hero-actions button {
-    padding: 13px;
-
-    border-radius: 14px;
-
-    font-weight: 800;
-}
-
-.btn-light {
-    background: white;
-    color: #5258d9;
-}
-
-.btn-glass {
-    background:
-        rgba(255,255,255,.14);
-
-    color: white;
-
-    border:
-        1px solid rgba(255,255,255,.14);
-}
-
-/* =========================
-   STATS
-========================= */
-
-.stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 9px;
-
-    margin-bottom: 24px;
-}
-
-.stat {
-    padding: 15px 11px;
-
-    border-radius: 18px;
-
-    background:
-        var(--card2);
-
-    border:
-        1px solid var(--border);
-
-    backdrop-filter:
-        blur(15px);
-}
-
-.stat-icon {
     font-size: 18px;
+    box-shadow: 0 8px 20px var(--primary-glow);
 }
 
-.stat-value {
-    margin-top: 8px;
-
+.user-info h3 {
     font-size: 15px;
-    font-weight: 850;
+    font-weight: 700;
+}
+
+.user-info span {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(79, 70, 229, 0.15);
+    border: 1px solid rgba(79, 70, 229, 0.3);
+    font-size: 11px;
+    font-weight: 600;
+    color: #818cf8;
+}
+
+/* Main Card / Balance */
+.hero-card {
+    position: relative;
+    padding: 24px;
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(30, 39, 73, 0.6), rgba(15, 20, 36, 0.8));
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.hero-title {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.balance-amount {
+    font-size: 36px;
+    font-weight: 900;
+    margin: 8px 0;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #fff, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.balance-usd {
+    font-size: 13px;
+    color: var(--success);
+    font-weight: 600;
+}
+
+/* Tap Area (Mining Game) */
+.tap-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px 0;
+}
+
+.tap-btn {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border: 4px solid rgba(255,255,255,0.15);
+    color: white;
+    font-size: 28px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 0 40px rgba(79, 70, 229, 0.5);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    display: grid;
+    place-items: center;
+    user-select: none;
+}
+
+.tap-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 0 20px rgba(79, 70, 229, 0.8);
+}
+
+.tap-hint {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* Grid Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat-box {
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
 }
 
 .stat-label {
-    margin-top: 3px;
-
+    font-size: 11px;
     color: var(--muted);
-
-    font-size: 10px;
 }
 
-/* =========================
-   SECTION
-========================= */
-
-.section {
-    margin-top: 24px;
+.stat-val {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 4px;
 }
 
-.section-head {
+/* Sections & Lists */
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    margin-bottom: 12px;
 }
 
-.section-title {
-    font-size: 17px;
-    font-weight: 850;
-}
-
-.section-link {
-    color: #8292ff;
-
-    background: transparent;
-
-    font-size: 11px;
-}
-
-/* =========================
-   TOKEN CARDS
-========================= */
-
-.token-card {
+.card-item {
     display: flex;
     align-items: center;
-
-    gap: 12px;
-
+    justify-content: space-between;
     padding: 14px;
-
-    border-radius: 18px;
-
-    background:
-        var(--card);
-
-    border:
-        1px solid var(--border);
-
-    margin-bottom: 9px;
-
-    backdrop-filter:
-        blur(18px);
+    border-radius: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
 }
 
-.token-logo {
-    width: 43px;
-    height: 43px;
-
-    border-radius: 14px;
-
-    display: grid;
-    place-items: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #27346a,
-            #17203d
-        );
-
-    font-weight: 900;
-}
-
-.token-info {
-    flex: 1;
-}
-
-.token-name {
-    font-size: 14px;
-    font-weight: 800;
-}
-
-.token-symbol {
-    margin-top: 3px;
-
-    color: var(--muted);
-
-    font-size: 10px;
-}
-
-.token-balance {
-    text-align: right;
-}
-
-.token-amount {
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.token-usd {
-    margin-top: 3px;
-
-    color: var(--muted);
-
-    font-size: 10px;
-}
-
-/* =========================
-   TASKS
-========================= */
-
-.task-card {
+.item-left {
     display: flex;
     align-items: center;
-
     gap: 12px;
-
-    padding: 14px;
-
-    margin-bottom: 9px;
-
-    border-radius: 18px;
-
-    background:
-        var(--card);
-
-    border:
-        1px solid var(--border);
-
-    backdrop-filter:
-        blur(15px);
 }
 
-.task-icon {
-    width: 44px;
-    height: 44px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 14px;
-
-    background:
-        rgba(108,124,255,.12);
-
-    font-size: 19px;
-}
-
-.task-info {
-    flex: 1;
-}
-
-.task-title {
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.task-description {
-    margin-top: 4px;
-
-    color: var(--muted);
-
-    font-size: 10px;
-}
-
-.task-reward {
-    margin-top: 5px;
-
-    color: var(--success);
-
-    font-size: 10px;
-    font-weight: 800;
-}
-
-.task-button {
-    min-width: 67px;
-
-    padding: 9px 10px;
-
-    border-radius: 11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary),
-            var(--primary2)
-        );
-
-    color: white;
-
-    font-size: 10px;
-    font-weight: 800;
-}
-
-.task-button.done {
-    background:
-        rgba(43,216,143,.10);
-
-    color:
-        var(--success);
-}
-
-/* =========================
-   REFERRAL
-========================= */
-
-.referral-card {
-    position: relative;
-
-    overflow: hidden;
-
-    padding: 20px;
-
-    border-radius: 22px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(32,42,76,.9),
-            rgba(16,21,38,.9)
-        );
-
-    border:
-        1px solid var(--border);
-}
-
-.referral-title {
-    font-size: 16px;
-    font-weight: 850;
-}
-
-.referral-text {
-    margin-top: 7px;
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    line-height: 1.6;
-}
-
-.referral-box {
-    display: flex;
-
-    gap: 7px;
-
-    margin-top: 16px;
-}
-
-.referral-input {
-    min-width: 0;
-    flex: 1;
-
-    padding: 12px;
-
+.item-icon {
+    width: 40px;
+    height: 40px;
     border-radius: 12px;
-
-    border:
-        1px solid var(--border);
-
-    background:
-        rgba(0,0,0,.25);
-
-    color: white;
-
-    font-size: 10px;
-}
-
-.copy-button {
-    padding: 12px 14px;
-
-    border-radius: 12px;
-
-    background:
-        var(--primary);
-
-    color: white;
-
-    font-weight: 800;
-
-    font-size: 10px;
-}
-
-/* =========================
-   TRANSACTIONS
-========================= */
-
-.transaction {
-    display: flex;
-    align-items: center;
-
-    gap: 12px;
-
-    padding: 14px;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.05);
-}
-
-.transaction:last-child {
-    border-bottom: 0;
-}
-
-.transaction-icon {
-    width: 39px;
-    height: 39px;
-
+    background: rgba(255,255,255,0.05);
     display: grid;
     place-items: center;
-
-    border-radius: 13px;
-
-    background:
-        rgba(255,255,255,.05);
+    font-size: 18px;
 }
 
-.transaction-info {
-    flex: 1;
+.item-title {
+    font-size: 13px;
+    font-weight: 700;
 }
 
-.transaction-title {
-    font-size: 12px;
+.item-desc {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+.action-btn {
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-size: 11px;
     font-weight: 750;
+    cursor: pointer;
+    border: none;
 }
 
-.transaction-date {
-    margin-top: 4px;
-
-    color: var(--muted);
-
-    font-size: 9px;
-}
-
-.transaction-amount {
-    font-size: 12px;
-    font-weight: 850;
-}
-
-.amount-positive {
+.action-btn.done {
+    background: rgba(16, 185, 129, 0.15);
     color: var(--success);
 }
 
-.amount-negative {
-    color: var(--danger);
-}
-
-/* =========================
-   BOTTOM NAV
-========================= */
-
-.bottom-nav {
+/* Bottom Navigation */
+.nav-bar {
     position: fixed;
-    z-index: 100;
-    bottom: max(12px, env(safe-area-inset-bottom));
+    bottom: 12px;
     left: 50%;
     transform: translateX(-50%);
-    width: min(calc(100% - 22px), 540px);
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 8px;
-    border-radius: 22px;
-    background: rgba(10,14,24,.92);
+    width: min(calc(100% - 24px), 460px);
+    background: rgba(11, 15, 28, 0.9);
     border: 1px solid var(--border);
     backdrop-filter: blur(25px);
-    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 8px;
+    z-index: 100;
 }
 
 .nav-item {
-    padding: 8px 4px;
-    border-radius: 15px;
     background: transparent;
-    color: #69748b;
-    font-size: 9px;
+    border: none;
+    color: var(--muted);
+    font-size: 10px;
+    padding: 8px 0;
     text-align: center;
+    cursor: pointer;
+    border-radius: 14px;
+    transition: 0.2s;
 }
 
-.nav-icon {
+.nav-item span {
     display: block;
-    margin-bottom: 3px;
-    font-size: 17px;
+    font-size: 16px;
+    margin-bottom: 2px;
 }
 
 .nav-item.active {
-    color: #91a0ff;
-    background: rgba(108,124,255,.10);
-}
-
-/* =========================
-   MODAL
-========================= */
-
-.modal {
-    position: fixed;
-    inset: 0;
-    z-index: 500;
-    display: none;
-    align-items: flex-end;
-    background: rgba(0,0,0,.72);
-    backdrop-filter: blur(7px);
-}
-
-.modal.show {
-    display: flex;
-}
-
-.modal-box {
-    width: min(100%, 560px);
-    margin: auto auto 0;
-    padding: 24px 18px calc(24px + env(safe-area-inset-bottom));
-    border-radius: 27px 27px 0 0;
-    background: #0e1422;
-    border-top: 1px solid var(--border);
-}
-
-.modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.modal-title {
-    font-size: 19px;
-    font-weight: 850;
-}
-
-.close-button {
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
-    background: rgba(255,255,255,.06);
-    color: white;
-}
-
-.input-label {
-    display: block;
-    margin: 12px 0 7px;
-    color: var(--muted);
-    font-size: 10px;
-}
-
-.input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 13px;
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,.045);
-    color: white;
-    outline: none;
-}
-
-.input:focus {
-    border-color: rgba(108,124,255,.6);
-}
-
-.primary-button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 15px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--primary), var(--primary2));
-    color: white;
-    font-weight: 850;
-}
-
-.secondary-button {
-    width: 100%;
-    padding: 13px;
-    margin-top: 8px;
-    border-radius: 14px;
-    background: rgba(255,255,255,.06);
-    color: white;
-}
-
-/* =========================
-   TOAST
-========================= */
-
-.toast {
-    position: fixed;
-    z-index: 1000;
-    left: 50%;
-    bottom: 92px;
-    transform: translate(-50%, 20px);
-    opacity: 0;
-    pointer-events: none;
-    width: calc(100% - 35px);
-    max-width: 480px;
-    padding: 13px 16px;
-    border-radius: 15px;
-    background: rgba(20,25,40,.96);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    font-size: 11px;
-    text-align: center;
-    transition: .25s ease;
-}
-
-.toast.show {
-    opacity: 1;
-    transform: translate(-50%, 0);
+    color: #fff;
+    background: rgba(79, 70, 229, 0.2);
 }
 
 .page {
@@ -877,193 +295,216 @@ button:active {
     display: block;
 }
 
-.loading {
-    display: grid;
-    place-items: center;
-    min-height: 120px;
-    color: var(--muted);
-    font-size: 11px;
+/* Toast Message */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50px);
+    background: #111827;
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: 0.3s ease;
+    opacity: 0;
+    z-index: 1000;
 }
-
-.spinner {
-    width: 25px;
-    height: 25px;
-    margin-bottom: 10px;
-    border: 2px solid rgba(255,255,255,.1);
-    border-top-color: var(--primary);
-    border-radius: 50%;
-    animation: spin .7s linear infinite;
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
 }
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
 </style>
 </head>
-
 <body>
 
-<div class="app">
+<div id="toast" class="toast">Notification message</div>
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="brand">
-            <div class="logo">W3</div>
-            <div>
-                <div class="brand-title" id="userName">Web3 Rewards</div>
-                <div class="brand-subtitle" id="userUsername">Secure Web3 Mini App</div>
+<div class="app">
+    <!-- Header -->
+    <div class="header">
+        <div class="user-box">
+            <div class="avatar" id="userInitial">D</div>
+            <div class="user-info">
+                <h3 id="userName">DYOX Holder</h3>
+                <span id="userHandle">@DYOX_Network</span>
             </div>
         </div>
-        <div class="header-actions">
-            <button class="icon-button" onclick="showToast('No new notifications')">🔔</button>
-            <button class="icon-button" onclick="switchPage('profilePage', document.querySelectorAll('.nav-item')[4])">👤</button>
-        </div>
-    </header>
+        <div class="badge">V1.0 Live</div>
+    </div>
 
     <!-- HOME PAGE -->
-    <section id="homePage" class="page active">
-        <div class="hero">
-            <div class="hero-content">
-                <div class="hero-label">Total Portfolio Balance</div>
-                <div class="hero-balance" id="totalBalance">150.00</div>
-                <div class="hero-token">REWARD</div>
-                <div class="hero-value" id="usdValue">≈ $15.00</div>
-                <div class="hero-actions">
-                    <button class="btn-light" onclick="openModal('withdrawModal')">Withdraw</button>
-                    <button class="btn-glass" onclick="openModal('depositModal')">Deposit</button>
+    <div id="homePage" class="page active">
+        <div class="hero-card">
+            <div class="hero-title">Total DYOX Balance</div>
+            <div class="balance-amount" id="mainBalance">1,250.00</div>
+            <div class="balance-usd">≈ $<span id="usdValue">12.50</span> USD</div>
+        </div>
+
+        <div class="tap-container">
+            <button class="tap-btn" id="tapButton" onclick="handleTap()">TAP</button>
+            <div class="tap-hint">Tap to mine DYOX tokens</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Mining Speed</div>
+                <div class="stat-val">+1.0 / tap</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Community Rank</div>
+                <div class="stat-val">Elite #1</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EARN / TASKS PAGE -->
+    <div id="earnPage" class="page">
+        <div class="section-title">Ecosystem Tasks</div>
+        
+        <div class="card-item">
+            <div class="item-left">
+                <div class="item-icon">📢</div>
+                <div>
+                    <div class="item-title">Join Announcement Channel</div>
+                    <div class="item-desc">+500 DYOX Tokens</div>
                 </div>
             </div>
+            <button class="action-btn" onclick="completeTask(this, 500)">Start</button>
         </div>
 
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-icon">🎯</div>
-                <div class="stat-value" id="tasksCompleted">3</div>
-                <div class="stat-label">Tasks</div>
-            </div>
-            <div class="stat">
-                <div class="stat-icon">👥</div>
-                <div class="stat-value" id="referrals">5</div>
-                <div class="stat-label">Referrals</div>
-            </div>
-            <div class="stat">
-                <div class="stat-icon">💎</div>
-                <div class="stat-value" id="earned">150</div>
-                <div class="stat-label">Earned</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-head">
-                <div class="section-title">My Assets</div>
-                <button class="section-link" onclick="switchPage('walletPage', document.querySelectorAll('.nav-item')[2])">View all</button>
-            </div>
-            <div id="assetsList">
-                <div class="token-card">
-                    <div class="token-logo">R</div>
-                    <div class="token-info">
-                        <div class="token-name">Reward Token</div>
-                        <div class="token-symbol">REWARD</div>
-                    </div>
-                    <div class="token-balance">
-                        <div class="token-amount" id="assetBalance">150.00</div>
-                        <div class="token-usd">$15.00</div>
-                    </div>
+        <div class="card-item">
+            <div class="item-left">
+                <div class="item-icon">🚀</div>
+                <div>
+                    <div class="item-title">Boost on STON.fi Pool</div>
+                    <div class="item-desc">+1,000 DYOX Tokens</div>
                 </div>
             </div>
+            <button class="action-btn" onclick="completeTask(this, 1000)">Start</button>
         </div>
 
-        <div class="section">
-            <div class="section-head">
-                <div class="section-title">Featured Tasks</div>
-                <button class="section-link" onclick="switchPage('tasksPage', document.querySelectorAll('.nav-item')[1])">View all</button>
-            </div>
-            <div id="featuredTasks">
-                <div class="task-card">
-                    <div class="task-icon">📢</div>
-                    <div class="task-info">
-                        <div class="task-title">Join Telegram Channel</div>
-                        <div class="task-description">Subscribe to our official channel</div>
-                        <div class="task-reward">+50 REWARD</div>
-                    </div>
-                    <button class="task-button" onclick="completeTask(this, 50)">Start</button>
+        <div class="card-item">
+            <div class="item-left">
+                <div class="item-icon">🌐</div>
+                <div>
+                    <div class="item-title">Visit Official Website</div>
+                    <div class="item-desc">+200 DYOX Tokens</div>
                 </div>
             </div>
+            <button class="action-btn" onclick="completeTask(this, 200)">Start</button>
         </div>
+    </div>
 
-        <div class="section">
-            <div class="referral-card">
-                <div class="referral-title">Invite & Earn</div>
-                <div class="referral-text">Share your personal referral link to earn rewards.</div>
-                <div class="referral-box">
-                    <input id="referralLink" class="referral-input" value="https://t.me/Web3RewardsBot?start=ref12345" readonly>
-                    <button class="copy-button" onclick="copyReferral()">Copy</button>
-                </div>
-            </div>
+    <!-- FRIENDS / REFERRALS PAGE -->
+    <div id="friendsPage" class="page">
+        <div class="section-title">Invite Friends</div>
+        <div class="hero-card" style="text-align: left; padding: 18px;">
+            <div class="item-title" style="font-size: 15px; margin-bottom: 6px;">Earn 10% from referrals</div>
+            <div class="item-desc" style="margin-bottom: 14px;">Share your personal link with your friends and grow the DYOX network together.</div>
+            <button class="action-btn" style="width: 100%; padding: 12px;" onclick="copyRefLink()">Copy Referral Link</button>
         </div>
-    </section>
-
-    <!-- TASKS PAGE -->
-    <section id="tasksPage" class="page">
-        <div class="section-title" style="margin-bottom: 15px;">All Tasks</div>
-        <div class="task-card">
-            <div class="task-icon">📢</div>
-            <div class="task-info">
-                <div class="task-title">Join Telegram Channel</div>
-                <div class="task-description">Subscribe to our official channel</div>
-                <div class="task-reward">+50 REWARD</div>
-            </div>
-            <button class="task-button" onclick="completeTask(this, 50)">Start</button>
-        </div>
-        <div class="task-card">
-            <div class="task-icon">🐦</div>
-            <div class="task-info">
-                <div class="task-title">Follow on X (Twitter)</div>
-                <div class="task-description">Follow our official account</div>
-                <div class="task-reward">+50 REWARD</div>
-            </div>
-            <button class="task-button" onclick="completeTask(this, 50)">Start</button>
-        </div>
-        <div class="task-card">
-            <div class="task-icon">🌐</div>
-            <div class="task-info">
-                <div class="task-title">Visit Website</div>
-                <div class="task-description">Explore our web3 ecosystem</div>
-                <div class="task-reward">+50 REWARD</div>
-            </div>
-            <button class="task-button" onclick="completeTask(this, 50)">Start</button>
-        </div>
-    </section>
+    </div>
 
     <!-- WALLET PAGE -->
-    <section id="walletPage" class="page">
-        <div class="section-title" style="margin-bottom: 15px;">Wallet Assets</div>
-        <div class="token-card">
-            <div class="token-logo">R</div>
-            <div class="token-info">
-                <div class="token-name">Reward Token</div>
-                <div class="token-symbol">REWARD</div>
+    <div id="walletPage" class="page">
+        <div class="section-title">Asset Management</div>
+        <div class="card-item">
+            <div class="item-left">
+                <div class="item-icon" style="background: rgba(79,70,229,0.2); color: #818cf8;">🪙</div>
+                <div>
+                    <div class="item-title">DYOX Token</div>
+                    <div class="item-desc" id="walletTokenCount">1,250.00 DYOX</div>
+                </div>
             </div>
-            <div class="token-balance">
-                <div class="token-amount">150.00</div>
-                <div class="token-usd">$15.00</div>
-            </div>
+            <div style="font-weight: 700; font-size: 13px;" id="walletUsdVal">$12.50</div>
         </div>
-    </section>
+        <button class="action-btn" style="width: 100%; margin-top: 10px; padding: 14px;" onclick="showToast('Withdrawals will open soon on TON network!')">Connect TON Wallet</button>
+    </div>
 
-    <!-- PROFILE PAGE -->
-    <section id="profilePage" class="page">
-        <div class="section-title" style="margin-bottom: 15px;">My Profile</div>
-        <div class="token-card">
-            <div class="token-logo">👤</div>
-            <div class="token-info">
-                <div class="token-name" id="profileName">User Name</div>
-                <div class="token-symbol" id="profileUsername">@username</div>
-            </div>
-        </div>
-    </section>
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <button class="nav-item active" onclick="switchTab('homePage', this)">
+            <span>🏠</span>Home
+        </button>
+        <button class="nav-item" onclick="switchTab('earnPage', this)">
+            <span>🎯</span>Earn
+        </button>
+        <button class="nav-item" onclick="switchTab('friendsPage', this)">
+            <span>👥</span>Friends
+        </button>
+        <button class="nav-item" onclick="switchTab('walletPage', this)">
+            <span>💰</span>Wallet
+        </button>
+    </div>
+</div>
 
-    <!-- BOTTOM NAVIGATION -->
-    <nav class="bottom-nav">
-        <button class="nav-item active" oncli
+<script>
+    // Telegram WebApp Setup
+    let tg = window.Telegram?.WebApp;
+    let balance = 1250.00;
+
+    if (tg) {
+        tg.expand();
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            let u = tg.initDataUnsafe.user;
+            document.getElementById('userName').innerText = u.first_name || 'DYOX Holder';
+            document.getElementById('userHandle').innerText = u.username ? '@' + u.username : '@dyox_user';
+            document.getElementById('userInitial').innerText = (u.first_name || 'D').charAt(0).toUpperCase();
+        }
+    }
+
+    function switchTab(pageId, btn) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        
+        document.getElementById(pageId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    function handleTap() {
+        balance += 1.0;
+        updateUI();
+        
+        // تأثير اهتزاز بسيط لو متوفر في تيليجرام
+        if (tg && tg.HapticFeedback) {
+            tg.HapticFeedback.impactOccurred('light');
+        }
+    }
+
+    function completeTask(button, reward) {
+        if (button.classList.contains('done')) return;
+        
+        button.innerText = "Claimed";
+        button.classList.add('done');
+        
+        balance += reward;
+        updateUI();
+        showToast(`Successfully claimed +${reward} DYOX!`);
+    }
+
+    function updateUI() {
+        document.getElementById('mainBalance').innerText = balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('usdValue').innerText = (balance * 0.01).toFixed(2);
+        document.getElementById('walletTokenCount').innerText = balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " DYOX";
+        document.getElementById('walletUsdVal').innerText = "$" + (balance * 0.01).toFixed(2);
+    }
+
+    function copyRefLink() {
+        navigator.clipboard.writeText("https://t.me/DYOX_Network_Bot?start=ref_admin");
+        showToast("Referral link copied to clipboard!");
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById('toast');
+        t.innerText = msg;
+        t.classList.add('show');
+        setTimeout(() => {
+            t.classList.remove('show');
+        }, 2500);
+    }
+</script>
+
+</body>
+</html>
