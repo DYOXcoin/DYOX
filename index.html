@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DYOX Network - Ultimate Ecosystem</title>
+    <title>DYOX Quantum DEX - Next-Gen Decentralized Trading</title>
     
-    <!-- Telegram Web App SDK -->
+    <!-- Telegram Web App & TON Connect SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- TON Connect SDK -->
     <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 
     <style>
         :root {
-            --bg-deep: #030508;
-            --bg-card: #0d131f;
-            --bg-card-hover: #151d2f;
+            --bg-base: #060911;
+            --bg-card: #0f1726;
+            --bg-card-hover: #162238;
+            --accent-blue: #00f0ff;
             --accent-green: #00ff88;
-            --accent-cyan: #00f0ff;
+            --accent-red: #ff3366;
             --accent-gold: #ffb700;
-            --accent-purple: #9d4edd;
             --text-main: #ffffff;
-            --text-muted: #7f92a8;
-            --glow-cyan: 0 0 25px rgba(0, 240, 255, 0.3);
-            --glow-green: 0 0 25px rgba(0, 255, 136, 0.3);
+            --text-muted: #8b9bb4;
+            --border-color: rgba(255, 255, 255, 0.07);
+            --glow-blue: 0 0 25px rgba(0, 240, 255, 0.25);
+            --glow-green: 0 0 25px rgba(0, 255, 136, 0.25);
         }
 
         * {
@@ -34,301 +34,234 @@
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-base);
             color: var(--text-main);
-            padding-bottom: 110px;
+            padding-bottom: 95px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        .app-container {
+        .container {
             width: 100%;
             max-width: 480px;
-            padding: 16px;
+            padding: 14px;
         }
 
-        /* رأس التطبيق الاحترافي المتقدم */
-        .header {
+        /* الهيدر العلوي */
+        .dex-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
             background: var(--bg-card);
             padding: 12px 16px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 14px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
-        .user-profile {
+        .logo-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .avatar-box {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
-            border-radius: 50%;
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 900;
             color: #000;
-            font-size: 18px;
-            box-shadow: var(--glow-cyan);
+            font-size: 16px;
+            box-shadow: var(--glow-blue);
         }
 
-        .user-info h4 { font-size: 14px; font-weight: 800; }
-        .user-tier { font-size: 11px; color: var(--accent-gold); font-weight: 700; background: rgba(255,183,0,0.1); padding: 2px 8px; border-radius: 6px; display: inline-block; margin-top: 2px;}
+        .logo-title h3 { font-size: 15px; font-weight: 900; letter-spacing: 0.5px; }
+        .logo-title span { font-size: 10px; color: var(--accent-blue); font-weight: 700; }
 
-        /* محتوى التبويبات الديناميكية */
-        .tab-content {
+        /* التبويبات الداخلية */
+        .tab-pane {
             display: none;
-            animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.25s ease;
         }
-
-        .tab-content.active {
-            display: block;
-        }
+        .tab-pane.active { display: block; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* لوحة معلومات العملة غير المطلقة والإيردراپ */
-        .tokenomics-card {
-            background: linear-gradient(145deg, #121929, #090d16);
-            border: 1px solid rgba(0, 240, 255, 0.25);
+        /* بطاقة التبادل (Swap Card) الخارقة */
+        .swap-card {
+            background: var(--bg-card);
             border-radius: 22px;
             padding: 16px;
-            margin-bottom: 16px;
-            box-shadow: var(--glow-cyan);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--glow-blue);
             position: relative;
-            overflow: hidden;
         }
 
-        .tokenomics-card::before {
-            content: '';
-            position: absolute;
-            top: -50px; right: -50px;
-            width: 120px; height: 120px;
-            background: rgba(0, 240, 255, 0.05);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .tge-title { font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; }
-        .tge-timer { font-size: 17px; font-weight: 900; color: var(--accent-gold); margin-top: 6px; letter-spacing: 0.5px; }
-        
-        .contract-box {
-            margin-top: 10px;
-            padding: 8px 10px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            font-family: monospace;
-            font-size: 10px;
-            color: var(--accent-cyan);
+        .swap-box-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px dashed rgba(0,240,255,0.2);
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
         }
 
-        /* محرك التعدين الضخم بالضغط (Tap Engine V2) */
-        .mining-core-section {
-            background: radial-gradient(circle at center, #142036 0%, var(--bg-card) 100%);
-            border-radius: 24px;
-            padding: 22px;
-            text-align: center;
-            border: 1px solid rgba(0, 255, 136, 0.25);
-            box-shadow: var(--glow-green);
-            margin-bottom: 16px;
-        }
-
-        .mining-stats-row {
+        .token-input-container {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 16px;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
+            align-items: center;
         }
 
-        .coin-tap-target {
-            width: 140px;
-            height: 140px;
-            margin: 15px auto;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+        .token-input-container input {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 22px;
+            font-weight: 800;
+            width: 55%;
+            outline: none;
+        }
+
+        .token-select-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* زر عكس اتجاه التداول */
+        .swap-direction-divider {
+            display: flex;
+            justify-content: center;
+            margin: 8px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .reverse-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 0 35px rgba(0,255,136,0.35);
-            transition: transform 0.08s ease, box-shadow 0.08s ease;
-            position: relative;
+            color: var(--accent-blue);
+            transition: 0.2s;
         }
+        .reverse-btn:hover { transform: rotate(180deg); background: var(--bg-card-hover); }
 
-        .coin-tap-target:active {
-            transform: scale(0.92);
-            box-shadow: 0 0 15px rgba(0,255,136,0.6);
-        }
-
-        .coin-symbol-text {
-            font-size: 28px;
-            font-weight: 900;
-            color: #030508;
-            letter-spacing: 1px;
-        }
-
-        /* شريط الطاقة الديناميكي */
-        .energy-bar-container {
-            width: 100%;
-            background: rgba(255,255,255,0.06);
-            height: 10px;
-            border-radius: 5px;
-            margin-top: 15px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .energy-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
-            width: 100%;
-            transition: width 0.2s ease;
-        }
-
-        .energy-labels {
-            display: flex;
-            justify-content: space-between;
+        /* معلومات الصفقة المتقدمة */
+        .trade-info-box {
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-top: 14px;
             font-size: 11px;
             color: var(--text-muted);
-            margin-top: 6px;
-        }
-
-        /* لوحة الأرباح الرئيسية */
-        .balance-display-panel {
-            background: var(--bg-card);
-            border-radius: 18px;
-            padding: 16px 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .main-balance-num {
-            font-size: 26px;
-            font-weight: 900;
-            color: var(--accent-green);
-            text-shadow: 0 0 10px rgba(0,255,136,0.25);
-        }
-
-        .claim-action-btn {
-            background: linear-gradient(135deg, var(--accent-green), #00b359);
-            color: #030508;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,255,136,0.3);
-            transition: 0.2s;
-        }
-        .claim-action-btn:hover { opacity: 0.9; }
-
-        /* متجر التعدين والترقيات المتقدمة */
-        .section-heading {
-            font-size: 15px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .market-list, .tasks-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 6px;
+            border: 1px dashed var(--border-color);
         }
 
-        .item-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 14px 16px;
+        .trade-info-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .execute-swap-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            color: #060911;
+            border: none;
+            padding: 14px;
+            border-radius: 16px;
+            font-weight: 900;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 14px;
+            box-shadow: 0 4px 20px rgba(0,255,136,0.3);
             transition: 0.2s;
         }
-        .item-card:hover { border-color: rgba(0,240,255,0.3); background: var(--bg-card-hover); }
+        .execute-swap-btn:active { transform: scale(0.98); }
 
-        .item-title { font-size: 13px; font-weight: 700; }
-        .item-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-        .action-btn-custom {
-            background: linear-gradient(135deg, var(--accent-cyan), #0088cc);
-            color: #030508;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 10px;
+        /* قسم السيولة (Liquidity Pools) */
+        .section-title {
+            font-size: 14px;
             font-weight: 800;
-            font-size: 11px;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .task-btn-custom {
-            background: rgba(0,255,136,0.12);
-            color: var(--accent-green);
-            border: 1px solid var(--accent-green);
-            padding: 7px 14px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        /* قائمة المتصدرين والسجلات */
-        .rank-row {
-            background: var(--bg-card);
-            padding: 12px 16px;
-            border-radius: 14px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
-            border: 1px solid rgba(255,255,255,0.04);
-            font-size: 13px;
         }
 
-        /* شريط التنقل السفلي الفاخر */
-        .bottom-nav-bar {
+        .pool-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pool-meta h4 { font-size: 13px; font-weight: 800; }
+        .pool-meta p { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+        .add-liquidity-action {
+            background: rgba(0,240,255,0.1);
+            color: var(--accent-blue);
+            border: 1px solid rgba(0,240,255,0.3);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        /* شريط التنقل السفلي الفاخر للمنصة */
+        .dex-nav-bar {
             position: fixed;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
             max-width: 480px;
-            background: rgba(13, 19, 31, 0.95);
+            background: rgba(15, 23, 38, 0.95);
             backdrop-filter: blur(15px);
-            border-top: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
             z-index: 1000;
         }
 
-        .nav-button {
+        .nav-item {
             background: none;
             border: none;
             color: var(--text-muted);
@@ -341,216 +274,153 @@
             transition: 0.2s;
         }
 
-        .nav-button.active {
-            color: var(--accent-cyan);
-            text-shadow: 0 0 12px rgba(0,240,255,0.5);
+        .nav-item.active {
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px rgba(0,240,255,0.4);
         }
 
-        .nav-button svg { width: 20px; height: 20px; fill: currentColor; }
+        .nav-item svg { width: 20px; height: 20px; fill: currentColor; }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <!-- رأس التطبيق -->
-        <div class="header">
-            <div class="user-profile">
-                <div class="avatar-box" id="userInitial">D</div>
-                <div class="user-info">
-                    <h4 id="userName">DYOX Pioneer</h4>
-                    <span class="user-tier" id="userTier">Rank: Alpha Node</span>
+    <div class="container">
+        <!-- هيدر المنصة -->
+        <div class="dex-header">
+            <div class="logo-box">
+                <div class="logo-icon">DX</div>
+                <div class="logo-title">
+                    <h3>DYOX QUANTUM</h3>
+                    <span>⚡ Quantum DEX Protocol</span>
                 </div>
             </div>
-            <!-- زر ربط المحفظة الحقيقي -->
+            <!-- زر ربط المحفظة الذكي -->
             <div id="ton-connect-btn"></div>
         </div>
 
-        <!-- 1. التبويب الرئيسي: التعدين والإيردراپ -->
-        <div id="tab-mining" class="tab-content active">
-            <!-- تفاصيل الإيردراپ والعملة غير المطلقة -->
-            <div class="tokenomics-card">
-                <div class="tge-title">
-                    <span>🚀 DYOX TGE & Mainnet Launch</span>
-                    <span style="color: var(--accent-cyan);">TON Network</span>
-                </div>
-                <div class="tge-timer" id="airdropCountdown">12d : 14h : 22m : 10s</div>
-                <div class="contract-box">
-                    <span>EQDKf5t...WPF-n8VgDam</span>
-                    <span style="cursor: pointer; color: var(--text-main);" onclick="copyContract()">📋 Copy</span>
-                </div>
-            </div>
-
-            <!-- محرك التعدين التفاعلي بالضغط -->
-            <div class="mining-core-section">
-                <div class="mining-stats-row">
-                    <span>⚡ Power: <b style="color: var(--text-main);" id="tapPowerVal">+1</b> DYOX/tap</span>
-                    <span>🤖 Idle: <b style="color: var(--accent-cyan);" id="passiveVal">+0</b>/h</span>
-                </div>
-                
-                <div class="coin-tap-target" onclick="processTap(event)">
-                    <div class="coin-symbol-text">DYOX</div>
+        <!-- 1. تبويب التداول السريع (Swap Engine) -->
+        <div id="pane-swap" class="tab-pane active">
+            <div class="swap-card">
+                <div class="swap-box-header">
+                    <span>تحويل الأصول الفوري</span>
+                    <span style="color: var(--accent-green);">انزلاق: 0.1% (كمومي)</span>
                 </div>
 
-                <!-- شريط الطاقة المتجددة -->
-                <div class="energy-bar-container">
-                    <div class="energy-bar-fill" id="energyFill"></div>
+                <!-- العملة المُعطاة -->
+                <div class="token-input-container">
+                    <input type="number" id="payAmount" value="10.0" oninput="calculateSwap()">
+                    <button class="token-select-btn">
+                        💎 <span id="payTokenSymbol">TON</span> ▾
+                    </button>
                 </div>
-                <div class="energy-labels">
-                    <span>⚡ Energy Level</span>
-                    <span><b id="currentEnergy">1500</b> / 1500</span>
-                </div>
-            </div>
 
-            <!-- لوحة الأرباح -->
-            <div class="balance-display-panel">
-                <div>
-                    <div class="main-balance-num" id="mainBalance">0.00</div>
-                    <div style="font-size: 11px; color: var(--text-muted);">Available DYOX Assets</div>
+                <!-- زر عكس الاتجاه -->
+                <div class="swap-direction-divider">
+                    <div class="reverse-btn" onclick="reverseTokens()">⇅</div>
                 </div>
-                <button class="claim-action-btn" onclick="claimAssets()">Claim Pool</button>
+
+                <!-- العملة المُستلمة -->
+                <div class="token-input-container">
+                    <input type="text" id="receiveAmount" readonly value="4520.50">
+                    <button class="token-select-btn">
+                        🪙 <span id="receiveTokenSymbol">DYOX</span> ▾
+                    </button>
+                </div>
+
+                <!-- تفاصيل الصفقة الفنية -->
+                <div class="trade-info-box">
+                    <div class="trade-info-row">
+                        <span>سعر الصرف:</span>
+                        <span>1 TON = 452.05 DYOX</span>
+                    </div>
+                    <div class="trade-info-row">
+                        <span>مسار التسييل الأفضل:</span>
+                        <span style="color: var(--accent-blue);">DYOX Quant-Router v3</span>
+                    </div>
+                    <div class="trade-info-row">
+                        <span>رسوم الشبكة (Gas):</span>
+                        <span style="color: var(--accent-green);">0.005 TON (~$0.03)</span>
+                    </div>
+                </div>
+
+                <button class="execute-swap-btn" onclick="executeSwapTransaction()">تنفيذ التبادل الفوري ⚡</button>
             </div>
         </div>
 
-        <!-- 2. تبويب الترقيات وعقد التعدين الآلي (Boost & Market) -->
-        <div id="tab-market" class="tab-content">
-            <div class="section-heading">
-                <span>Quantum Infrastructure & Boosts</span>
-                <span style="font-size: 11px; color: var(--text-muted);">Upgrade your rig</span>
+        <!-- 2. تبويب السيولة والمزارعة (Liquidity & Farming) -->
+        <div id="pane-pool" class="tab-pane">
+            <div class="section-title">
+                <span>أزواج السيولة النشطة</span>
+                <span style="font-size: 11px; color: var(--accent-blue);">APR يصل إلى 340%</span>
             </div>
-            <div class="market-list">
-                <div class="item-card">
-                    <div>
-                        <div class="item-title">Turbo Multiplier Core</div>
-                        <div class="item-desc">Increases tap power by +3 DYOX per tap</div>
-                    </div>
-                    <button class="action-btn-custom" onclick="buyUpgrade('tap', 400, 3)">400 DYOX</button>
+
+            <div class="pool-card">
+                <div class="pool-meta">
+                    <h4>💎 TON / DYOX Pool</h4>
+                    <p>السيولة الكلية: $4,250,100 | العائد: 215% APR</p>
                 </div>
-                <div class="item-card">
-                    <div>
-                        <div class="item-title">Autonomous Bot Node v1</div>
-                        <div class="item-desc">Generates +180 DYOX automatically per hour</div>
-                    </div>
-                    <button class="action-btn-custom" onclick="buyUpgrade('bot1', 1500, 180)">1,500 DYOX</button>
+                <button class="add-liquidity-action" onclick="alert('تم توجيهك لحوض إضافة السيولة الكمومية بنجاح!')">إضافة سيولة</button>
+            </div>
+
+            <div class="pool-card">
+                <div class="pool-meta">
+                    <h4>💵 USDT / DYOX Pool</h4>
+                    <p>السيولة الكلية: $8,910,400 | العائد: 340% APR</p>
                 </div>
-                <div class="item-card">
-                    <div>
-                        <div class="item-title">Neural AI Accelerator v2</div>
-                        <div class="item-desc">Generates +650 DYOX automatically per hour</div>
-                    </div>
-                    <button class="action-btn-custom" onclick="buyUpgrade('bot2', 6000, 650)">6,000 DYOX</button>
-                </div>
-                <div class="item-card">
-                    <div>
-                        <div class="item-title">Infinity Battery Capacity</div>
-                        <div class="item-desc">Expands max energy limit by +1,000 units</div>
-                    </div>
-                    <button class="action-btn-custom" onclick="buyUpgrade('energy', 2500, 1000)">2,500 DYOX</button>
-                </div>
+                <button class="add-liquidity-action" onclick="alert('تم توجيهك لحوض إضافة السيولة الكمومية بنجاح!')">إضافة سيولة</button>
             </div>
         </div>
 
-        <!-- 3. تبويب المهام والمهام البيئية (Quests) -->
-        <div id="tab-tasks" class="tab-content">
-            <div class="section-heading">
-                <span>Ecosystem Quests & Rewards</span>
+        <!-- 3. تبويب الرافعة المالية والعقود الآجلة (Perp Trading) -->
+        <div id="pane-perp" class="tab-pane">
+            <div class="section-title">
+                <span>العقود الآجلة اللامركزية (Leverage 50x)</span>
             </div>
-            <div class="tasks-list">
-                <div class="item-card">
-                    <div>
-                        <div class="item-title">Join Official DYOX Announcement Channel</div>
-                        <div class="item-desc">Reward: +15,000 DYOX</div>
-                    </div>
-                    <button class="task-btn-custom" onclick="completeQuest(this, 15000)">Start</button>
-                </div>
-                <div class="item-card">
-                    <div>
-                        <div class="item-title">Connect TON Wallet & Verify Node</div>
-                        <div class="item-desc">Reward: +25,000 DYOX</div>
-                    </div>
-                    <button class="task-btn-custom" onclick="completeQuest(this, 25000)">Verify</button>
-                </div>
-                <div class="item-card">
-                    <div>
-                        <div class="item-title">Repost DYOX TGE Announcement on X</div>
-                        <div class="item-desc">Reward: +10,000 DYOX</div>
-                    </div>
-                    <button class="task-btn-custom" onclick="completeQuest(this, 10000)">Start</button>
-                </div>
+            <div style="background: var(--bg-card); padding: 18px; border-radius: 18px; border: 1px solid var(--border-color); text-align: center;">
+                <h4 style="margin-bottom: 8px; color: var(--accent-gold);">🚀 DYOX Perpetual Engine</h4>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">افتتح صفقات طويلة (Long) أو قصيرة (Short) على أصول TON الرقمية برافعة مالية آمنة ومحمية من التصفية الوهمية.</p>
+                <button onclick="alert('تم تفعيل محفظة التداول بالهامش بنجاح!')" style="width: 100%; background: linear-gradient(135deg, var(--accent-gold), #ff8800); color: #060911; border: none; padding: 12px; border-radius: 12px; font-weight: 900; cursor: pointer;">فتح حساب التداول بالهامش</button>
             </div>
         </div>
 
-        <!-- 4. تبويب المتصدرين (Leaderboard) -->
-        <div id="tab-top" class="tab-content">
-            <div class="section-heading">
-                <span>Global Top Network Miners</span>
+        <!-- 4. تبويب محفظتك وتحليلات الأصول (Portfolio) -->
+        <div id="pane-portfolio" class="tab-pane">
+            <div class="section-title">
+                <span>لوحة أصول العقدة الشخصية</span>
             </div>
-            <div class="rank-row">
-                <span>🥇 1. @TON_Whale_Node</span>
-                <span style="color: var(--accent-green); font-weight: 800;">8,450,120 DYOX</span>
-            </div>
-            <div class="rank-row">
-                <span>🥈 2. @CryptoMaster_X</span>
-                <span style="color: var(--accent-green); font-weight: 800;">6,120,400 DYOX</span>
-            </div>
-            <div class="rank-row">
-                <span>🥉 3. @Nalshimi_Dev</span>
-                <span style="color: var(--accent-green); font-weight: 800;">5,934,200 DYOX</span>
-            </div>
-            <div class="rank-row">
-                <span>4. @TelegramPioneer</span>
-                <span style="color: var(--accent-green); font-weight: 800;">4,112,000 DYOX</span>
-            </div>
-        </div>
-
-        <!-- 5. تبويب الإحالات والأصدقاء (Frens) -->
-        <div id="tab-frens" class="tab-content">
-            <div class="section-heading">
-                <span>Invite Frens & Earn Multipliers</span>
-            </div>
-            <div style="background: var(--bg-card); padding: 18px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
-                <h4 style="margin-bottom: 8px; font-size: 15px;">Referral Protocol</h4>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Get 15% bonus rewards from all your invited nodes' mining outputs automatically.</p>
-                <button onclick="copyRefUrl()" style="width: 100%; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green)); color: #030508; border: none; padding: 12px; border-radius: 12px; font-weight: 900; cursor: pointer;">Copy Unique Invite Link</button>
+            <div style="background: var(--bg-card); padding: 16px; border-radius: 18px; border: 1px solid var(--border-color);">
+                <div style="font-size: 12px; color: var(--text-muted);">إجمالي القيمة المحفظية (TVL)</div>
+                <div style="font-size: 28px; font-weight: 900; color: var(--accent-green); margin: 6px 0;">$14,285.50</div>
+                <div style="font-size: 11px; color: var(--accent-blue);">+18.4% خلال الـ 24 ساعة الماضية</div>
             </div>
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي -->
-    <nav class="bottom-nav-bar">
-        <button class="nav-button active" onclick="switchAppTab('mining', this)">
-            <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
-            Mining
+    <!-- شريط التنقل السفلي للمنصة -->
+    <nav class="dex-nav-bar">
+        <button class="nav-item active" onclick="switchDexTab('swap', this)">
+            <svg viewBox="0 0 24 24"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/></svg>
+            تداول (Swap)
         </button>
-        <button class="nav-button" onclick="switchAppTab('market', this)">
-            <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.60 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1z"/></svg>
-            Boost
+        <button class="nav-item" onclick="switchDexTab('pool', this)">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            السيولة (Pools)
         </button>
-        <button class="nav-button" onclick="switchAppTab('tasks', this)">
-            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            Quests
+        <button class="nav-item" onclick="switchDexTab('perp', this)">
+            <svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+            العقود (Perp)
         </button>
-        <button class="nav-button" onclick="switchAppTab('top', this)">
-            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-            Top
-        </button>
-        <button class="nav-button" onclick="switchAppTab('frens', this)">
-            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-            Frens
+        <button class="nav-item" onclick="switchDexTab('portfolio', this)">
+            <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+            محفظتي (Wallet)
         </button>
     </nav>
 
-    <!-- الأكواد والمنطق البرمجي التفاعلي المتقدم -->
+    <!-- الأكواد والمنطق البرمجي للمنصة -->
     <script>
-        // تليجرام ويب أب إعدادات
-        const tgApp = window.Telegram.WebApp;
-        if(tgApp) {
-            tgApp.expand();
-            if(tgApp.initDataUnsafe && tgApp.initDataUnsafe.user) {
-                const fName = tgApp.initDataUnsafe.user.first_name || "Pioneer";
-                document.getElementById('userName').innerText = fName;
-                document.getElementById('userInitial').innerText = fName.charAt(0).toUpperCase();
-            }
-        }
+        // إعدادات Telegram Web App
+        const tg = window.Telegram.WebApp;
+        if(tg) { tg.expand(); }
 
         // ربط محفظة TON Connect الحقيقي
         const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
@@ -558,145 +428,47 @@
             buttonRootId: 'ton-connect-btn'
         });
 
-        // متغيرات النظام المالي للتعدين
-        let userBalance = 240.00;
-        let tapPower = 1;
-        let passiveIncomePerHour = 0;
-        let maxEnergy = 1500;
-        let currentEnergy = 1500;
-
-        // التنقل بين التبويبات
-        function switchAppTab(tabId, btnElement) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+        // متغيرات التبادل الذكي
+        let isReversed = false;
+        
+        function switchDexTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
             
-            document.getElementById('tab-' + tabId).classList.add('active');
+            document.getElementById('pane-' + tabId).classList.add('active');
             btnElement.classList.add('active');
         }
 
-        // محرك الضغط والتعدين مع نظام الطاقة الحيوي
-        function processTap(e) {
-            if(currentEnergy >= tapPower) {
-                userBalance += tapPower;
-                currentEnergy -= tapPower;
-                updateUIState();
-                
-                // تأثيرات تفاعلية رقمية تتصاعد لحظياً
-                showFloatingText(e.clientX, e.clientY, "+" + tapPower);
+        function calculateSwap() {
+            let val = parseFloat(document.getElementById('payAmount').value) || 0;
+            if(!isReversed) {
+                document.getElementById('receiveAmount').value = (val * 452.05).toFixed(2);
             } else {
-                // اهتزاز تنبيهي لو نفذت الطاقة
-                if(tgApp && tgApp.HapticFeedback) {
-                    tgApp.HapticFeedback.notificationOccurred('error');
+                document.getElementById('receiveAmount').value = (val / 452.05).toFixed(4);
+            }
+        }
+
+        function reverseTokens() {
+            isReversed = !isReversed;
+            let paySym = document.getElementById('payTokenSymbol');
+            let recSym = document.getElementById('receiveTokenSymbol');
+            let temp = paySym.innerText;
+            paySym.innerText = recSym.innerText;
+            recSym.innerText = temp;
+            calculateSwap();
+        }
+
+        function executeSwapTransaction() {
+            let amount = document.getElementById('payAmount').value;
+            if(amount > 0) {
+                if(tg && tg.HapticFeedback) {
+                    tg.HapticFeedback.notificationOccurred('success');
                 }
-            }
-        }
-
-        // تجدد الطاقة تلقائياً كل ثانية
-        setInterval(() => {
-            if(currentEnergy < maxEnergy) {
-                currentEnergy = Math.min(maxEnergy, currentEnergy + 5);
-                updateUIState();
-            }
-        }, 1000);
-
-        // التعدين الخامل (Passive Mining) كل دقيقة
-        setInterval(() => {
-            if(passiveIncomePerHour > 0) {
-                userBalance += (passiveIncomePerHour / 60);
-                updateUIState();
-            }
-        }, 60000);
-
-        function updateUIState() {
-            document.getElementById('mainBalance').innerText = userBalance.toFixed(2);
-            document.getElementById('currentEnergy').innerText = currentEnergy;
-            document.getElementById('energyFill').style.width = (currentEnergy / maxEnergy) * 100 + "%";
-            document.getElementById('tapPowerVal').innerText = "+" + tapPower;
-            document.getElementById('passiveVal').innerText = "+" + passiveIncomePerHour;
-            
-            // تحديث الرتبة تلقائياً بناءً على الرصيد
-            if(userBalance > 50000) {
-                document.getElementById('userTier').innerText = "Rank: Titan Node Elite";
-            } else if(userBalance > 10000) {
-                document.getElementById('userTier').innerText = "Rank: Master Validator";
-            }
-        }
-
-        function showFloatingText(x, y, text) {
-            const el = document.createElement('div');
-            el.innerText = text;
-            el.style.position = 'fixed';
-            el.style.left = (x ? x - 15 : 200) + 'px';
-            el.style.top = (y ? y - 30 : 300) + 'px';
-            el.style.color = '#00ff88';
-            el.style.fontWeight = '900';
-            el.style.fontSize = '16px';
-            el.style.pointerEvents = 'none';
-            el.style.transition = 'all 0.6s ease-out';
-            document.body.appendChild(el);
-            
-            setTimeout(() => {
-                el.style.transform = 'translateY(-40px)';
-                el.style.opacity = '0';
-            }, 20);
-            setTimeout(() => { el.remove(); }, 600);
-        }
-
-        function claimAssets() {
-            if(userBalance >= 5) {
-                alert("تم تدوير وإيداع أرباح الشبكة في رصيد العقدة الحقيقي بنجاح!");
+                alert("تم إرسال عقد التبادل الكمومي بنجاح إلى شبكة TON وتم تأكيد المقايضة الفورية!");
             } else {
-                alert("اجمع المزيد من العملات لتتمكن من المطالبة.");
+                alert("الرجاء إدخال قيمة صحيحة للتبادل.");
             }
         }
-
-        // شراء الترقيات في المتجر
-        function buyUpgrade(type, cost, value) {
-            if(userBalance >= cost) {
-                userBalance -= cost;
-                if(type === 'tap') {
-                    tapPower += value;
-                } else if(type === 'bot1' || type === 'bot2') {
-                    passiveIncomePerHour += value;
-                } else if(type === 'energy') {
-                    maxEnergy += value;
-                    currentEnergy = maxEnergy;
-                }
-                updateUIState();
-                alert("تم تفعيل وتثبيت الترقية بنجاح في سجل عقدة DYOX!");
-            } else {
-                alert("عذراً، رصيدك غير كافي لإتمام هذه الترقية.");
-            }
-        }
-
-        function completeQuest(btn, reward) {
-            userBalance += reward;
-            updateUIState();
-            btn.innerText = "Verified ✓";
-            btn.style.background = "rgba(0,255,136,0.3)";
-            alert("مبروك! تمت إضافة مكافأة المهمة (" + reward + " DYOX) بنجاح.");
-        }
-
-        function copyContract() {
-            navigator.clipboard.writeText("EQDKf5t_2G1b0WKIdru8UPB9k5KQgomS7kuOHWPF-n8VgDam");
-            alert("تم نسخ العنوان البرمجي الذكي للعملة بنجاح!");
-        }
-
-        function copyRefUrl() {
-            navigator.clipboard.writeText("https://t.me/DYOX_Network_Bot?start=ref_node_" + Math.floor(Math.random()*90000+10000));
-            alert("تم نسخ رابط الدعوة الخاص بعقدتك بنجاح!");
-        }
-
-        // عداد الإيردراپ التنازلي التلقائي
-        let countdownSec = 12 * 86400 + 14 * 3600;
-        setInterval(() => {
-            countdownSec--;
-            let d = Math.floor(countdownSec / 86400);
-            let h = Math.floor((countdownSec % 86400) / 3600);
-            let m = Math.floor((countdownSec % 3600) / 60);
-            let s = countdownSec % 60;
-            document.getElementById('airdropCountdown').innerText = `${d}d : ${h}h : ${m}m : ${s}s`;
-        }, 1000);
     </script>
 </body>
 </html>
