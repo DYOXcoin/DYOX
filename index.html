@@ -508,3 +508,551 @@ body {
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#080b14">
+<title>MineX Ecosystem</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root {
+    --bg: #070a14;
+    --card: rgba(18, 24, 42, 0.75);
+    --border: rgba(255, 255, 255, 0.08);
+    --text: #ffffff;
+    --muted: #8a96b4;
+    --primary: #4f46e5;
+    --primary-glow: rgba(79, 70, 229, 0.35);
+    --success: #10b981;
+    --warning: #f59e0b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at 50% -20%, rgba(79, 70, 229, 0.25), transparent 50%), var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.app {
+    width: min(100%, 480px);
+    margin: auto;
+    padding: 16px 16px 110px 16px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 18px;
+    box-shadow: 0 8px 20px var(--primary-glow);
+}
+
+.user-info h3 {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.user-info span {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(79, 70, 229, 0.15);
+    border: 1px solid rgba(79, 70, 229, 0.3);
+    font-size: 11px;
+    font-weight: 600;
+    color: #818cf8;
+}
+
+/* Main Card / Balance */
+.hero-card {
+    position: relative;
+    padding: 24px;
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(30, 39, 73, 0.6), rgba(15, 20, 36, 0.8));
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.hero-title {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.balance-amount {
+    font-size: 36px;
+    font-weight: 900;
+    margin: 8px 0;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #fff, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.balance-usd {
+    font-size: 13px;
+    color: var(--success);
+    font-weight: 600;
+}
+
+/* Tap Area (Mining Game with Logo) */
+.tap-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px 0;
+}
+
+.tap-btn {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #0b1021;
+    border: 4px solid rgba(129, 140, 248, 0.3);
+    cursor: pointer;
+    box-shadow: 0 0 50px rgba(79, 70, 229, 0.4);
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+    display: grid;
+    place-items: center;
+    user-select: none;
+    overflow: hidden;
+    position: relative;
+}
+
+.tap-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.tap-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 0 25px rgba(79, 70, 229, 0.8);
+}
+
+.tap-hint {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* Floating numbers animation */
+.floating-num {
+    position: absolute;
+    color: #10b981;
+    font-weight: 900;
+    font-size: 20px;
+    pointer-events: none;
+    animation: floatUp 0.8s ease-out forwards;
+    z-index: 50;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(1.3);
+    }
+}
+
+/* Grid Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat-box {
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.stat-val {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* Sections & Lists */
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+}
+
+.item-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.item-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+}
+
+.item-title {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.item-desc {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+.action-btn {
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 750;
+    cursor: pointer;
+    border: none;
+}
+
+.action-btn.done {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+}
+
+/* Bottom Navigation */
+.nav-bar {
+    position: fixed;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(calc(100% - 24px), 460px);
+    background: rgba(11, 15, 28, 0.9);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(25px);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 8px;
+    z-index: 100;
+}
+
+.nav-item {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 10px;
+    padding: 8px 0;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 14px;
+    transition: 0.2s;
+}
+
+.nav-item span {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.nav-item.active {
+    color: #fff;
+    background: rgba(79, 70, 229, 0.2);
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Toast Message */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50px);
+    background: #111827;
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: 0.3s ease;
+    opacity: 0;
+    z-index: 1000;
+}
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+</style>
+</head>
+<body>
+
+<div id="toast" class="toast">Notification message</div>
+
+<div class="app">
+    <!-- Header -->
+    <div class="header">
+        <div class="user-box">
+            <div class="avatar" id="userInitial">M</div>
+            <div class="user-info">
+                <h3 id="userName">MineX Miner</h3>
+                <span id="userHandle">@MineX_Network</span>
+            </div>
+        </div>
+        <div class="badge">V2.0 MineX</div>
+    </div>
+
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page active">
+        <div class="hero-card">
+            <div class="hero-title">Total MineX Balance</div>
+            <div class="balance-amount" id="mainBalance">1,250.00</div>
+            <div class="balance-usd">≈ $<span id="usdValue">12.50</span> USD</div>
+        </div>
+
+        <div class="tap-container" id="tapContainer">
+            <button class="tap-btn" onclick="handleTap(event)">
+                <img src="24110.webp" alt="MineX Logo">
+            </button>
+            <div class="tap-hint">Tap logo to mine MineX tokens</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Mining Speed</div>
+                <div class="stat-val">+1.0 / tap</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Community Rank</div>
+                <div class="stat-val">Elite #1</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EARN / TASKS PAGE -->
+    <div id="earnPage" class="page">
+        <div class="section-title">MineX Ecosystem Tasks</div>
+        
+        <div class="card-item">
+            <div class="item-left">
+                <div class="item-icon">📢</div>
+                <div>
+                    <div class="item-title">Join MineX Channel</div>
+                    <div class="item-desc">+500 MineX Tokens</div>
+                </div>
+            </div>
+            <button class="action-btn" onclick="completeTask(this, 500)">Start</button>
+        </div>
+
+        <div class="card-item">
+            <div class="item-left">
+                <div class="item-icon">🚀</div>
+                <div>
+                    <div class="item-title">Boost Liquidity Pool</div>
+                    <div class="item-desc">+1,000 MineX Tokens</div>
+                </div>
+            </div>
+            <button class="action-btn" onclick="completeTask(this, 1000)">Start</button>
+        </div>
+    </div>
+
+    <!-- FRIENDS / REFERRALS PAGE -->
+    <div id="friendsPage" class="page">
+        <div class="section-title">Invite Friends</div>
+        <div class="hero-card" style="text-align: left; padding: 18px;">
+            <div class="item-title" style="font-size: 15px; margin-bottom: 6px;">Earn 10% from referrals</div>
+            <div class="item-desc" style="margin-bottom: 14px;">Share your personal link and grow the MineX network together.</div>
+            <button class="action-btn" style="width: 100%; padding: 12px;" onclick="copyRefLink()">Copy Referral Link</button>
+        </div>
+    </div>
+
+    <!-- WALLET PAGE -->
+    <div id="walletPage" class="page">
+        <div class="section-title">Asset Management</div>
+        <div class="card-item">
+            <div class="item-left">
+                <div class="item-icon" style="background: rgba(79,70,229,0.2); color: #818cf8;">🪙</div>
+                <div>
+                    <div class="item-title">MineX Token</div>
+                    <div class="item-desc" id="walletTokenCount">1,250.00 MineX</div>
+                </div>
+            </div>
+            <div style="font-weight: 700; font-size: 13px;" id="walletUsdVal">$12.50</div>
+        </div>
+        <button class="action-btn" style="width: 100%; margin-top: 10px; padding: 14px;" onclick="showToast('Withdrawals will open soon on TON network!')">Connect TON Wallet</button>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <button class="nav-item active" onclick="switchTab('homePage', this)">
+            <span>🏠</span>Home
+        </button>
+        <button class="nav-item" onclick="switchTab('earnPage', this)">
+            <span>🎯</span>Earn
+        </button>
+        <button class="nav-item" onclick="switchTab('friendsPage', this)">
+            <span>👥</span>Friends
+        </button>
+        <button class="nav-item" onclick="switchTab('walletPage', this)">
+            <span>💰</span>Wallet
+        </button>
+    </div>
+</div>
+
+<script>
+    let tg = window.Telegram?.WebApp;
+    let balance = 1250.00;
+
+    if (tg) {
+        tg.expand();
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            let u = tg.initDataUnsafe.user;
+            document.getElementById('userName').innerText = u.first_name || 'MineX Miner';
+            document.getElementById('userHandle').innerText = u.username ? '@' + u.username : '@minex_user';
+            document.getElementById('userInitial').innerText = (u.first_name || 'M').charAt(0).toUpperCase();
+        }
+    }
+
+    function switchTab(pageId, btn) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        
+        document.getElementById(pageId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    function handleTap(event) {
+        balance += 1.0;
+        updateUI();
+        
+        // تأثير اهتزاز تيليجرام
+        if (tg && tg.HapticFeedback) {
+            tg.HapticFeedback.impactOccurred('light');
+        }
+
+        // إنشاء رقم عائم متحرك عند مكان الضغط
+        let container = document.getElementById('tapContainer');
+        let rect = container.getBoundingClientRect();
+        let x = event.clientX - rect.left;
+        let y = event.clientY - rect.top;
+
+        let floatEl = document.createElement('div');
+        floatEl.className = 'floating-num';
+        floatEl.innerText = '+1 MineX';
+        floatEl.style.left = `${x}px`;
+        floatEl.style.top = `${y}px`;
+        
+        container.appendChild(floatEl);
+
+        setTimeout(() => {
+            floatEl.remove();
+        }, 800);
+    }
+
+    function completeTask(button, reward) {
+        if (button.classList.contains('done')) return;
+        
+        button.innerText = "Claimed";
+        button.classList.add('done');
+        
+        balance += reward;
+        updateUI();
+        showToast(`Successfully claimed +${reward} MineX!`);
+    }
+
+    function updateUI() {
+        document.getElementById('mainBalance').innerText = balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('usdValue').innerText = (balance * 0.01).toFixed(2);
+        document.getElementById('walletTokenCount').innerText = balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " MineX";
+        document.getElementById('walletUsdVal').innerText = "$" + (balance * 0.01).toFixed(2);
+    }
+
+    function copyRefLink() {
+        navigator.clipboard.writeText("https://t.me/MineX_Network_Bot?start=ref_admin");
+        showToast("Referral link copied to clipboard!");
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById('toast');
+        t.innerText = msg;
+        t.classList.add('show');
+        setTimeout(() => {
+            t.classList.remove('show');
+        }, 2500);
+    }
+</script>
+
+</body>
+</html>
