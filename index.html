@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#070a14">
-<title>MineX Network - Ecosystem</title>
+<meta name="theme-color" content="#030712">
+<title>MineX Network - Elite Web3 App</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 :root {
-    --bg: #070a14;
-    --card: rgba(18, 24, 42, 0.75);
-    --border: rgba(255, 255, 255, 0.08);
-    --text: #ffffff;
-    --muted: #8a96b4;
-    --primary: #4f46e5;
-    --primary-glow: rgba(79, 70, 229, 0.35);
+    --bg-base: #030712;
+    --bg-gradient: radial-gradient(circle at 50% -10%, rgba(99, 102, 241, 0.25), transparent 60%), #030712;
+    --card-bg: rgba(15, 23, 42, 0.65);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.45);
     --success: #10b981;
-    --warning: #f59e0b;
 }
 
 * {
@@ -27,8 +27,8 @@
 }
 
 body {
-    background: radial-gradient(circle at 50% -20%, rgba(79, 70, 229, 0.25), transparent 50%), var(--bg);
-    color: var(--text);
+    background: var(--bg-gradient);
+    color: var(--text-main);
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -36,81 +36,87 @@ body {
 .app {
     width: min(100%, 480px);
     margin: auto;
-    padding: 16px 16px 110px 16px;
+    padding: 20px 16px 110px 16px;
 }
 
-/* Header */
+/* Header Styling */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 12px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
 }
 
 .user-box {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .avatar {
     width: 44px;
     height: 44px;
     border-radius: 14px;
-    background: linear-gradient(135deg, #4f46e5, #9333ea);
+    background: linear-gradient(135deg, #6366f1, #a855f7);
     display: grid;
     place-items: center;
     font-weight: 800;
     font-size: 18px;
-    box-shadow: 0 8px 20px var(--primary-glow);
+    box-shadow: 0 4px 15px var(--accent-glow);
 }
 
 .user-info h3 {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
 }
 
 .user-info span {
     font-size: 11px;
-    color: var(--muted);
+    color: var(--text-muted);
 }
 
 .badge {
     padding: 6px 12px;
     border-radius: 20px;
-    background: rgba(79, 70, 229, 0.15);
-    border: 1px solid rgba(79, 70, 229, 0.3);
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
     font-size: 11px;
     font-weight: 600;
     color: #818cf8;
 }
 
-/* Main Card / Balance */
+/* Main Balance Card */
 .hero-card {
     position: relative;
-    padding: 24px;
-    border-radius: 24px;
-    background: linear-gradient(145deg, rgba(30, 39, 73, 0.6), rgba(15, 20, 36, 0.8));
-    border: 1px solid var(--border);
+    padding: 28px 20px;
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.85));
+    border: 1px solid var(--card-border);
     backdrop-filter: blur(20px);
     text-align: center;
-    margin-bottom: 16px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    margin-bottom: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 .hero-title {
-    font-size: 12px;
-    color: var(--muted);
+    font-size: 11px;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
 }
 
 .balance-amount {
-    font-size: 32px;
+    font-size: 38px;
     font-weight: 900;
-    margin: 8px 0;
+    margin: 10px 0 6px 0;
     letter-spacing: -1px;
-    background: linear-gradient(to right, #fff, #a5b4fc);
+    background: linear-gradient(to right, #fff, #c7d2fe);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -119,36 +125,35 @@ body {
     font-size: 12px;
     color: var(--success);
     font-weight: 600;
-    margin-top: 4px;
-    background: rgba(16, 185, 129, 0.1);
-    padding: 6px 10px;
-    border-radius: 10px;
+    background: rgba(16, 185, 129, 0.12);
+    padding: 6px 12px;
+    border-radius: 12px;
     display: inline-block;
+    border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
-/* Tap Area (Mining Game with Logo) */
+/* Tap Mining Section */
 .tap-container {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 25px 0;
+    margin: 30px 0;
 }
 
 .tap-btn {
-    width: 150px;
-    height: 150px;
+    width: 170px;
+    height: 170px;
     border-radius: 50%;
-    background: #0b1021;
-    border: 4px solid rgba(129, 140, 248, 0.3);
+    background: radial-gradient(circle, #1e1b4b 0%, #090d16 100%);
+    border: 4px solid rgba(99, 102, 241, 0.4);
     cursor: pointer;
-    box-shadow: 0 0 50px rgba(79, 70, 229, 0.4);
-    transition: transform 0.08s ease, box-shadow 0.08s ease;
+    box-shadow: 0 0 60px rgba(99, 102, 241, 0.35), inset 0 0 20px rgba(99, 102, 241, 0.2);
+    transition: transform 0.06s ease, box-shadow 0.06s ease;
     display: grid;
     place-items: center;
     user-select: none;
     overflow: hidden;
-    position: relative;
 }
 
 .tap-btn img {
@@ -156,102 +161,115 @@ body {
     height: 100%;
     object-fit: cover;
     pointer-events: none;
+    transition: transform 0.1s ease;
 }
 
 .tap-btn:active {
-    transform: scale(0.92);
-    box-shadow: 0 0 25px rgba(79, 70, 229, 0.8);
+    transform: scale(0.93);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.7);
 }
 
 .tap-hint {
-    margin-top: 14px;
+    margin-top: 16px;
     font-size: 12px;
-    color: var(--muted);
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
 }
 
-/* Floating numbers animation */
+/* Floating Animation */
 .floating-num {
     position: absolute;
-    color: #10b981;
+    color: var(--success);
     font-weight: 900;
-    font-size: 18px;
+    font-size: 20px;
     pointer-events: none;
-    animation: floatUp 0.8s ease-out forwards;
+    animation: floatUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     z-index: 50;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
 
 @keyframes floatUp {
     0% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0) scale(0.9);
     }
     100% {
         opacity: 0;
-        transform: translateY(-80px) scale(1.3);
+        transform: translateY(-90px) scale(1.4);
     }
 }
 
-/* Grid Stats */
+/* Stats Grid */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 20px;
 }
 
 .stat-box {
-    padding: 14px;
-    border-radius: 16px;
-    background: var(--card);
-    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(12px);
 }
 
 .stat-label {
     font-size: 11px;
-    color: var(--muted);
+    color: var(--text-muted);
 }
 
 .stat-val {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
-    margin-top: 4px;
+    margin-top: 6px;
+    color: #e2e8f0;
 }
 
 /* Sections & Lists */
 .section-title {
     font-size: 15px;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    letter-spacing: 0.3px;
 }
 
 .card-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px;
-    border-radius: 16px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    margin-bottom: 10px;
+    padding: 16px;
+    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    margin-bottom: 12px;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.2s;
+}
+
+.card-item:hover {
+    border-color: rgba(99, 102, 241, 0.3);
 }
 
 .item-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .item-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.05);
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
     display: grid;
     place-items: center;
-    font-size: 18px;
+    font-size: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .item-title {
@@ -261,64 +279,75 @@ body {
 
 .item-desc {
     font-size: 11px;
-    color: var(--muted);
-    margin-top: 2px;
+    color: var(--text-muted);
+    margin-top: 3px;
 }
 
 .action-btn {
-    padding: 8px 14px;
-    border-radius: 10px;
-    background: var(--primary);
+    padding: 9px 16px;
+    border-radius: 12px;
+    background: var(--accent);
     color: white;
     font-size: 11px;
     font-weight: 750;
     cursor: pointer;
     border: none;
+    box-shadow: 0 4px 15px var(--accent-glow);
+    transition: transform 0.1s;
+}
+
+.action-btn:active {
+    transform: scale(0.95);
 }
 
 .action-btn.done {
     background: rgba(16, 185, 129, 0.15);
     color: var(--success);
+    box-shadow: none;
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
-/* Bottom Navigation */
+/* Floating Navigation Bar */
 .nav-bar {
     position: fixed;
-    bottom: 12px;
+    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
-    width: min(calc(100% - 24px), 460px);
-    background: rgba(11, 15, 28, 0.9);
-    border: 1px solid var(--border);
+    width: min(calc(100% - 32px), 448px);
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid var(--card-border);
     backdrop-filter: blur(25px);
-    border-radius: 20px;
+    border-radius: 22px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 8px;
+    padding: 6px;
     z-index: 100;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
 }
 
 .nav-item {
     background: transparent;
     border: none;
-    color: var(--muted);
+    color: var(--text-muted);
     font-size: 10px;
     padding: 8px 0;
     text-align: center;
     cursor: pointer;
-    border-radius: 14px;
-    transition: 0.2s;
+    border-radius: 16px;
+    transition: 0.2s ease;
+    font-weight: 600;
 }
 
 .nav-item span {
     display: block;
-    font-size: 16px;
-    margin-bottom: 2px;
+    font-size: 18px;
+    margin-bottom: 3px;
 }
 
 .nav-item.active {
     color: #fff;
-    background: rgba(79, 70, 229, 0.2);
+    background: rgba(99, 102, 241, 0.25);
+    border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 .page {
@@ -334,16 +363,18 @@ body {
     position: fixed;
     top: 20px;
     left: 50%;
-    transform: translateX(-50%) translateY(-50px);
-    background: #111827;
-    border: 1px solid var(--border);
-    padding: 10px 20px;
-    border-radius: 12px;
+    transform: translateX(-50%) translateY(-60px);
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid var(--card-border);
+    padding: 12px 24px;
+    border-radius: 14px;
     font-size: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     opacity: 0;
     z-index: 1000;
+    backdrop-filter: blur(20px);
 }
 .toast.show {
     transform: translateX(-50%) translateY(0);
@@ -365,7 +396,7 @@ body {
                 <span id="userHandle">@MineX_Network</span>
             </div>
         </div>
-        <div class="badge">Airdrop Live</div>
+        <div class="badge">Elite V3.0</div>
     </div>
 
     <!-- HOME PAGE -->
@@ -438,9 +469,9 @@ body {
     <!-- FRIENDS / REFERRALS PAGE -->
     <div id="friendsPage" class="page">
         <div class="section-title">Invite Friends</div>
-        <div class="hero-card" style="text-align: left; padding: 18px;">
+        <div class="hero-card" style="text-align: left; padding: 20px;">
             <div class="item-title" style="font-size: 15px; margin-bottom: 6px;">Earn 10% from referrals</div>
-            <div class="item-desc" style="margin-bottom: 14px;">Invite your friends to earn Miner points and boost your future MineX airdrop allocation.</div>
+            <div class="item-desc" style="margin-bottom: 16px;">Invite your friends to earn Miner points and boost your future MineX airdrop allocation.</div>
             <button class="action-btn" style="width: 100%; padding: 12px;" onclick="copyRefLink()">Copy Referral Link</button>
         </div>
     </div>
@@ -450,7 +481,7 @@ body {
         <div class="section-title">Airdrop & Wallet Allocation</div>
         <div class="card-item">
             <div class="item-left">
-                <div class="item-icon" style="background: rgba(79,70,229,0.2); color: #818cf8;">🪙</div>
+                <div class="item-icon" style="background: rgba(99,102,241,0.2); color: #818cf8;">🪙</div>
                 <div>
                     <div class="item-title">MineX Airdrop Allocation</div>
                     <div class="item-desc" id="walletMinexCount">1.25 MineX</div>
@@ -461,7 +492,7 @@ body {
         <button class="action-btn" style="width: 100%; margin-top: 10px; padding: 14px;" onclick="showToast('TON Wallet connection will open soon for Airdrop claim!')">Connect TON Wallet</button>
     </div>
 
-    <!-- Navigation Bar -->
+    <!-- Floating Navigation Bar -->
     <div class="nav-bar">
         <button class="nav-item active" onclick="switchTab('homePage', this)">
             <span>🏠</span>Home
@@ -480,7 +511,7 @@ body {
 
 <script>
     let tg = window.Telegram?.WebApp;
-    let points = 12500; // نقاط التكبيس والمهام (Miner points)
+    let points = 12500;
 
     if (tg) {
         tg.expand();
@@ -501,15 +532,13 @@ body {
     }
 
     function handleTap(event) {
-        points += 10; // إضافة 10 نقاط عند كل ضغطة
+        points += 10;
         updateUI();
         
-        // اهتزاز تليجرام التفاعلي
         if (tg && tg.HapticFeedback) {
             tg.HapticFeedback.impactOccurred('light');
         }
 
-        // إنشاء رقم عائم متحرك فوق الشعار
         let container = document.getElementById('tapContainer');
         let rect = container.getBoundingClientRect();
         let x = event.clientX - rect.left;
@@ -540,7 +569,6 @@ body {
     }
 
     function updateUI() {
-        // حساب ما يناسب عملات MineX (كل 10,000 نقطة = 1 عملة MineX)
         let minexTokens = points / 10000;
 
         document.getElementById('mainBalance').innerText = points.toLocaleString('en-US');
@@ -565,5 +593,4 @@ body {
 </script>
 
 </body>
-                </html>
-    
+</html>
