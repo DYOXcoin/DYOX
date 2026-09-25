@@ -713,124 +713,44 @@ button:active {
 }
 
 /* =========================
-   STATUS
-========================= */
-
-.status {
-    display: inline-flex;
-
-    margin-top: 5px;
-
-    padding: 3px 7px;
-
-    border-radius: 20px;
-
-    font-size: 8px;
-    font-weight: 800;
-}
-
-.status-pending {
-    background:
-        rgba(255,184,77,.12);
-
-    color:
-        var(--warning);
-}
-
-.status-success {
-    background:
-        rgba(43,216,143,.12);
-
-    color:
-        var(--success);
-}
-
-.status-failed {
-    background:
-        rgba(255,93,115,.12);
-
-    color:
-        var(--danger);
-}
-
-.status-refunded {
-    background:
-        rgba(108,124,255,.12);
-
-    color:
-        #8d9aff;
-}
-
-/* =========================
    BOTTOM NAV
 ========================= */
 
 .bottom-nav {
     position: fixed;
-
     z-index: 100;
-
-    bottom:
-        max(12px, env(safe-area-inset-bottom));
-
+    bottom: max(12px, env(safe-area-inset-bottom));
     left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    width:
-        min(
-            calc(100% - 22px),
-            540px
-        );
-
+    transform: translateX(-50%);
+    width: min(calc(100% - 22px), 540px);
     display: grid;
-
-    grid-template-columns:
-        repeat(5, 1fr);
-
+    grid-template-columns: repeat(5, 1fr);
     padding: 8px;
-
     border-radius: 22px;
-
-    background:
-        rgba(10,14,24,.92);
-
-    border:
-        1px solid var(--border);
-
-    backdrop-filter:
-        blur(25px);
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.4);
+    background: rgba(10,14,24,.92);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
 }
 
 .nav-item {
     padding: 8px 4px;
-
     border-radius: 15px;
-
     background: transparent;
-
     color: #69748b;
-
     font-size: 9px;
+    text-align: center;
 }
 
 .nav-icon {
     display: block;
-
     margin-bottom: 3px;
-
     font-size: 17px;
 }
 
 .nav-item.active {
     color: #91a0ff;
-
-    background:
-        rgba(108,124,255,.10);
+    background: rgba(108,124,255,.10);
 }
 
 /* =========================
@@ -839,20 +759,12 @@ button:active {
 
 .modal {
     position: fixed;
-
     inset: 0;
-
     z-index: 500;
-
     display: none;
-
     align-items: flex-end;
-
-    background:
-        rgba(0,0,0,.72);
-
-    backdrop-filter:
-        blur(7px);
+    background: rgba(0,0,0,.72);
+    backdrop-filter: blur(7px);
 }
 
 .modal.show {
@@ -861,33 +773,17 @@ button:active {
 
 .modal-box {
     width: min(100%, 560px);
-
     margin: auto auto 0;
-
-    padding:
-        24px
-        18px
-        calc(24px + env(safe-area-inset-bottom));
-
-    border-radius:
-        27px
-        27px
-        0
-        0;
-
-    background:
-        #0e1422;
-
-    border-top:
-        1px solid var(--border);
+    padding: 24px 18px calc(24px + env(safe-area-inset-bottom));
+    border-radius: 27px 27px 0 0;
+    background: #0e1422;
+    border-top: 1px solid var(--border);
 }
 
 .modal-header {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
-
     margin-bottom: 20px;
 }
 
@@ -899,131 +795,49 @@ button:active {
 .close-button {
     width: 36px;
     height: 36px;
-
     border-radius: 12px;
-
-    background:
-        rgba(255,255,255,.06);
-
+    background: rgba(255,255,255,.06);
     color: white;
 }
 
 .input-label {
     display: block;
-
-    margin:
-        12px
-        0
-        7px;
-
+    margin: 12px 0 7px;
     color: var(--muted);
-
     font-size: 10px;
 }
 
 .input {
     width: 100%;
-
     padding: 14px;
-
     border-radius: 13px;
-
-    border:
-        1px solid var(--border);
-
-    background:
-        rgba(255,255,255,.045);
-
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.045);
     color: white;
-
     outline: none;
 }
 
 .input:focus {
-    border-color:
-        rgba(108,124,255,.6);
+    border-color: rgba(108,124,255,.6);
 }
 
 .primary-button {
     width: 100%;
-
     padding: 14px;
-
     margin-top: 15px;
-
     border-radius: 14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--primary),
-            var(--primary2)
-        );
-
+    background: linear-gradient(135deg, var(--primary), var(--primary2));
     color: white;
-
     font-weight: 850;
 }
 
 .secondary-button {
     width: 100%;
-
     padding: 13px;
-
     margin-top: 8px;
-
     border-radius: 14px;
-
-    background:
-        rgba(255,255,255,.06);
-
+    background: rgba(255,255,255,.06);
     color: white;
-}
-
-/* =========================
-   ADMIN
-========================= */
-
-.admin-grid {
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 9px;
-}
-
-.admin-card {
-    padding: 16px;
-
-    border-radius: 18px;
-
-    background:
-        var(--card);
-
-    border:
-        1px solid var(--border);
-}
-
-.admin-card-icon {
-    font-size: 20px;
-}
-
-.admin-card-title {
-    margin-top: 10px;
-
-    font-size: 12px;
-    font-weight: 850;
-}
-
-.admin-card-text {
-    margin-top: 4px;
-
-    color: var(--muted);
-
-    font-size: 9px;
-
-    line-height: 1.5;
 }
 
 /* =========================
@@ -1032,56 +846,28 @@ button:active {
 
 .toast {
     position: fixed;
-
     z-index: 1000;
-
     left: 50%;
-
     bottom: 92px;
-
-    transform:
-        translate(-50%, 20px);
-
+    transform: translate(-50%, 20px);
     opacity: 0;
-
     pointer-events: none;
-
-    width:
-        calc(100% - 35px);
-
+    width: calc(100% - 35px);
     max-width: 480px;
-
     padding: 13px 16px;
-
     border-radius: 15px;
-
-    background:
-        rgba(20,25,40,.96);
-
-    border:
-        1px solid var(--border);
-
-    box-shadow:
-        var(--shadow);
-
+    background: rgba(20,25,40,.96);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
     font-size: 11px;
-
     text-align: center;
-
-    transition:
-        .25s ease;
+    transition: .25s ease;
 }
 
 .toast.show {
     opacity: 1;
-
-    transform:
-        translate(-50%, 0);
+    transform: translate(-50%, 0);
 }
-
-/* =========================
-   PAGE VISIBILITY
-========================= */
 
 .page {
     display: none;
@@ -1091,2493 +877,193 @@ button:active {
     display: block;
 }
 
-/* =========================
-   LOADING
-========================= */
-
 .loading {
     display: grid;
-
     place-items: center;
-
     min-height: 120px;
-
     color: var(--muted);
-
     font-size: 11px;
 }
 
 .spinner {
     width: 25px;
     height: 25px;
-
     margin-bottom: 10px;
-
-    border:
-        2px solid rgba(255,255,255,.1);
-
-    border-top-color:
-        var(--primary);
-
+    border: 2px solid rgba(255,255,255,.1);
+    border-top-color: var(--primary);
     border-radius: 50%;
-
-    animation:
-        spin .7s linear infinite;
+    animation: spin .7s linear infinite;
 }
 
 @keyframes spin {
-
-    to {
-        transform: rotate(360deg);
-    }
-
+    to { transform: rotate(360deg); }
 }
 
 </style>
 </head>
 
-
 <body>
-
 
 <div class="app">
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<header class="header">
-
-    <div class="brand">
-
-        <div class="logo">
-            W3
-        </div>
-
-        <div>
-
-            <div
-                class="brand-title"
-                id="userName"
-            >
-                Web3 Rewards
-            </div>
-
-            <div
-                class="brand-subtitle"
-                id="userUsername"
-            >
-                Secure Web3 Mini App
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="header-actions">
-
-        <button
-            class="icon-button"
-            onclick="openNotifications()"
-        >
-            🔔
-        </button>
-
-        <button
-            class="icon-button"
-            onclick="openProfile()"
-        >
-            👤
-        </button>
-
-    </div>
-
-</header>
-
-
-<!-- =====================================================
-     HOME PAGE
-===================================================== -->
-
-<section
-    id="homePage"
-    class="page active"
->
-
-
-<!-- BALANCE -->
-
-<div class="hero">
-
-    <div class="hero-content">
-
-        <div class="hero-label">
-            Total Portfolio Balance
-        </div>
-
-        <div
-            class="hero-balance"
-            id="totalBalance"
-        >
-            0.00
-        </div>
-
-        <div
-            class="hero-token"
-            id="mainToken"
-        >
-            REWARD
-        </div>
-
-        <div
-            class="hero-value"
-            id="usdValue"
-        >
-            ≈ $0.00
-        </div>
-
-
-        <div class="hero-actions">
-
-            <button
-                class="btn-light"
-                onclick="openWithdraw()"
-            >
-                Withdraw
-            </button>
-
-            <button
-                class="btn-glass"
-                onclick="openDeposit()"
-            >
-                Deposit
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- STATS -->
-
-<div class="stats">
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            🎯
-        </div>
-
-        <div
-            class="stat-value"
-            id="tasksCompleted"
-        >
-            0
-        </div>
-
-        <div class="stat-label">
-            Tasks
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            👥
-        </div>
-
-        <div
-            class="stat-value"
-            id="referrals"
-        >
-            0
-        </div>
-
-        <div class="stat-label">
-            Referrals
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            💎
-        </div>
-
-        <div
-            class="stat-value"
-            id="earned"
-        >
-            0
-        </div>
-
-        <div class="stat-label">
-            Earned
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- TOKENS -->
-
-<div class="section">
-
-    <div class="section-head">
-
-        <div class="section-title">
-            My Assets
-        </div>
-
-        <button
-            class="section-link"
-            onclick="openWallet()"
-        >
-            View all
-        </button>
-
-    </div>
-
-
-    <div id="assetsList">
-
-        <div class="token-card">
-
-            <div class="token-logo">
-                R
-            </div>
-
-            <div class="token-info">
-
-                <div class="token-name">
-                    Reward Token
-                </div>
-
-                <div class="token-symbol">
-                    REWARD
-                </div>
-
-            </div>
-
-            <div class="token-balance">
-
-                <div
-                    class="token-amount"
-                    id="assetBalance"
-                >
-                    0
-                </div>
-
-                <div class="token-usd">
-                    $0.00
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- TASKS -->
-
-<div class="section">
-
-    <div class="section-head">
-
-        <div class="section-title">
-            Featured Tasks
-        </div>
-
-        <button
-            class="section-link"
-            onclick="openTasks()"
-        >
-            View all
-        </button>
-
-    </div>
-
-
-    <div id="featuredTasks">
-
-        <div class="loading">
-
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand">
+            <div class="logo">W3</div>
             <div>
-                <div class="spinner"></div>
-                Loading tasks...
+                <div class="brand-title" id="userName">Web3 Rewards</div>
+                <div class="brand-subtitle" id="userUsername">Secure Web3 Mini App</div>
             </div>
-
         </div>
-
-    </div>
-
-</div>
-
-
-<!-- REFERRAL -->
-
-<div class="section">
-
-    <div class="referral-card">
-
-        <div class="referral-title">
-            Invite & Earn
+        <div class="header-actions">
+            <button class="icon-button" onclick="showToast('No new notifications')">🔔</button>
+            <button class="icon-button" onclick="switchPage('profilePage', document.querySelectorAll('.nav-item')[4])">👤</button>
         </div>
+    </header>
 
-        <div class="referral-text">
-            Share your personal referral link.
-            Eligible referrals can generate
-            rewards according to the current
-            program rules.
-        </div>
-
-
-        <div class="referral-box">
-
-            <input
-                id="referralLink"
-                class="referral-input"
-                readonly
-            >
-
-            <button
-                class="copy-button"
-                onclick="copyReferral()"
-            >
-                Copy
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- RECENT ACTIVITY -->
-
-<div class="section">
-
-    <div class="section-head">
-
-        <div class="section-title">
-            Recent Activity
-        </div>
-
-        <button
-            class="section-link"
-            onclick="openHistory()"
-        >
-            History
-        </button>
-
-    </div>
-
-
-    <div
-        id="recentTransactions"
-        class="token-card"
-    >
-
-        <div class="loading">
-
-            <div>
-                <div class="spinner"></div>
-                Loading activity...
+    <!-- HOME PAGE -->
+    <section id="homePage" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-label">Total Portfolio Balance</div>
+                <div class="hero-balance" id="totalBalance">150.00</div>
+                <div class="hero-token">REWARD</div>
+                <div class="hero-value" id="usdValue">≈ $15.00</div>
+                <div class="hero-actions">
+                    <button class="btn-light" onclick="openModal('withdrawModal')">Withdraw</button>
+                    <button class="btn-glass" onclick="openModal('depositModal')">Deposit</button>
+                </div>
             </div>
-
         </div>
 
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     TASKS PAGE
-===================================================== -->
-
-<section
-    id="tasksPage"
-    class="page"
->
-
-<div class="section-head">
-
-    <div class="section-title">
-        All Tasks
-    </div>
-
-</div>
-
-
-<div id="allTasks">
-
-    <div class="loading">
-
-        <div>
-            <div class="spinner"></div>
-            Loading...
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     WALLET PAGE
-===================================================== -->
-
-<section
-    id="walletPage"
-    class="page"
->
-
-<div class="section-head">
-
-    <div class="section-title">
-        Wallet
-    </div>
-
-</div>
-
-
-<div class="hero">
-
-    <div class="hero-content">
-
-        <div class="hero-label">
-            Available Balance
-        </div>
-
-        <div
-            class="hero-balance"
-            id="walletBalance"
-        >
-            0
-        </div>
-
-        <div class="hero-token">
-            REWARD
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="section">
-
-    <div class="section-head">
-
-        <div class="section-title">
-            Wallet Actions
-        </div>
-
-    </div>
-
-
-    <button
-        class="primary-button"
-        onclick="openDeposit()"
-    >
-        Receive / Deposit
-    </button>
-
-    <button
-        class="secondary-button"
-        onclick="openWithdraw()"
-    >
-        Withdraw
-    </button>
-
-</div>
-
-
-<div class="section">
-
-    <div class="section-head">
-
-        <div class="section-title">
-            Transaction History
-        </div>
-
-    </div>
-
-    <div
-        id="walletHistory"
-        class="token-card"
-    >
-        Loading...
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     PROFILE PAGE
-===================================================== -->
-
-<section
-    id="profilePage"
-    class="page"
->
-
-<div class="section-head">
-
-    <div class="section-title">
-        Profile
-    </div>
-
-</div>
-
-
-<div class="token-card">
-
-    <div class="token-logo">
-        👤
-    </div>
-
-    <div class="token-info">
-
-        <div
-            class="token-name"
-            id="profileName"
-        >
-            User
-        </div>
-
-        <div
-            class="token-symbol"
-            id="profileUsername"
-        >
-            @user
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="section">
-
-    <div class="admin-grid">
-
-        <div
-            class="admin-card"
-            onclick="openHistory()"
-        >
-
-            <div class="admin-card-icon">
-                📜
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value" id="tasksCompleted">3</div>
+                <div class="stat-label">Tasks</div>
             </div>
-
-            <div class="admin-card-title">
-                History
+            <div class="stat">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value" id="referrals">5</div>
+                <div class="stat-label">Referrals</div>
             </div>
-
-            <div class="admin-card-text">
-                View your complete activity.
+            <div class="stat">
+                <div class="stat-icon">💎</div>
+                <div class="stat-value" id="earned">150</div>
+                <div class="stat-label">Earned</div>
             </div>
-
         </div>
 
-
-        <div
-            class="admin-card"
-            onclick="openNotifications()"
-        >
-
-            <div class="admin-card-icon">
-                🔔
+        <div class="section">
+            <div class="section-head">
+                <div class="section-title">My Assets</div>
+                <button class="section-link" onclick="switchPage('walletPage', document.querySelectorAll('.nav-item')[2])">View all</button>
             </div>
-
-            <div class="admin-card-title">
-                Notifications
+            <div id="assetsList">
+                <div class="token-card">
+                    <div class="token-logo">R</div>
+                    <div class="token-info">
+                        <div class="token-name">Reward Token</div>
+                        <div class="token-symbol">REWARD</div>
+                    </div>
+                    <div class="token-balance">
+                        <div class="token-amount" id="assetBalance">150.00</div>
+                        <div class="token-usd">$15.00</div>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <div class="admin-card-text">
-                System and account updates.
+        <div class="section">
+            <div class="section-head">
+                <div class="section-title">Featured Tasks</div>
+                <button class="section-link" onclick="switchPage('tasksPage', document.querySelectorAll('.nav-item')[1])">View all</button>
             </div>
-
-        </div>
-
-
-        <div
-            class="admin-card"
-            onclick="openReferralPage()"
-        >
-
-            <div class="admin-card-icon">
-                👥
+            <div id="featuredTasks">
+                <div class="task-card">
+                    <div class="task-icon">📢</div>
+                    <div class="task-info">
+                        <div class="task-title">Join Telegram Channel</div>
+                        <div class="task-description">Subscribe to our official channel</div>
+                        <div class="task-reward">+50 REWARD</div>
+                    </div>
+                    <button class="task-button" onclick="completeTask(this, 50)">Start</button>
+                </div>
             </div>
+        </div>
 
-            <div class="admin-card-title">
-                Referrals
+        <div class="section">
+            <div class="referral-card">
+                <div class="referral-title">Invite & Earn</div>
+                <div class="referral-text">Share your personal referral link to earn rewards.</div>
+                <div class="referral-box">
+                    <input id="referralLink" class="referral-input" value="https://t.me/Web3RewardsBot?start=ref12345" readonly>
+                    <button class="copy-button" onclick="copyReferral()">Copy</button>
+                </div>
             </div>
-
-            <div class="admin-card-text">
-                Track your referral activity.
-            </div>
-
         </div>
-
-
-        <div
-            class="admin-card"
-            onclick="openSupport()"
-        >
-
-            <div class="admin-card-icon">
-                🛟
-            </div>
-
-            <div class="admin-card-title">
-                Support
-            </div>
-
-            <div class="admin-card-text">
-                Contact application support.
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     ADMIN PAGE
-===================================================== -->
-
-<section
-    id="adminPage"
-    class="page"
->
-
-<div class="section-head">
-
-    <div class="section-title">
-        Administration
-    </div>
-
-</div>
-
-
-<div class="admin-grid">
-
-    <div class="admin-card">
-
-        <div class="admin-card-icon">
-            👥
-        </div>
-
-        <div class="admin-card-title">
-            Users
-        </div>
-
-        <div class="admin-card-text">
-            Manage users and account status.
-        </div>
-
-    </div>
-
-
-    <div class="admin-card">
-
-        <div class="admin-card-icon">
-            🪙
-        </div>
-
-        <div class="admin-card-title">
-            Tokens
-        </div>
-
-        <div class="admin-card-text">
-            Add or disable supported tokens.
-        </div>
-
-    </div>
-
-
-    <div class="admin-card">
-
-        <div class="admin-card-icon">
-            🎯
-        </div>
-
-        <div class="admin-card-title">
-            Tasks
-        </div>
-
-        <div class="admin-card-text">
-            Create tasks and configure rewards.
-        </div>
-
-    </div>
-
-
-    <div class="admin-card">
-
-        <div class="admin-card-icon">
-            💸
-        </div>
-
-        <div class="admin-card-title">
-            Withdrawals
-        </div>
-
-        <div class="admin-card-text">
-            Process pending withdrawals.
-        </div>
-
-    </div>
-
-
-    <div class="admin-card">
-
-        <div class="admin-card-icon">
-            ♻️
-        </div>
-
-        <div class="admin-card-title">
-            Refunds
-        </div>
-
-        <div class="admin-card-text">
-            Refund failed withdrawals safely.
-        </div>
-
-    </div>
-
-
-    <div class="admin-card">
-
-        <div class="admin-card-icon">
-            🎁
-        </div>
-
-        <div class="admin-card-title">
-            Compensation
-        </div>
-
-        <div class="admin-card-text">
-            Compensate users after verified errors.
-        </div>
-
-    </div>
-
-
-    <div class="admin-card">
-
-        <div class="admin-card-icon">
-            📢
-        </div>
-
-        <div class="admin-card-title">
-            Announcements
-        </div>
-
-        <div class="admin-card-text">
-            Publish system announcements.
-        </div>
-
-    </div>
-
-
-    <div class="admin-card">
-
-        <div class="admin-card-icon">
-            🛡️
-        </div>
-
-        <div class="admin-card-title">
-            Audit Logs
-        </div>
-
-        <div class="admin-card-text">
-            Track sensitive administrative actions.
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-</div>
-
-
-<!-- =====================================================
-     BOTTOM NAV
-===================================================== -->
-
-<nav class="bottom-nav">
-
-<button
-    class="nav-item active"
-    data-page="homePage"
-    onclick="navigate('homePage', this)"
->
-
-<span class="nav-icon">🏠</span>
-Home
-
-</button>
-
-
-<button
-    class="nav-item"
-    data-page="tasksPage"
-    onclick="navigate('tasksPage', this)"
->
-
-<span class="nav-icon">🎯</span>
-Tasks
-
-</button>
-
-
-<button
-    class="nav-item"
-    data-page="walletPage"
-    onclick="navigate('walletPage', this)"
->
-
-<span class="nav-icon">💰</span>
-Wallet
-
-</button>
-
-
-<button
-    class="nav-item"
-    data-page="profilePage"
-    onclick="navigate('profilePage', this)"
->
-
-<span class="nav-icon">👤</span>
-Profile
-
-</button>
-
-
-<button
-    class="nav-item"
-    data-page="adminPage"
-    id="adminNav"
-    onclick="navigate('adminPage', this)"
-    style="display:none"
->
-
-<span class="nav-icon">⚙️</span>
-Admin
-
-</button>
-
-</nav>
-
-
-<!-- =====================================================
-     WITHDRAW MODAL
-===================================================== -->
-
-<div
-    class="modal"
-    id="withdrawModal"
->
-
-<div class="modal-box">
-
-<div class="modal-header">
-
-<div class="modal-title">
-Withdraw
-</div>
-
-<button
-    class="close-button"
-    onclick="closeModal('withdrawModal')"
->
-×
-</button>
-
-</div>
-
-
-<label class="input-label">
-Wallet Address
-</label>
-
-<input
-    id="withdrawAddress"
-    class="input"
-    placeholder="Enter destination wallet"
-/>
-
-
-<label class="input-label">
-Amount
-</label>
-
-<input
-    id="withdrawAmount"
-    class="input"
-    type="number"
-    min="0"
-    placeholder="0.00"
-/>
-
-
-<button
-    class="primary-button"
-    onclick="submitWithdrawal()"
->
-Submit Withdrawal
-</button>
-
-
-<button
-    class="secondary-button"
-    onclick="closeModal('withdrawModal')"
->
-Cancel
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     DEPOSIT MODAL
-===================================================== -->
-
-<div
-    class="modal"
-    id="depositModal"
->
-
-<div class="modal-box">
-
-<div class="modal-header">
-
-<div class="modal-title">
-Deposit
-</div>
-
-<button
-    class="close-button"
-    onclick="closeModal('depositModal')"
->
-×
-</button>
-
-</div>
-
-
-<div
-    style="
-        text-align:center;
-        padding:25px 10px;
-    "
->
-
-<div
-    style="
-        font-size:48px;
-        margin-bottom:15px;
-    "
->
-💎
-</div>
-
-<div
-    style="
-        color:#8792aa;
-        font-size:11px;
-        line-height:1.6;
-    "
->
-Your deposit address will be supplied
-by the secure backend/wallet service.
-</div>
-
-</div>
-
-
-<button
-    class="primary-button"
-    onclick="copyDepositAddress()"
->
-Copy Deposit Address
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     TOAST
-===================================================== -->
-
-<div
-    class="toast"
-    id="toast"
->
-</div>
-
-
-<script>
-
-/* =========================================================
-   TELEGRAM
-========================================================= */
-
-const TelegramApp =
-    window.Telegram &&
-    window.Telegram.WebApp
-        ? window.Telegram.WebApp
-        : null;
-
-
-if (TelegramApp) {
-
-    TelegramApp.ready();
-
-    TelegramApp.expand();
-
-}
-
-
-/* =========================================================
-   CONFIGURATION
-========================================================= */
-
-/*
-    لا تضع:
-
-    - Private Key
-    - Seed Phrase
-    - Admin Secret
-    - Database Password
-
-    هنا.
-
-    هذه الواجهة تتصل بالـ Backend.
-*/
-
-const API_BASE = "/api";
-
-
-/* =========================================================
-   APPLICATION STATE
-========================================================= */
-
-const state = {
-
-    user: {
-
-        id: null,
-
-        firstName: "User",
-
-        username: "",
-
-        isAdmin: false
-
-    },
-
-    balance: 0,
-
-    usdValue: 0,
-
-    token: "REWARD",
-
-    tasksCompleted: 0,
-
-    referrals: 0,
-
-    earned: 0,
-
-    tasks: [],
-
-    transactions: [],
-
-    notifications: []
-
-};
-
-
-/* =========================================================
-   API HELPER
-========================================================= */
-
-async function api(
-    endpoint,
-    options = {}
-) {
-
-    const response =
-        await fetch(
-            API_BASE + endpoint,
-            {
-
-                ...options,
-
-                headers: {
-
-                    "Content-Type":
-                        "application/json",
-
-                    ...(options.headers || {})
-
-                }
-
-            }
-        );
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            "API request failed"
-        );
-
-    }
-
-
-    return response.json();
-
-}
-
-
-/* =========================================================
-   TELEGRAM INIT DATA
-========================================================= */
-
-function getTelegramInitData() {
-
-    if (
-        TelegramApp &&
-        TelegramApp.initData
-    ) {
-
-        return TelegramApp.initData;
-
-    }
-
-    return "";
-
-}
-
-
-/* =========================================================
-   LOAD USER
-========================================================= */
-
-async function loadUser() {
-
-    try {
-
-        /*
-            Production:
-
-            GET /api/me
-
-            Backend validates Telegram
-            initData cryptographically.
-        */
-
-        const data =
-            await api(
-                "/me",
-                {
-
-                    headers: {
-
-                        "X-Telegram-Init-Data":
-                            getTelegramInitData()
-
-                    }
-
-                }
-            );
-
-
-        state.user =
-            data.user;
-
-        state.balance =
-            Number(data.balance || 0);
-
-        state.usdValue =
-            Number(data.usdValue || 0);
-
-        state.token =
-            data.token || "REWARD";
-
-        state.tasksCompleted =
-            Number(
-                data.tasksCompleted || 0
-            );
-
-        state.referrals =
-            Number(
-                data.referrals || 0
-            );
-
-        state.earned =
-            Number(
-                data.earned || 0
-            );
-
-
-        renderUser();
-
-    } catch (error) {
-
-        /*
-            Demo fallback.
-        */
-
-        state.user = {
-
-            id:
-                TelegramApp?.initDataUnsafe
-                    ?.user?.id || null,
-
-            firstName:
-                TelegramApp?.initDataUnsafe
-                    ?.user?.first_name
-                || "User",
-
-            username:
-                TelegramApp?.initDataUnsafe
-                    ?.user?.username
-                || "",
-
-            isAdmin: false
-
-        };
-
-
-        renderUser();
-
-    }
-
-}
-
-
-/* =========================================================
-   RENDER USER
-========================================================= */
-
-function renderUser() {
-
-    const firstName =
-        state.user.firstName ||
-        "User";
-
-
-    const username =
-        state.user.username
-            ? "@" + state.user.username
-            : "Secure Web3 Account";
-
-
-    document.getElementById(
-        "userName"
-    ).textContent =
-        firstName;
-
-
-    document.getElementById(
-        "userUsername"
-    ).textContent =
-        username;
-
-
-    document.getElementById(
-        "profileName"
-    ).textContent =
-        firstName;
-
-
-    document.getElementById(
-        "profileUsername"
-    ).textContent =
-        username;
-
-
-    document.getElementById(
-        "totalBalance"
-    ).textContent =
-        formatNumber(
-            state.balance
-        );
-
-
-    document.getElementById(
-        "walletBalance"
-    ).textContent =
-        formatNumber(
-            state.balance
-        );
-
-
-    document.getElementById(
-        "assetBalance"
-    ).textContent =
-        formatNumber(
-            state.balance
-        );
-
-
-    document.getElementById(
-        "mainToken"
-    ).textContent =
-        state.token;
-
-
-    document.getElementById(
-        "usdValue"
-    ).textContent =
-        "≈ $" +
-        formatNumber(
-            state.usdValue
-        );
-
-
-    document.getElementById(
-        "tasksCompleted"
-    ).textContent =
-        state.tasksCompleted;
-
-
-    document.getElementById(
-        "referrals"
-    ).textContent =
-        state.referrals;
-
-
-    document.getElementById(
-        "earned"
-    ).textContent =
-        formatNumber(
-            state.earned
-        );
-
-}
-
-
-/* =========================================================
-   LOAD TASKS
-========================================================= */
-
-async function loadTasks() {
-
-    try {
-
-        const data =
-            await api("/tasks");
-
-
-        state.tasks =
-            data.tasks || [];
-
-
-    } catch {
-
-        state.tasks = [
-
-            {
-
-                id: "demo-1",
-
-                title:
-                    "Join Telegram Community",
-
-                description:
-                    "Join the official community.",
-
-                reward: 100,
-
-                icon: "📢",
-
-                completed: false
-
-            },
-
-            {
-
-                id: "demo-2",
-
-                title:
-                    "Visit Official Website",
-
-                description:
-                    "Visit the project website.",
-
-                reward: 50,
-
-                icon: "🌐",
-
-                completed: false
-
-            },
-
-            {
-
-                id: "demo-3",
-
-                title:
-                    "Invite a Friend",
-
-                description:
-                    "Invite an eligible user.",
-
-                reward: 250,
-
-                icon: "👥",
-
-                completed: false
-
-            }
-
-        ];
-
-    }
-
-
-    renderTasks();
-
-}
-
-
-/* =========================================================
-   RENDER TASKS
-========================================================= */
-
-function renderTasks() {
-
-    const featured =
-        document.getElementById(
-            "featuredTasks"
-        );
-
-
-    const all =
-        document.getElementById(
-            "allTasks"
-        );
-
-
-    if (!state.tasks.length) {
-
-        featured.innerHTML =
-            emptyState(
-                "No tasks available"
-            );
-
-        all.innerHTML =
-            featured.innerHTML;
-
-        return;
-
-    }
-
-
-    const html =
-        state.tasks
-            .map(
-                taskHTML
-            )
-            .join("");
-
-
-    featured.innerHTML =
-        state.tasks
-            .slice(0, 3)
-            .map(taskHTML)
-            .join("");
-
-
-    all.innerHTML =
-        html;
-
-
-    document.getElementById(
-        "taskCount"
-    )?.textContent =
-        state.tasks.length +
-        " tasks";
-
-}
-
-
-function taskHTML(task) {
-
-    return `
-
+    </section>
+
+    <!-- TASKS PAGE -->
+    <section id="tasksPage" class="page">
+        <div class="section-title" style="margin-bottom: 15px;">All Tasks</div>
         <div class="task-card">
-
-            <div class="task-icon">
-                ${escapeHTML(
-                    task.icon || "🎯"
-                )}
-            </div>
-
+            <div class="task-icon">📢</div>
             <div class="task-info">
-
-                <div class="task-title">
-                    ${escapeHTML(
-                        task.title
-                    )}
-                </div>
-
-                <div class="task-description">
-                    ${escapeHTML(
-                        task.description || ""
-                    )}
-                </div>
-
-                <div class="task-reward">
-                    +${formatNumber(
-                        task.reward
-                    )} ${escapeHTML(
-                        state.token
-                    )}
-                </div>
-
+                <div class="task-title">Join Telegram Channel</div>
+                <div class="task-description">Subscribe to our official channel</div>
+                <div class="task-reward">+50 REWARD</div>
             </div>
-
-            <button
-                class="task-button ${
-                    task.completed
-                        ? "done"
-                        : ""
-                }"
-                onclick="
-                    completeTask(
-                        '${escapeJS(task.id)}'
-                    )
-                "
-                ${
-                    task.completed
-                        ? "disabled"
-                        : ""
-                }
-            >
-                ${
-                    task.completed
-                        ? "✓ Done"
-                        : "Start"
-                }
-            </button>
-
+            <button class="task-button" onclick="completeTask(this, 50)">Start</button>
         </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   COMPLETE TASK
-========================================================= */
-
-async function completeTask(
-    taskId
-) {
-
-    try {
-
-        /*
-            POST /api/tasks/:id/complete
-
-            Backend must:
-
-            1. Authenticate Telegram user.
-            2. Check task exists.
-            3. Check task active.
-            4. Check task requirements.
-            5. Prevent duplicate completion.
-            6. Create ledger entry.
-            7. Update balance atomically.
-        */
-
-        const result =
-            await api(
-                `/tasks/${taskId}/complete`,
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "X-Telegram-Init-Data":
-                            getTelegramInitData()
-
-                    }
-
-                }
-            );
-
-
-        state.balance =
-            Number(result.balance);
-
-
-        state.tasksCompleted++;
-
-
-        renderUser();
-
-        await loadTasks();
-
-        showToast(
-            "Task completed successfully."
-        );
-
-
-    } catch {
-
-        showToast(
-            "Task could not be completed."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   WITHDRAW
-========================================================= */
-
-function openWithdraw() {
-
-    openModal(
-        "withdrawModal"
-    );
-
-}
-
-
-async function submitWithdrawal() {
-
-    const address =
-        document.getElementById(
-            "withdrawAddress"
-        ).value.trim();
-
-
-    const amount =
-        Number(
-            document.getElementById(
-                "withdrawAmount"
-            ).value
-        );
-
-
-    if (!address) {
-
-        showToast(
-            "Enter a wallet address."
-        );
-
-        return;
-
-    }
-
-
-    if (!amount || amount <= 0) {
-
-        showToast(
-            "Enter a valid amount."
-        );
-
-        return;
-
-    }
-
-
-    if (amount > state.balance) {
-
-        showToast(
-            "Insufficient balance."
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        /*
-            IMPORTANT:
-
-            Never send blockchain transactions
-            directly from this HTML.
-
-            Backend:
-
-            POST /api/withdrawals
-
-            creates:
-
-            PENDING
-
-            and reserves the amount atomically.
-        */
-
-        await api(
-            "/withdrawals",
-            {
-
-                method: "POST",
-
-                headers: {
-
-                    "X-Telegram-Init-Data":
-                        getTelegramInitData()
-
-                },
-
-                body: JSON.stringify({
-
-                    token:
-                        state.token,
-
-                    address,
-
-                    amount
-
-                })
-
-            }
-        );
-
-
-        closeModal(
-            "withdrawModal"
-        );
-
-
-        showToast(
-            "Withdrawal request submitted."
-        );
-
-
-        await loadUser();
-
-        await loadTransactions();
-
-
-    } catch {
-
-        showToast(
-            "Withdrawal request failed."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   DEPOSIT
-========================================================= */
-
-function openDeposit() {
-
-    openModal(
-        "depositModal"
-    );
-
-}
-
-
-function copyDepositAddress() {
-
-    /*
-        Production:
-
-        GET /api/wallet/deposit-address
-
-        Then copy the returned address.
-    */
-
-    showToast(
-        "Deposit address will be provided by the secure wallet service."
-    );
-
-}
-
-
-/* =========================================================
-   TRANSACTIONS
-========================================================= */
-
-async function loadTransactions() {
-
-    try {
-
-        const data =
-            await api(
-                "/transactions",
-                {
-
-                    headers: {
-
-                        "X-Telegram-Init-Data":
-                            getTelegramInitData()
-
-                    }
-
-                }
-            );
-
-
-        state.transactions =
-            data.transactions || [];
-
-
-    } catch {
-
-        state.transactions = [];
-
-    }
-
-
-    renderTransactions();
-
-}
-
-
-function renderTransactions() {
-
-    const container =
-        document.getElementById(
-            "recentTransactions"
-        );
-
-
-    if (!state.transactions.length) {
-
-        container.innerHTML =
-            emptyState(
-                "No transactions yet"
-            );
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        state.transactions
-            .slice(0, 5)
-            .map(
-                transactionHTML
-            )
-            .join("");
-
-}
-
-
-function transactionHTML(tx) {
-
-    const positive =
-        tx.type === "CREDIT" ||
-        tx.type === "REFUND" ||
-        tx.type === "COMPENSATION";
-
-
-    return `
-
-        <div class="transaction">
-
-            <div class="transaction-icon">
-
-                ${
-                    positive
-                        ? "⬆️"
-                        : "⬇️"
-                }
-
+        <div class="task-card">
+            <div class="task-icon">🐦</div>
+            <div class="task-info">
+                <div class="task-title">Follow on X (Twitter)</div>
+                <div class="task-description">Follow our official account</div>
+                <div class="task-reward">+50 REWARD</div>
             </div>
-
-            <div class="transaction-info">
-
-                <div class="transaction-title">
-                    ${escapeHTML(
-                        tx.reason || "Transaction"
-                    )}
-                </div>
-
-                <div class="transaction-date">
-                    ${escapeHTML(
-                        tx.createdAt || ""
-                    )}
-                </div>
-
-                <span
-                    class="
-                        status
-                        ${
-                            tx.status === "FAILED"
-                                ? "status-failed"
-                                : tx.status === "REFUNDED"
-                                    ? "status-refunded"
-                                    : tx.status === "PENDING"
-                                        ? "status-pending"
-                                        : "status-success"
-                        }
-                    "
-                >
-                    ${escapeHTML(
-                        tx.status || "COMPLETED"
-                    )}
-                </span>
-
-            </div>
-
-            <div
-                class="
-                    transaction-amount
-                    ${
-                        positive
-                            ? "amount-positive"
-                            : "amount-negative"
-                    }
-                "
-            >
-                ${
-                    positive
-                        ? "+"
-                        : "-"
-                }${formatNumber(
-                    tx.amount
-                )}
-            </div>
-
+            <button class="task-button" onclick="completeTask(this, 50)">Start</button>
         </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   REFERRAL
-========================================================= */
-
-function setupReferral() {
-
-    const code =
-        state.user.id ||
-        "user";
-
-
-    const link =
-        "https://t.me/YourBot?start=" +
-        code;
-
-
-    document.getElementById(
-        "referralLink"
-    ).value =
-        link;
-
-}
-
-
-async function copyReferral() {
-
-    const value =
-        document.getElementById(
-            "referralLink"
-        ).value;
-
-
-    try {
-
-        await navigator.clipboard
-            .writeText(value);
-
-        showToast(
-            "Referral link copied."
-        );
-
-    } catch {
-
-        showToast(
-            "Copy failed."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function navigate(
-    pageId,
-    button
-) {
-
-    document
-        .querySelectorAll(".page")
-        .forEach(
-            page =>
-                page.classList.remove(
-                    "active"
-                )
-        );
-
-
-    document.getElementById(
-        pageId
-    )?.classList.add(
-        "active"
-    );
-
-
-    document
-        .querySelectorAll(".nav-item")
-        .forEach(
-            item =>
-                item.classList.remove(
-                    "active"
-                )
-        );
-
-
-    if (button) {
-
-        button.classList.add(
-            "active"
-        );
-
-    }
-
-
-    if (pageId === "tasksPage") {
-
-        loadTasks();
-
-    }
-
-
-    if (pageId === "walletPage") {
-
-        loadTransactions();
-
-    }
-
-}
-
-
-/* =========================================================
-   QUICK NAV
-========================================================= */
-
-function openWallet() {
-
-    navigate(
-        "walletPage",
-        document.querySelector(
-            '[data-page="walletPage"]'
-        )
-    );
-
-}
-
-
-function openTasks() {
-
-    navigate(
-        "tasksPage",
-        document.querySelector(
-            '[data-page="tasksPage"]'
-        )
-    );
-
-}
-
-
-function openProfile() {
-
-    navigate(
-        "profilePage",
-        document.querySelector(
-            '[data-page="profilePage"]'
-        )
-    );
-
-}
-
-
-function openHistory() {
-
-    openWallet();
-
-}
-
-
-function openReferralPage() {
-
-    showToast(
-        "Referral dashboard opened."
-    );
-
-}
-
-
-function openSupport() {
-
-    if (TelegramApp) {
-
-        TelegramApp.openTelegramLink(
-            "https://t.me/YourSupport"
-        );
-
-    } else {
-
-        showToast(
-            "Support is available through Telegram."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   NOTIFICATIONS
-========================================================= */
-
-async function openNotifications() {
-
-    try {
-
-        const data =
-            await api(
-                "/notifications",
-                {
-
-                    headers: {
-
-                        "X-Telegram-Init-Data":
-                            getTelegramInitData()
-
-                    }
-
-                }
-            );
-
-
-        state.notifications =
-            data.notifications || [];
-
-
-    } catch {
-
-        state.notifications = [];
-
-    }
-
-
-    if (!state.notifications.length) {
-
-        showToast(
-            "No new notifications."
-        );
-
-        return;
-
-    }
-
-
-    showToast(
-        state.notifications.length +
-        " notification(s)."
-    );
-
-}
-
-
-/* =========================================================
-   MODALS
-========================================================= */
-
-function openModal(id) {
-
-    document.getElementById(
-        id
-    )?.classList.add(
-        "show"
-    );
-
-}
-
-
-function closeModal(id) {
-
-    document.getElementById(
-        id
-    )?.classList.remove(
-        "show"
-    );
-
-}
-
-
-/* =========================================================
-   ADMIN
-========================================================= */
-
-async function checkAdmin() {
-
-    try {
-
-        const result =
-            await api(
-                "/admin/me",
-                {
-
-                    headers: {
-
-                        "X-Telegram-Init-Data":
-                            getTelegramInitData()
-
-                    }
-
-                }
-            );
-
-
-        if (result.isAdmin) {
-
-            state.user.isAdmin =
-                true;
-
-
-            document.getElementById(
-                "adminNav"
-            ).style.display =
-                "block";
-
-        }
-
-    } catch {
-
-        /*
-            Do nothing.
-
-            Admin authorization MUST
-            be decided server-side.
-        */
-
-    }
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-let toastTimer;
-
-
-function showToast(
-    message
-) {
-
-    const toast =
-        document.getElementById(
-            "toast"
-        );
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    clearTimeout(
-        toastTimer
-    );
-
-
-    toastTimer =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            2500
-        );
-
-}
-
-
-/* =========================================================
-   UTILITIES
-========================================================= */
-
-function formatNumber(
-    value
-) {
-
-    const number =
-        Number(value || 0);
-
-
-    return number.toLocaleString(
-        undefined,
-        {
-
-            maximumFractionDigits: 6
-
-        }
-    );
-
-}
-
-
-function escapeHTML(
-    value
-) {
-
-    return String(value ?? "")
-        .replace(
-            /[&<>"']/g,
-            character => ({
-
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#039;"
-
-            }[character])
-        );
-
-}
-
-
-function escapeJS(
-    value
-) {
-
-    return String(value ?? "")
-        .replace(
-            /\\/g,
-            "\\\\"
-        )
-        .replace(
-            /'/g,
-            "\\'"
-        );
-
-}
-
-
-function emptyState(
-    message
-) {
-
-    return `
-
-        <div
-            class="loading"
-            style="
-                min-height:80px;
-            "
-        >
-            ${escapeHTML(message)}
+        <div class="task-card">
+            <div class="task-icon">🌐</div>
+            <div class="task-info">
+                <div class="task-title">Visit Website</div>
+                <div class="task-description">Explore our web3 ecosystem</div>
+                <div class="task-reward">+50 REWARD</div>
+            </div>
+            <button class="task-button" onclick="completeTask(this, 50)">Start</button>
         </div>
+    </section>
 
-    `;
+    <!-- WALLET PAGE -->
+    <section id="walletPage" class="page">
+        <div class="section-title" style="margin-bottom: 15px;">Wallet Assets</div>
+        <div class="token-card">
+            <div class="token-logo">R</div>
+            <div class="token-info">
+                <div class="token-name">Reward Token</div>
+                <div class="token-symbol">REWARD</div>
+            </div>
+            <div class="token-balance">
+                <div class="token-amount">150.00</div>
+                <div class="token-usd">$15.00</div>
+            </div>
+        </div>
+    </section>
 
-}
+    <!-- PROFILE PAGE -->
+    <section id="profilePage" class="page">
+        <div class="section-title" style="margin-bottom: 15px;">My Profile</div>
+        <div class="token-card">
+            <div class="token-logo">👤</div>
+            <div class="token-info">
+                <div class="token-name" id="profileName">User Name</div>
+                <div class="token-symbol" id="profileUsername">@username</div>
+            </div>
+        </div>
+    </section>
 
-
-/* =========================================================
-   APP START
-========================================================= */
-
-async function startApp() {
-
-    try {
-
-        await loadUser();
-
-        await loadTasks();
-
-        await loadTransactions();
-
-        setupReferral();
-
-        await checkAdmin();
-
-    } catch (error) {
-
-        console.error(
-            "Application initialization error:",
-            error
-        );
-
-        showToast(
-            "Unable to initialize application."
-        );
-
-    }
-
-}
-
-
-startApp();
-
-</script>
-
-</body>
-</html>
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" oncli
