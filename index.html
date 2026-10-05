@@ -1,596 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#030712">
-<title>MineX Network - Elite Web3 App</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<style>
-:root {
-    --bg-base: #030712;
-    --bg-gradient: radial-gradient(circle at 50% -10%, rgba(99, 102, 241, 0.25), transparent 60%), #030712;
-    --card-bg: rgba(15, 23, 42, 0.65);
-    --card-border: rgba(255, 255, 255, 0.08);
-    --text-main: #ffffff;
-    --text-muted: #94a3b8;
-    --accent: #6366f1;
-    --accent-glow: rgba(99, 102, 241, 0.45);
-    --success: #10b981;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-body {
-    background: var(--bg-gradient);
-    color: var(--text-main);
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-.app {
-    width: min(100%, 480px);
-    margin: auto;
-    padding: 20px 16px 110px 16px;
-}
-
-/* Header Styling */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    padding: 12px 16px;
-    border-radius: 20px;
-    backdrop-filter: blur(12px);
-}
-
-.user-box {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.avatar {
-    width: 44px;
-    height: 44px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #6366f1, #a855f7);
-    display: grid;
-    place-items: center;
-    font-weight: 800;
-    font-size: 18px;
-    box-shadow: 0 4px 15px var(--accent-glow);
-}
-
-.user-info h3 {
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.user-info span {
-    font-size: 11px;
-    color: var(--text-muted);
-}
-
-.badge {
-    padding: 6px 12px;
-    border-radius: 20px;
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    font-size: 11px;
-    font-weight: 600;
-    color: #818cf8;
-}
-
-/* Main Balance Card */
-.hero-card {
-    position: relative;
-    padding: 28px 20px;
-    border-radius: 28px;
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.85));
-    border: 1px solid var(--card-border);
-    backdrop-filter: blur(20px);
-    text-align: center;
-    margin-bottom: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
-.hero-title {
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 600;
-}
-
-.balance-amount {
-    font-size: 38px;
-    font-weight: 900;
-    margin: 10px 0 6px 0;
-    letter-spacing: -1px;
-    background: linear-gradient(to right, #fff, #c7d2fe);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.conversion-info {
-    font-size: 12px;
-    color: var(--success);
-    font-weight: 600;
-    background: rgba(16, 185, 129, 0.12);
-    padding: 6px 12px;
-    border-radius: 12px;
-    display: inline-block;
-    border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-/* Tap Mining Section */
-.tap-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 30px 0;
-}
-
-.tap-btn {
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #1e1b4b 0%, #090d16 100%);
-    border: 4px solid rgba(99, 102, 241, 0.4);
-    cursor: pointer;
-    box-shadow: 0 0 60px rgba(99, 102, 241, 0.35), inset 0 0 20px rgba(99, 102, 241, 0.2);
-    transition: transform 0.06s ease, box-shadow 0.06s ease;
-    display: grid;
-    place-items: center;
-    user-select: none;
-    overflow: hidden;
-}
-
-.tap-btn img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-    transition: transform 0.1s ease;
-}
-
-.tap-btn:active {
-    transform: scale(0.93);
-    box-shadow: 0 0 30px rgba(99, 102, 241, 0.7);
-}
-
-.tap-hint {
-    margin-top: 16px;
-    font-size: 12px;
-    color: var(--text-muted);
-    letter-spacing: 0.5px;
-}
-
-/* Floating Animation */
-.floating-num {
-    position: absolute;
-    color: var(--success);
-    font-weight: 900;
-    font-size: 20px;
-    pointer-events: none;
-    animation: floatUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    z-index: 50;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-}
-
-@keyframes floatUp {
-    0% {
-        opacity: 1;
-        transform: translateY(0) scale(0.9);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-90px) scale(1.4);
-    }
-}
-
-/* Stats Grid */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.stat-box {
-    padding: 16px;
-    border-radius: 20px;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    backdrop-filter: blur(12px);
-}
-
-.stat-label {
-    font-size: 11px;
-    color: var(--text-muted);
-}
-
-.stat-val {
-    font-size: 16px;
-    font-weight: 700;
-    margin-top: 6px;
-    color: #e2e8f0;
-}
-
-/* Sections & Lists */
-.section-title {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    letter-spacing: 0.3px;
-}
-
-.card-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px;
-    border-radius: 20px;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    margin-bottom: 12px;
-    backdrop-filter: blur(12px);
-    transition: border-color 0.2s;
-}
-
-.card-item:hover {
-    border-color: rgba(99, 102, 241, 0.3);
-}
-
-.item-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.item-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.04);
-    display: grid;
-    place-items: center;
-    font-size: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.item-title {
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.item-desc {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 3px;
-}
-
-.action-btn {
-    padding: 9px 16px;
-    border-radius: 12px;
-    background: var(--accent);
-    color: white;
-    font-size: 11px;
-    font-weight: 750;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 4px 15px var(--accent-glow);
-    transition: transform 0.1s;
-}
-
-.action-btn:active {
-    transform: scale(0.95);
-}
-
-.action-btn.done {
-    background: rgba(16, 185, 129, 0.15);
-    color: var(--success);
-    box-shadow: none;
-    border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-/* Floating Navigation Bar */
-.nav-bar {
-    position: fixed;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(calc(100% - 32px), 448px);
-    background: rgba(15, 23, 42, 0.85);
-    border: 1px solid var(--card-border);
-    backdrop-filter: blur(25px);
-    border-radius: 22px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    padding: 6px;
-    z-index: 100;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-}
-
-.nav-item {
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
-    font-size: 10px;
-    padding: 8px 0;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 16px;
-    transition: 0.2s ease;
-    font-weight: 600;
-}
-
-.nav-item span {
-    display: block;
-    font-size: 18px;
-    margin-bottom: 3px;
-}
-
-.nav-item.active {
-    color: #fff;
-    background: rgba(99, 102, 241, 0.25);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-}
-
-.page {
-    display: none;
-}
-
-.page.active {
-    display: block;
-}
-
-/* Toast Message */
-.toast {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(-60px);
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid var(--card-border);
-    padding: 12px 24px;
-    border-radius: 14px;
-    font-size: 12px;
-    font-weight: 600;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-    transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-    opacity: 0;
-    z-index: 1000;
-    backdrop-filter: blur(20px);
-}
-.toast.show {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DYOR - المستكشف الرقمي</title>
+    <!-- تضمين سكريبت تيليجرام ويب آلاف لضمان التوافق -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #0f172a;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #38bdf8;
+        }
+        p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn:active {
+            transform: scale(0.97);
+        }
+    </style>
 </head>
 <body>
 
-<div id="toast" class="toast">Notification message</div>
-
-<div class="app">
-    <!-- Header -->
-    <div class="header">
-        <div class="user-box">
-            <div class="avatar" id="userInitial">M</div>
-            <div class="user-info">
-                <h3 id="userName">MineX Miner</h3>
-                <span id="userHandle">@MineX_Network</span>
-            </div>
-        </div>
-        <div class="badge">Elite V3.0</div>
+    <div class="container">
+        <h1>مرحباً بك في DYOR</h1>
+        <p>اضغط على الزر أدناه لفتح المنصة واستكشاف أحدث بيانات العملات والتحليلات مباشرة.</p>
+        <a href="https://dyor.io/" class="btn" id="openBtn">Open</a>
     </div>
 
-    <!-- HOME PAGE -->
-    <div id="homePage" class="page active">
-        <div class="hero-card">
-            <div class="hero-title">Total Miner Points</div>
-            <div class="balance-amount" id="mainBalance">12,500</div>
-            <div class="conversion-info">
-                ≈ <span id="minexValue">1.25</span> MineX (Rate: 10k:1)
-            </div>
-        </div>
-
-        <div class="tap-container" id="tapContainer">
-            <button class="tap-btn" onclick="handleTap(event)">
-                <img src="24110.webp" alt="MineX Logo">
-            </button>
-            <div class="tap-hint">Tap logo to earn Miner points</div>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-box">
-                <div class="stat-label">Mining Power</div>
-                <div class="stat-val">+10 / tap</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">Daily Streak</div>
-                <div class="stat-val">Active Day 1</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- EARN / TASKS PAGE -->
-    <div id="earnPage" class="page">
-        <div class="section-title">Ecosystem Tasks & Rewards</div>
-        
-        <div class="card-item">
-            <div class="item-left">
-                <div class="item-icon">📢</div>
-                <div>
-                    <div class="item-title">Join Telegram Channel</div>
-                    <div class="item-desc">+5,000 Miner Points</div>
-                </div>
-            </div>
-            <button class="action-btn" onclick="completeTask(this, 5000)">Claim</button>
-        </div>
-
-        <div class="card-item">
-            <div class="item-left">
-                <div class="item-icon">🚀</div>
-                <div>
-                    <div class="item-title">Daily Check-In</div>
-                    <div class="item-desc">+1,000 Miner Points</div>
-                </div>
-            </div>
-            <button class="action-btn" onclick="completeTask(this, 1000)">Claim</button>
-        </div>
-
-        <div class="card-item">
-            <div class="item-left">
-                <div class="item-icon">🌐</div>
-                <div>
-                    <div class="item-title">Boost Liquidity Pool</div>
-                    <div class="item-desc">+10,000 Miner Points</div>
-                </div>
-            </div>
-            <button class="action-btn" onclick="completeTask(this, 10000)">Claim</button>
-        </div>
-    </div>
-
-    <!-- FRIENDS / REFERRALS PAGE -->
-    <div id="friendsPage" class="page">
-        <div class="section-title">Invite Friends</div>
-        <div class="hero-card" style="text-align: left; padding: 20px;">
-            <div class="item-title" style="font-size: 15px; margin-bottom: 6px;">Earn 10% from referrals</div>
-            <div class="item-desc" style="margin-bottom: 16px;">Invite your friends to earn Miner points and boost your future MineX airdrop allocation.</div>
-            <button class="action-btn" style="width: 100%; padding: 12px;" onclick="copyRefLink()">Copy Referral Link</button>
-        </div>
-    </div>
-
-    <!-- WALLET PAGE -->
-    <div id="walletPage" class="page">
-        <div class="section-title">Airdrop & Wallet Allocation</div>
-        <div class="card-item">
-            <div class="item-left">
-                <div class="item-icon" style="background: rgba(99,102,241,0.2); color: #818cf8;">🪙</div>
-                <div>
-                    <div class="item-title">MineX Airdrop Allocation</div>
-                    <div class="item-desc" id="walletMinexCount">1.25 MineX</div>
-                </div>
-            </div>
-            <div style="font-weight: 700; font-size: 13px;" id="walletPointsVal">12,500 Pts</div>
-        </div>
-        <button class="action-btn" style="width: 100%; margin-top: 10px; padding: 14px;" onclick="showToast('TON Wallet connection will open soon for Airdrop claim!')">Connect TON Wallet</button>
-    </div>
-
-    <!-- Floating Navigation Bar -->
-    <div class="nav-bar">
-        <button class="nav-item active" onclick="switchTab('homePage', this)">
-            <span>🏠</span>Home
-        </button>
-        <button class="nav-item" onclick="switchTab('earnPage', this)">
-            <span>🎯</span>Earn
-        </button>
-        <button class="nav-item" onclick="switchTab('friendsPage', this)">
-            <span>👥</span>Friends
-        </button>
-        <button class="nav-item" onclick="switchTab('walletPage', this)">
-            <span>💰</span>Wallet
-        </button>
-    </div>
-</div>
-
-<script>
-    let tg = window.Telegram?.WebApp;
-    let points = 12500;
-
-    if (tg) {
-        tg.expand();
-        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            let u = tg.initDataUnsafe.user;
-            document.getElementById('userName').innerText = u.first_name || 'MineX Miner';
-            document.getElementById('userHandle').innerText = u.username ? '@' + u.username : '@minex_user';
-            document.getElementById('userInitial').innerText = (u.first_name || 'M').charAt(0).toUpperCase();
+    <script>
+        // تهيئة تيليجرام ويب آلاف
+        if (window.Telegram && window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp;
+            tg.expand(); // توسيع الواجهة لملء الشاشة
         }
-    }
-
-    function switchTab(pageId, btn) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        
-        document.getElementById(pageId).classList.add('active');
-        btn.classList.add('active');
-    }
-
-    function handleTap(event) {
-        points += 10;
-        updateUI();
-        
-        if (tg && tg.HapticFeedback) {
-            tg.HapticFeedback.impactOccurred('light');
-        }
-
-        let container = document.getElementById('tapContainer');
-        let rect = container.getBoundingClientRect();
-        let x = event.clientX - rect.left;
-        let y = event.clientY - rect.top;
-
-        let floatEl = document.createElement('div');
-        floatEl.className = 'floating-num';
-        floatEl.innerText = '+10 Pts';
-        floatEl.style.left = `${x}px`;
-        floatEl.style.top = `${y}px`;
-        
-        container.appendChild(floatEl);
-
-        setTimeout(() => {
-            floatEl.remove();
-        }, 800);
-    }
-
-    function completeTask(button, reward) {
-        if (button.classList.contains('done')) return;
-        
-        button.innerText = "Claimed";
-        button.classList.add('done');
-        
-        points += reward;
-        updateUI();
-        showToast(`Successfully claimed +${reward} Miner Points!`);
-    }
-
-    function updateUI() {
-        let minexTokens = points / 10000;
-
-        document.getElementById('mainBalance').innerText = points.toLocaleString('en-US');
-        document.getElementById('minexValue').innerText = minexTokens.toFixed(4);
-        document.getElementById('walletMinexCount').innerText = minexTokens.toFixed(4) + " MineX";
-        document.getElementById('walletPointsVal').innerText = points.toLocaleString('en-US') + " Pts";
-    }
-
-    function copyRefLink() {
-        navigator.clipboard.writeText("https://t.me/MineX_Network_Bot?start=ref_admin");
-        showToast("Referral link copied to clipboard!");
-    }
-
-    function showToast(msg) {
-        let t = document.getElementById('toast');
-        t.innerText = msg;
-        t.classList.add('show');
-        setTimeout(() => {
-            t.classList.remove('show');
-        }, 2500);
-    }
-</script>
+    </script>
 
 </body>
 </html>
